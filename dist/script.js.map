@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://game/./src/index.js"],"names":["console","log"],"mappings":";;;;;;AAAAA,OAAO,CAACC,GAAR,CAAY,IAAZ,E","file":"script.js","sourcesContent":["console.log('hi');"],"sourceRoot":""}
