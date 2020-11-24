@@ -12,6 +12,7 @@
         "max-len": ["error", 150, { "ignoreUrls": true}],
         "no-tabs": "off",
         "no-console": "off",
-        "linebreak-style": "off"
+        "linebreak-style": "off",
+        "indent": "off"
     }
 }

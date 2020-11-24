@@ -1,0 +1,108 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: "Pacifico", Verdana, cursive;
+  font-size: 10px;
+  box-sizing: border-box;
+}
+
+body {
+  background: url(6166d4bb219d22d95e60fb3466111c84.jpg) no-repeat;
+  background-size: cover;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.menu-toggle {
+  display: block;
+  position: relative;
+  top: 6rem;
+  right: -8rem;
+  z-index: 1;
+  user-select: none;
+}
+.menu-toggle input {
+  display: block;
+  width: 7rem;
+  height: 6rem;
+  position: absolute;
+  top: -1rem;
+  left: -0.5rem;
+  cursor: pointer;
+  opacity: 0;
+  z-index: 2;
+}
+.menu-toggle input:checked ~ span {
+  opacity: 1;
+  transform: rotate(45deg) translate(-2px, -1px);
+  background: #f7e477;
+}
+.menu-toggle input:checked ~ span:nth-last-child(3) {
+  opacity: 0;
+  transform: rotate(0deg) scale(0.2, 0.2);
+}
+.menu-toggle input:checked ~ span:nth-last-child(2) {
+  transform: rotate(-45deg) translate(0, -1px);
+}
+.menu-toggle input:checked ~ ul {
+  transform: none;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 7rem;
+  height: 0.8rem;
+  margin-bottom: 1.2rem;
+  position: relative;
+  background: #fff;
+  border-radius: 0.3rem;
+  z-index: 1;
+  transform-origin: 0.7rem 0px;
+  transition: transform 0.7s cubic-bezier(0.1, 0.2, 0.5, 1), background 0.7s cubic-bezier(0.1, 0.2, 0.5, 1), opacity 0.7s ease;
+}
+.menu-toggle span:first-child {
+  background: #db0b3f;
+  transform-origin: 0 0;
+}
+.menu-toggle span:nth-last-child(2) {
+  background: #f5f10c;
+  transform-origin: 0 100%;
+}
+.menu-toggle span:nth-child(2) {
+  background: #db0b3f;
+}
+.menu-toggle span:nth-child(3) {
+  background: #045916;
+}
+
+.menu {
+  position: absolute;
+  width: 30rem;
+  margin: -12rem 0 0 -9rem;
+  padding: 12rem 0 0 2rem;
+  border-radius: 8%;
+  background: linear-gradient(45deg, #16bdf5, #f5f10c);
+  list-style-type: none;
+  transform-origin: 0 0;
+  transform: translate(0%, -100%);
+  transition: transform 1s cubic-bezier(0.55, 0.2, 0.05, 1);
+}
+.menu li {
+  padding: 0.6rem;
+  font-size: 2.6rem;
+  background: none;
+  text-align: left;
+  transition: font-size 0.3s ease;
+}
+.menu li:hover {
+  font-size: 3.2rem;
+  color: #f5f10c;
+}
+
+/*# sourceMappingURL=style.css.map*/
