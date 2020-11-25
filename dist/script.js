@@ -14,6 +14,13 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _sass_style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./sass/style.scss */ "./src/sass/style.scss");
 
+var toggle = document.querySelector('.menu-toggle');
+var box = document.querySelector('.menu');
+console.log(toggle);
+toggle.addEventListener('click', function () {
+  console.log(toggle);
+  box.classList.toggle('active');
+});
 
 /***/ }),
 

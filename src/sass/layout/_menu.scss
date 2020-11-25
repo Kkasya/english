@@ -1,100 +1,124 @@
 a {
   text-decoration: none;
   color: $color-main;
-}
+  display: flex;
 
-.menu-toggle {
-  display: block;
-  position: relative;
-  top: 6rem;
-  right: -8rem;
-  z-index: 1;
-  user-select: none;
+  padding: 0.6rem 3rem;
 
-  & input{
-    display: block;
-    width: 7rem;
-    height: 6rem;
-    position: absolute;
-    top: -1rem;
-    left: -0.5rem;
-    cursor: pointer;
-    opacity: 0;
-    z-index: 2;
-
-    &:checked ~ span {
-      opacity: 1;
-      transform: rotate(45deg) translate(-2px, -1px);
-      background: $color-main-darker;
-
-      &:nth-last-child(3){
-        opacity: 0;
-        transform: rotate(0deg) scale(0.2, 0.2);
-      }
-      &:nth-last-child(2)
-      {
-        transform: rotate(-45deg) translate(0, -1px);
-      }
-    }
-
-    &:checked ~ ul {
-      transform: none;
-    }
-  }
-}
-
-.menu-toggle span{
-  display: block;
-  width: 7rem;
-  height: .8rem;
-  margin-bottom: 1.2rem;
-  position: relative;
-  background: $color-main;
-  border-radius: 0.3rem;
-  z-index: 1;
-  transform-origin: 0.7rem 0px;
-  transition: transform 0.7s cubic-bezier(0.1, 0.2, 0.5, 1.0),
-  background 0.7s cubic-bezier(0.1, 0.2, 0.5, 1.0),
-  opacity .7s ease;
-
-  &:first-child{
-    background: $color-pink;
-    transform-origin: 0 0;
-  }
-
-  &:nth-last-child(2){
-    background: $color-yellow;
-    transform-origin: 0 100%;
-  }
-  &:nth-child(2){
-    background: $color-pink;
-  }
-  &:nth-child(3){
-    background: $color-green-dark;
+  & > img {
+    background-image: url('/src/assets/icons/categories/actions.png');
+    background-size: cover;
+    width: 4rem;
+    height: 4rem;
   }
 }
 
 .menu {
-  position: absolute;
-  width: 30rem;
-  margin: -12rem 0 0 -9rem;
-  padding: 12rem 0 0 2rem;
-  border-radius: 8%;
+  border-radius: 0.3rem;
   background: linear-gradient(45deg, $color-blue, $color-yellow);
-  list-style-type: none;
-  transform-origin: 0 0;
-  transform: translate(0%, -100%);
-  transition: transform 1s cubic-bezier(0.55, 0.2, 0.05, 1.0);
-  & li{
-    padding: 0.6rem;
-    font-size: 2.6rem;
-    background: none;
-    text-align: left;
-    transition: font-size  0.3s ease;
+  width: 30rem;
+  height: 100vh;
+  display: flex;
+  visibility: visible;
+  opacity: 1;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  transition: all 500ms ease-in-out;
+  position: fixed;
+  top: -100vh;
+  left: 0;
+  z-index: 9;
 
-    &:hover {
-      font-size: 3.2rem;
-      color: $color-yellow;
+  &.active {
+    top: 0;
+  }
+
+  ul {
+    list-style-type: none;
+    font-size: $font-size-menu;
+    margin-top: 10rem;
+
+    li {
+      padding-left: 1rem;
+      text-align: left;
+      transition: font-size 0.3s ease;
+
+      &:hover {
+        font-size: $font-size-menu-big;
+        color: $color-yellow;
+      }
+
+      &.active-page {
+        color: $color-pink;
+      }
     }
   }
 }
+
+.menu-toggle {
+  position: relative;
+  width: 4rem;
+  height: 3.6rem;
+  left: 8rem;
+  top: 5rem;
+  transition: all 300ms ease-in-out;
+  z-index: 10;
+
+  input {
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0;
+    cursor: pointer;
+
+    &:checked {
+      + span {
+        background: transparent;
+        left: 0;
+
+        &:after {
+          transform: rotate(45deg) translate(-1px, -12px);
+          left: -7px;
+          background: $color-pink;
+        }
+
+        &:before {
+          transform: rotate(-45deg) translate(-4px, 16px);
+          left: -0.7rem;
+          background: $color-pink;
+        }
+      }
+    }
+  }
+
+  span {
+    position: absolute;
+    width: 100%;
+    height: 0.4rem;
+    background: $color-pink;
+    margin-top: 1rem;
+    transition: all 0.2s;
+    left: 0;
+
+    &:before, &:after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 0.4rem;
+      background: $color-yellow;
+      top: -1.2rem;
+      left: 0;
+      transition: all 0.5s;
+    }
+
+    &:after {
+      top: 1.2rem;
+    }
+  }
+}
+
+

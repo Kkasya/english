@@ -29,13 +29,6 @@ module.exports = (env, options) => {
                             presets: ['@babel/preset-env']
                         }
                     }
-                 // }, {
-                 //     test: /\.(png|svg|jpe?g|gif)$/,
-                 //     loader: "resolve-url-loader", //resolve-url-loader needs to come *BEFORE* sass-loader
-                 //     options: {
-                 //         sourceMap: true
-                 //     }
-
                  }, {
                     test: /\.scss$/,
                     use: [
