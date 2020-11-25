@@ -7,12 +7,17 @@
 html {
   font-family: "Pacifico", Verdana, cursive;
   font-size: 10px;
-  box-sizing: border-box;
+  color: #d10d44;
 }
 
 body {
   background: url(6166d4bb219d22d95e60fb3466111c84.jpg) no-repeat;
   background-size: cover;
+}
+
+h1 {
+  font-size: 8rem;
+  text-shadow: 0 0.3rem 0.3rem #fff;
 }
 
 a {
@@ -24,8 +29,8 @@ a {
 a > img {
   background-image: url(5d3112d0b8efb9c11c763a5c19ce1b13.png);
   background-size: cover;
-  width: 4rem;
-  height: 4rem;
+  width: 5rem;
+  height: 5rem;
 }
 
 .menu {
@@ -50,7 +55,7 @@ a > img {
 }
 .menu ul {
   list-style-type: none;
-  font-size: 2.8rem;
+  font-size: 3rem;
   margin-top: 10rem;
 }
 .menu ul li {
@@ -59,7 +64,7 @@ a > img {
   transition: font-size 0.3s ease;
 }
 .menu ul li:hover {
-  font-size: 3.2rem;
+  font-size: 3.3rem;
   color: #f5f10c;
 }
 .menu ul li.active-page {
@@ -120,6 +125,189 @@ a > img {
 }
 .menu-toggle span:after {
   top: 1.2rem;
+}
+
+.switcher {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.3rem;
+  padding-left: 10rem;
+}
+
+.toggle {
+  display: inline-block;
+  position: relative;
+  text-align: center;
+  text-transform: uppercase;
+  color: #888;
+  width: 8.5em;
+  height: 3.6em;
+  overflow: hidden;
+  border-bottom: 0.2em solid #6ed7fa;
+}
+
+.toggle::before {
+  content: "";
+  position: absolute;
+  top: 0.5em;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #22b576;
+  border: 0.2em solid #6ed7fa;
+  border-bottom: 0;
+}
+
+.toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switch-left,
+.switch-right {
+  cursor: pointer;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.6em;
+  width: 3.8em;
+  transition: 0.2s;
+}
+
+.switch-left {
+  height: 2.6em;
+  width: 3.8em;
+  left: 0.65em;
+  bottom: 0.4em;
+  background-color: #3cfaa8;
+  transform: rotate(15deg) skewX(15deg);
+}
+
+.switch-right {
+  right: 0.2em;
+  bottom: 0;
+  background-color: #16bdf5;
+  color: #d10d44;
+}
+
+.switch-left::before,
+.switch-right::before {
+  content: "";
+  position: absolute;
+  width: 0.4em;
+  height: 2.6em;
+  bottom: -0.45em;
+  background-color: #34d18d;
+  transform: skewY(-65deg);
+}
+
+.switch-left::before {
+  left: -0.4em;
+}
+
+.switch-right::before {
+  right: -0.375em;
+  background-color: transparent;
+  transform: skewY(65deg);
+}
+
+input:checked + .switch-left {
+  background-color: #16bdf5;
+  color: #d10d44;
+  bottom: 0;
+  left: 0.3em;
+  height: 2.6em;
+  width: 3.8em;
+  transform: rotate(0deg) skewX(0deg);
+}
+
+input:checked + .switch-left::before {
+  background-color: transparent;
+  width: 3.0833em;
+}
+
+input:checked + .switch-left + .switch-right {
+  background-color: #3cfaa8;
+  color: #888;
+  bottom: 0.4em;
+  right: 0.6em;
+  height: 2.6em;
+  width: 3.8em;
+  transform: rotate(-15deg) skewX(-15deg);
+}
+
+input:checked + .switch-left + .switch-right::before {
+  background-color: #34d18d;
+}
+
+input:focus + .switch-left {
+  color: #333;
+}
+
+input:checked:focus + .switch-left {
+  color: #d10d44;
+}
+
+input:focus + .switch-left + .switch-right {
+  color: #d10d44;
+}
+
+input:checked:focus + .switch-left + .switch-right {
+  color: #333;
+}
+
+.button {
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+  font-size: 3.5rem;
+  background: #16bdf5 radial-gradient(150% 100% at 50% 5px, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0));
+  box-shadow: inset rgba(0, 0, 0, 0.6) 0 -2px 5px, inset rgba(252, 255, 255, 0.7) 0 2px 5px, rgba(0, 0, 0, 0.8) 0 2px 5px -1px;
+}
+.button:hover {
+  color: #34d18d;
+  background: #0f8fba;
+}
+.button:active {
+  background: #02b6ed;
+  box-shadow: inset 0 0 5px 3px rgba(0, 0, 0, 0.8), inset rgba(0, 0, 0, 0.3) -5px -5px 8px 5px, inset rgba(255, 255, 255, 0.5) 5px 5px 8px 5px, 1px 1px 1px rgba(255, 255, 255, 0.2), -2px -2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.start-game-button {
+  padding: 0.2rem 1rem;
+  color: #888;
+  text-shadow: 0 1px rgba(255, 255, 255, 0.8), 0 -1px rgba(0, 0, 0, 0.2);
+  border-radius: 2rem;
+  transition: 0.2s;
+}
+
+.repeat-button {
+  border-radius: 50%;
+  width: 7rem;
+  height: 7rem;
+  padding: 0;
+}
+.repeat-button > img {
+  margin: 1rem;
+  width: 5rem;
+  height: 5rem;
+}
+
+.menu-top {
+  margin-top: -2rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-left: 30rem;
+}
+
+.start-game {
+  font-size: 3.5rem;
 }
 
 /*# sourceMappingURL=style.css.map*/

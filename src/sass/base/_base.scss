@@ -7,11 +7,17 @@
 html {
   font-family: $font-family-default;
   font-size: $font-size-default;
-  box-sizing: border-box;
+  color: $color-pink-dark;
 }
 
 body {
-  //width: 100%;
   background: url('/src/assets/images/background.jpg') no-repeat;
   background-size: cover;
 }
+
+h1 {
+  font-size: $font-size-h1;
+  text-shadow: 0 0.3rem 0.3rem $color-main;
+}
+
+

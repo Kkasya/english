@@ -1,0 +1,132 @@
+
+.switcher {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-size-button-small;
+  padding-left: 10rem;
+}
+
+.toggle {
+  display: inline-block;
+  position: relative;
+  text-align: center;
+  text-transform: uppercase;
+  color: $color-grey;
+  width: 8.5em;
+  height: 3.6em;
+  overflow: hidden;
+  border-bottom: 0.2em solid $color-blue-light;
+}
+
+.toggle::before {
+  content: "";
+  position: absolute;
+  top: 0.5em;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: $color-green-extra-light;
+  border: 0.2em solid $color-blue-light;
+  border-bottom: 0;
+}
+
+.toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switch-left,
+.switch-right {
+  cursor: pointer;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.6em;
+  width: 3.8em;
+  transition: 0.2s;
+}
+
+.switch-left {
+  height: 2.6em;
+  width: 3.8em;
+  left: 0.65em;
+  bottom: 0.4em;
+  background-color: $color-blue-extra-light;
+  transform: rotate(15deg) skewX(15deg);
+}
+
+.switch-right {
+  right: 0.2em;
+  bottom: 0;
+  background-color: $color-blue;
+  color: $color-pink-dark;
+}
+
+.switch-left::before,
+.switch-right::before {
+  content: "";
+  position: absolute;
+  width: 0.4em;
+  height: 2.6em;
+  bottom: -0.45em;
+  background-color: $color-blue-light2;
+  transform: skewY(-65deg);
+}
+
+.switch-left::before {
+  left: -0.4em;
+}
+
+.switch-right::before {
+  right: -0.375em;
+  background-color: transparent;
+  transform: skewY(65deg);
+}
+
+input:checked + .switch-left {
+  background-color: $color-blue;
+  color: $color-pink-dark;
+  bottom: 0;
+  left: 0.3em;
+  height: 2.6em;
+  width: 3.8em;
+  transform: rotate(0deg) skewX(0deg);
+}
+
+input:checked + .switch-left::before {
+  background-color: transparent;
+  width: 3.0833em;
+}
+
+input:checked + .switch-left + .switch-right {
+  background-color: $color-blue-extra-light;
+  color: $color-grey;
+  bottom: 0.4em;
+  right: 0.6em;
+  height: 2.6em;
+  width: 3.8em;
+  transform: rotate(-15deg) skewX(-15deg);
+}
+
+input:checked + .switch-left + .switch-right::before {
+  background-color: $color-blue-light2;
+}
+
+input:focus + .switch-left {
+  color: $color-grey-dark;
+}
+
+input:checked:focus + .switch-left {
+  color: $color-pink-dark;
+}
+
+input:focus + .switch-left + .switch-right {
+  color: $color-pink-dark;
+}
+
+input:checked:focus + .switch-left + .switch-right {
+  color: $color-grey-dark;
+}

@@ -8,15 +8,15 @@ a {
   & > img {
     background-image: url('/src/assets/icons/categories/actions.png');
     background-size: cover;
-    width: 4rem;
-    height: 4rem;
+    width: 5rem;
+    height: 5rem;
   }
 }
 
 .menu {
   border-radius: 0.3rem;
   background: linear-gradient(45deg, $color-blue, $color-yellow);
-  width: 30rem;
+  width: $width-menu;
   height: 100vh;
   display: flex;
   visibility: visible;
