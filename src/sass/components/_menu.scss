@@ -1,20 +1,7 @@
-a {
-  text-decoration: none;
-  color: $color-main;
-  display: flex;
-
-  padding: 0.6rem 3rem;
-
-  & > img {
-    background-image: url('/src/assets/icons/categories/actions.png');
-    background-size: cover;
-    width: 5rem;
-    height: 5rem;
-  }
-}
-
 .menu {
   border-radius: 0.3rem;
+  font-family: $font-family-card;
+  color: $color-main;
   background: linear-gradient(45deg, $color-blue, $color-yellow);
   width: $width-menu;
   height: 100vh;
@@ -37,16 +24,29 @@ a {
   ul {
     list-style-type: none;
     font-size: $font-size-menu;
-    margin-top: 10rem;
+    margin-top: 7rem;
 
     li {
-      padding-left: 1rem;
       text-align: left;
       transition: font-size 0.3s ease;
+      display: flex;
+      margin: 1rem 4rem;
+
+      & > img {
+        background-size: cover;
+        width: 5rem;
+        height: 5rem;
+      }
+
+      & > span {
+        padding-left: 1.5rem;
+      }
 
       &:hover {
         font-size: $font-size-menu-big;
         color: $color-yellow;
+        //cursor: hand;
+        cursor: pointer;
       }
 
       &.active-page {

@@ -1,3 +1,7 @@
+.header {
+  background: rgba(251, 251, 251, .5);
+
+}
 .menu-top {
   margin-top: -2rem;
   display: flex;
@@ -7,5 +11,10 @@
 }
 
 .start-game {
-  font-size: $font-size-button;
+  display: flex;
+  &>img {
+    width: 4rem;
+    height: 4rem;
+   margin: 1rem;
+  }
 }

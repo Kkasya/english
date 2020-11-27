@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css?family=Cookie|Inter|Pacifico&amp;display=swap&amp;subset=cyrillic" rel="stylesheet">
     <link rel="shortcut icon" href="src/assets/icons/icon.png">
     <link rel="stylesheet" href="dist/style.css">
-<link href="style.css" rel="stylesheet"></head>
+</head>
 <body>
 
 <header class="header">
@@ -36,8 +36,6 @@
     <div class="menu-top">
         <h1>English for kids</h1>
 
-
-
         <div class="switcher">
                 <label class="toggle">
                     <input type="checkbox" checked>
@@ -47,15 +45,56 @@
         </div>
 
         <div class="button start-game-button">
-            <span>Start game</span>
+            <div class="start-game"><img src="src/assets/icons/power.png" alt="start game"><span>Start game</span></div>
             <!-- <img src="src/assets/images/repeat.svg" alt="repeat"> -->
         </div>
-
 
     </div>
     <div class="smile"></div>
 </header>
 
+<main class="content">
+    <div class="cards">
+        <div class="card">
+            <img src="src/assets/images/actions/sleep.jpg" alt="">
+            <p>Actions</p>
+        </div>
+        <div class="card">
+            <img src="src/assets/images/actions/sing.jpg" alt="">
+            <p>Actions</p>
+        </div>
+        <div class="card">
+            <img src="src/assets/images/actions/sing.jpg" alt="">
+            <p>Actions</p>
+        </div>
+        <div class="card">
+            <img src="src/assets/images/actions/sing.jpg" alt="">
+            <p>Actions</p>
+        </div>
+        <div class="card">
+            <img src="src/assets/images/actions/sing.jpg" alt="">
+            <p>Actions</p>
+        </div>
+        <div class="card">
+            <img src="src/assets/images/actions/sing.jpg" alt="">
+            <p>Actions</p>
+        </div>
+        <div class="card">
+            <img src="src/assets/images/actions/sing.jpg" alt="">
+            <p>Actions</p>
+        </div>
+        <div class="card">
+            <img src="src/assets/images/actions/ride.jpg" alt="">
+            <p>Actions</p>
+        </div>
+        <div class="card">
+            <img src="src/assets/images/actions/run.jpg" alt="">
+            <p>Actions</p>
+        </div>
+    </div>
+    
+</main>
+
 <script src="dist/script.js"></script>
-<script src="script.js"></script></body>
+</body>
 </html>

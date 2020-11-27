@@ -59,7 +59,7 @@
 }
 
 .switch-right {
-  right: 0.2em;
+  right: 0.3em;
   bottom: 0;
   background-color: $color-blue;
   color: $color-pink-dark;
@@ -98,7 +98,7 @@ input:checked + .switch-left {
 
 input:checked + .switch-left::before {
   background-color: transparent;
-  width: 3.0833em;
+  width: 3.8em;
 }
 
 input:checked + .switch-left + .switch-right {
