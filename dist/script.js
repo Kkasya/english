@@ -24,14 +24,30 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+var audio;
 var content = _js_components_card__WEBPACK_IMPORTED_MODULE_3__.default(Object.keys(_js_constants_data_cards__WEBPACK_IMPORTED_MODULE_5__.cards));
 document.body.appendChild(_js_layout_header__WEBPACK_IMPORTED_MODULE_2__.default());
 document.body.appendChild(content);
 content.addEventListener('click', function (e) {
   if (e.path[1].closest('.card')) {
     document.body.removeChild(content);
-    content = _js_components_card__WEBPACK_IMPORTED_MODULE_3__.default(_js_utils_random__WEBPACK_IMPORTED_MODULE_4__.default(Object.keys(_js_constants_data_cards__WEBPACK_IMPORTED_MODULE_5__.cards[e.path[1].innerText])), e.path[1].innerText, _js_constants_constants__WEBPACK_IMPORTED_MODULE_1__.cardsCategory);
+    content = _js_components_card__WEBPACK_IMPORTED_MODULE_3__.default(_js_utils_random__WEBPACK_IMPORTED_MODULE_4__.default(Object.keys(_js_constants_data_cards__WEBPACK_IMPORTED_MODULE_5__.cards[e.path[1].innerText])), e.path[1].innerText);
     document.body.appendChild(content);
+    window.addEventListener('click', function (el) {
+      if (!el.path[2].classList.contains('turn')) {
+        if (!audio) audio = new Audio();
+
+        if (el.path[3].classList.contains('card')) {
+          audio.src = "./src/assets/sounds/".concat(e.path[1].innerText, "/").concat(el.path[1].children[1].children[0].innerText, ".mp3");
+          audio.currentTime = 0;
+          audio.play();
+        } else if (el.path[4].classList.contains('card')) {
+          audio.src = "./src/assets/sounds/".concat(e.path[1].innerText, "/").concat(el.path[0].innerText, ".mp3");
+          audio.currentTime = 0;
+          audio.play();
+        }
+      }
+    });
   }
 });
 document.addEventListener('click', function (e) {
@@ -71,16 +87,14 @@ __webpack_require__.r(__webpack_exports__);
 
 function createMain(words) {
   var category = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-  var typeCard = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : _constants_constants__WEBPACK_IMPORTED_MODULE_0__.categories;
-  var typeGame = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : _constants_constants__WEBPACK_IMPORTED_MODULE_0__.TRAIN;
+  var typeGame = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : _constants_constants__WEBPACK_IMPORTED_MODULE_0__.TRAIN;
   var imgUrl;
   var srcRotate = "".concat(_constants_constants__WEBPACK_IMPORTED_MODULE_0__.imageBase, "/").concat(_constants_constants__WEBPACK_IMPORTED_MODULE_0__.imgRotate, ".svg");
   var cardsContainer = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('div', 'cards');
 
-  if (typeCard === _constants_constants__WEBPACK_IMPORTED_MODULE_0__.categories) {
+  if (!category) {
     imgUrl = "".concat(_constants_constants__WEBPACK_IMPORTED_MODULE_0__.imageCategoryBase);
     words.forEach(function (key) {
-      if (typeCard !== _constants_constants__WEBPACK_IMPORTED_MODULE_0__.categories) title.appendChild((0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('img', 'rotate', null, null, ['src', srcRotate]));
       var card = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('div', 'card', [(0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('img', 'cardImg', null, null, ['src', "".concat(imgUrl, "/").concat(key, ".jpg")]), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('div', 'title-card', (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('p', '', key))]);
       cardsContainer.appendChild(card);
     });
@@ -113,8 +127,6 @@ function rotateCard(card) {
 /*! export STARTBTN [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export TRAIN [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export assetBase [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export cardsCategory [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export categories [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export iconBase [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export iconCategoryBase [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export imageBase [provided] [no usage info] [missing usage info prevents renaming] */
@@ -132,8 +144,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "TRAIN": () => /* binding */ TRAIN,
 /* harmony export */   "STARTBTN": () => /* binding */ STARTBTN,
 /* harmony export */   "H1": () => /* binding */ H1,
-/* harmony export */   "categories": () => /* binding */ categories,
-/* harmony export */   "cardsCategory": () => /* binding */ cardsCategory,
 /* harmony export */   "imgGame": () => /* binding */ imgGame,
 /* harmony export */   "imgRepeat": () => /* binding */ imgRepeat,
 /* harmony export */   "imgRotate": () => /* binding */ imgRotate,
@@ -147,8 +157,6 @@ var PLAY = 'play';
 var TRAIN = 'train';
 var STARTBTN = 'Start game';
 var H1 = 'English for kids';
-var categories = 'categories';
-var cardsCategory = 'cardsCategory';
 var imgGame = 'power';
 var imgRepeat = 'repeat';
 var imgRotate = 'rotate';
