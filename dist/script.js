@@ -34,6 +34,11 @@ content.addEventListener('click', function (e) {
     document.body.appendChild(content);
   }
 });
+document.addEventListener('click', function (e) {
+  if (e.path[0].closest('.rotate')) {
+    _js_components_card__WEBPACK_IMPORTED_MODULE_3__.rotateCard(e.path[3]);
+  }
+});
 var toggle = document.querySelector('.menu-toggle');
 var box = document.querySelector('.menu');
 toggle.addEventListener('click', function () {
@@ -48,31 +53,52 @@ toggle.addEventListener('click', function () {
   \***********************************/
 /*! namespace exports */
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export rotateCard [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ createMain
+/* harmony export */   "default": () => /* binding */ createMain,
+/* harmony export */   "rotateCard": () => /* binding */ rotateCard
 /* harmony export */ });
 /* harmony import */ var _constants_constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants/constants */ "./src/js/constants/constants.js");
-/* harmony import */ var _utils_createElement__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/createElement */ "./src/js/utils/createElement.js");
+/* harmony import */ var _constants_data_cards__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../constants/data_cards */ "./src/js/constants/data_cards.js");
+/* harmony import */ var _utils_createElement__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/createElement */ "./src/js/utils/createElement.js");
+
 
 
 function createMain(words) {
   var category = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
   var typeCard = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : _constants_constants__WEBPACK_IMPORTED_MODULE_0__.categories;
-  var lang = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'en';
-  var typeGame = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : _constants_constants__WEBPACK_IMPORTED_MODULE_0__.TRAIN;
+  var typeGame = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : _constants_constants__WEBPACK_IMPORTED_MODULE_0__.TRAIN;
   var imgUrl;
-  var cards = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_1__.default)('div', 'cards');
-  if (typeCard === _constants_constants__WEBPACK_IMPORTED_MODULE_0__.categories) imgUrl = "".concat(_constants_constants__WEBPACK_IMPORTED_MODULE_0__.imageCategoryBase);else imgUrl = "".concat(_constants_constants__WEBPACK_IMPORTED_MODULE_0__.imageBase, "/").concat(category);
-  words.forEach(function (key) {
-    var card = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_1__.default)('div', 'card', [(0,_utils_createElement__WEBPACK_IMPORTED_MODULE_1__.default)('img', '', null, null, ['src', "".concat(imgUrl, "/").concat(key, ".jpg")]), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_1__.default)('p', '', key)]);
-    cards.appendChild(card);
+  var srcRotate = "".concat(_constants_constants__WEBPACK_IMPORTED_MODULE_0__.imageBase, "/").concat(_constants_constants__WEBPACK_IMPORTED_MODULE_0__.imgRotate, ".svg");
+  var cardsContainer = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('div', 'cards');
+
+  if (typeCard === _constants_constants__WEBPACK_IMPORTED_MODULE_0__.categories) {
+    imgUrl = "".concat(_constants_constants__WEBPACK_IMPORTED_MODULE_0__.imageCategoryBase);
+    words.forEach(function (key) {
+      if (typeCard !== _constants_constants__WEBPACK_IMPORTED_MODULE_0__.categories) title.appendChild((0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('img', 'rotate', null, null, ['src', srcRotate]));
+      var card = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('div', 'card', [(0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('img', 'cardImg', null, null, ['src', "".concat(imgUrl, "/").concat(key, ".jpg")]), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('div', 'title-card', (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('p', '', key))]);
+      cardsContainer.appendChild(card);
+    });
+  } else {
+    imgUrl = "".concat(_constants_constants__WEBPACK_IMPORTED_MODULE_0__.imageBase, "/").concat(category);
+    words.forEach(function (key) {
+      var card = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('div', 'card', (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('div', 'faces', [(0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('div', 'front', [(0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('img', 'cardImg', null, null, ['src', "".concat(imgUrl, "/").concat(key, ".jpg")]), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('div', 'title-card', [(0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('p', '', key), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('img', 'rotate', null, null, ['src', srcRotate])])]), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('div', 'back', [(0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('img', 'cardImg', null, null, ['src', "".concat(imgUrl, "/").concat(key, ".jpg")]), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('div', 'title-card', (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('p', '', _constants_data_cards__WEBPACK_IMPORTED_MODULE_1__.cards[category][key]))])]));
+      cardsContainer.appendChild(card);
+    });
+  }
+
+  return (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('main', 'content', cardsContainer);
+}
+function rotateCard(card) {
+  card.classList.add('turn');
+  card.addEventListener('mouseleave', function () {
+    card.classList.remove('turn');
   });
-  return (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_1__.default)('main', 'content', cards);
 }
 
 /***/ }),
@@ -95,6 +121,7 @@ function createMain(words) {
 /*! export imageCategoryBase [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export imgGame [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export imgRepeat [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export imgRotate [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -109,6 +136,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "cardsCategory": () => /* binding */ cardsCategory,
 /* harmony export */   "imgGame": () => /* binding */ imgGame,
 /* harmony export */   "imgRepeat": () => /* binding */ imgRepeat,
+/* harmony export */   "imgRotate": () => /* binding */ imgRotate,
 /* harmony export */   "assetBase": () => /* binding */ assetBase,
 /* harmony export */   "iconBase": () => /* binding */ iconBase,
 /* harmony export */   "iconCategoryBase": () => /* binding */ iconCategoryBase,
@@ -123,6 +151,7 @@ var categories = 'categories';
 var cardsCategory = 'cardsCategory';
 var imgGame = 'power';
 var imgRepeat = 'repeat';
+var imgRotate = 'rotate';
 var assetBase = 'src/assets';
 var iconBase = "".concat(assetBase, "/icons");
 var iconCategoryBase = "".concat(iconBase, "/categories");

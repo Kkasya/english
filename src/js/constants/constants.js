@@ -8,6 +8,7 @@ export const cardsCategory = 'cardsCategory';
 
 export const imgGame = 'power';
 export const imgRepeat = 'repeat';
+export const imgRotate = 'rotate';
 
 export const assetBase = 'src/assets';
 export const iconBase = `${assetBase}/icons`;

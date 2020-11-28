@@ -1,6 +1,5 @@
 export const cards = {
-    Actions:
-        {
+    Actions: {
             dance: 'танцевать',
             draw: 'рисовать',
             jump: 'прыгать',

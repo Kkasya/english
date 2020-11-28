@@ -17,6 +17,12 @@ content.addEventListener('click', (e) => {
     }
 });
 
+document.addEventListener('click', (e) => {
+    if (e.path[0].closest('.rotate')) {
+        card.rotateCard(e.path[3]);
+    }
+});
+
 const toggle = document.querySelector('.menu-toggle');
 const box = document.querySelector('.menu');
 
