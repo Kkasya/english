@@ -7,7 +7,9 @@
   display: flex;
   align-items: center;
   margin-left: $width-menu;
-
+  @include media-mobile3 {
+    margin-left: $width-menu-mobile;
+  }
 }
 
 .start-game {

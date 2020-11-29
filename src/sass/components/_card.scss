@@ -74,5 +74,6 @@
 .turn {
   transform: rotateY(180deg);
   transition: all 0.6s ease-in;
+  cursor: default;
 }
 
