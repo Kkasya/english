@@ -10,7 +10,6 @@
   perspective: 100rem;
 
   &:hover {
-    opacity: 0.9;
     transform: scale(1.1);
     box-shadow: 0.5rem 0.5rem 3rem 0.7rem rgba(2, 182, 237, 0.6), -0.5rem -0.5rem 3rem 0.7rem rgba(2, 182, 237, 0.5);
     transition: all 0.2s ease-in;
@@ -59,7 +58,7 @@
     & > img {
       position: absolute;
       bottom: -1rem;
-      right: 2rem;
+      right: 1rem;
       width: 7rem;
       height: 4rem;
       filter: grayscale(0.5);

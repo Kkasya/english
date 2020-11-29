@@ -18,6 +18,7 @@ body {
 h1 {
   font-size: 8rem;
   text-shadow: 0 0.3rem 0.3rem #fff;
+  margin: 0 auto;
 }
 
 .menu {
@@ -264,6 +265,7 @@ input:checked:focus + .switch-left + .switch-right {
   cursor: pointer;
   user-select: none;
   outline: none;
+  margin: 0 3rem;
   font-size: 3.5rem;
   background: #16bdf5 radial-gradient(150% 100% at 50% 5px, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0));
   box-shadow: inset rgba(0, 0, 0, 0.6) 0 -2px 5px, inset rgba(252, 255, 255, 0.7) 0 2px 5px, rgba(0, 0, 0, 0.8) 0 2px 5px -1px;
@@ -309,7 +311,6 @@ input:checked:focus + .switch-left + .switch-right {
   perspective: 100rem;
 }
 .card:hover {
-  opacity: 0.9;
   transform: scale(1.1);
   box-shadow: 0.5rem 0.5rem 3rem 0.7rem rgba(2, 182, 237, 0.6), -0.5rem -0.5rem 3rem 0.7rem rgba(2, 182, 237, 0.5);
   transition: all 0.2s ease-in;
@@ -352,7 +353,7 @@ input:checked:focus + .switch-left + .switch-right {
 .card .title-card > img {
   position: absolute;
   bottom: -1rem;
-  right: 2rem;
+  right: 1rem;
   width: 7rem;
   height: 4rem;
   filter: grayscale(0.5);
@@ -373,7 +374,6 @@ input:checked:focus + .switch-left + .switch-right {
 .menu-top {
   margin-top: -2rem;
   display: flex;
-  justify-content: space-around;
   align-items: center;
   margin-left: 30rem;
 }
