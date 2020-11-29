@@ -9,9 +9,3 @@ document.body.appendChild(header.default());
 document.body.appendChild(content);
 
 category.default(content);
-
-document.addEventListener('click', (e) => {
-    if (e.path[0].closest('.rotate')) {
-        card.rotateCard(e.path[3]);
-    }
-});

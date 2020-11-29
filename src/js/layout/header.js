@@ -16,10 +16,11 @@ const checkMenu = create('div', 'menu-toggle', [
 ]);
 
 const menu = create('div', 'menu');
-const menuUl = create('ul', '', create('li', '', [
+const itemMenu = create('li', '', [
     create('img', '', null, null, ['src', `${CONST.iconBase}/icon.png`]),
     create('span', '', 'Main'),
-]));
+]);
+const menuUl = create('ul', '', itemMenu);
 const categories = [];
 
 Object.keys(cards).forEach((key) => {
@@ -51,32 +52,39 @@ function hideMenu() {
     menu.classList.remove('active');
     check.checked = false;
 }
+
+function chooseItemMenu(e) {
+    if (e.path[1].children[1]) {
+        hideMenu();
+        category.removeClass('active-page');
+        const itemMenuSelected = e.path[1].children[1].innerText;
+        category.addClass(itemMenuSelected, 'active-page');
+
+        let content;
+        document.body.removeChild(document.body.children[2]);
+        if (itemMenuSelected === 'Main') {
+            content = card.default(Object.keys(cards));
+            e.path[5].children[1].children[0].innerText = CONST.H1;
+            category.default(content);
+        } else {
+            content = card.default(random.default(Object.keys(cards[e.path[1].innerText])), itemMenuSelected);
+            e.path[5].children[1].children[0].innerText = e.path[1].innerText;
+        }
+        document.body.appendChild(content);
+        window.addEventListener('click', (el) => audio.default(el, e.path[1].innerText));
+    }
+}
+
 checkMenu.addEventListener('click', () => {
     menu.classList.toggle('active');
-
     verticalMenu.addEventListener('mouseleave', () => hideMenu());
 
     menu.addEventListener('click', (e) => {
-        if (e.path[1].children[1]) {
-            hideMenu();
-            const itemMenu = e.path[1].children[1].innerText;
-            let content;
-            document.body.removeChild(document.body.children[2]);
-            console.log(itemMenu === 'Main');
-            if (itemMenu === 'Main') {
-                content = card.default(Object.keys(cards));
-                e.path[5].children[1].children[0].innerText = CONST.H1;
-                category.default(content);
-            } else {
-                content = card.default(random.default(Object.keys(cards[e.path[1].innerText])), itemMenu);
-                e.path[5].children[1].children[0].innerText = e.path[1].innerText;
-            }
-            document.body.appendChild(content);
-            window.addEventListener('click', (el) => audio.default(e, el));
-        }
+        chooseItemMenu(e);
     });
 });
 
 export default function createHeader() {
+    itemMenu.classList.add('active-page');
     return create('div', 'header', [verticalMenu, menuTop]);
 }

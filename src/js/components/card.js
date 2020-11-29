@@ -44,3 +44,9 @@ export function rotateCard(card) {
         card.classList.remove('turn');
     });
 }
+
+document.addEventListener('click', (e) => {
+    if (e.path[0].closest('.rotate')) {
+        rotateCard(e.path[3]);
+    }
+});
