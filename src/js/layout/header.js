@@ -7,7 +7,7 @@ import * as category from '../utils/category';
 import * as playGame from '../utils/playGame';
 
 const srcBtnGame = `${CONST.iconBase}/${CONST.imgGame}.png`;
-// const srcBtnRepeat = `${CONST.iconBase}/${CONST.imgRepeat}.png`;
+const srcBtnRepeat = `${CONST.iconBase}/${CONST.imgRepeat}.svg`;
 
 const check = create('input', '', null, null, ['type', 'checkbox']);
 const checkMenu = create('div', 'menu-toggle', [
@@ -40,12 +40,14 @@ const switcher = create('div', 'switcher', create('label', 'toggle', [
     create('span', 'switch-right', CONST.PLAY),
 ]));
 
-const btnGame = create('div', 'button start-game-button hidden', create('div', 'start-game', [
+export const btnGame = create('div', 'button start-game-button hidden', create('div', 'start-game', [
     create('img', '', null, null, ['src', srcBtnGame]),
     create('span', '', CONST.STARTBTN),
 ]));
 
-const menuTop = create('div', 'menu-top', [create('h1', '', CONST.H1), switcher, btnGame]);
+export const btnGameRepeat = create('div', 'button repeat-button cover', create('img', '', null, null, ['src', srcBtnRepeat]));
+
+const menuTop = create('div', 'menu-top', [create('h1', '', CONST.H1), switcher, btnGame, btnGameRepeat]);
 const verticalMenu = create('div', '', [checkMenu, menu]);
 
 function hideMenu() {
@@ -71,14 +73,14 @@ function chooseItemMenu(e) {
         } else {
             content = card.default(category.randomArray(Object.keys(cards[e.path[1].innerText])), itemMenuSelected);
             e.path[5].children[1].children[0].innerText = e.path[1].innerText;
-            audio.setPlayRandom(false);
+           // audio.setPlayRandom(false);
         }
         document.body.appendChild(content);
 
         window.addEventListener('click', (el) => audio.default(el, e.path[1].innerText));
 
-        if (checkboxSwitcher.checked === false) {
-            audio.setPlayRandom(false);
+         if (btnGame.classList.contains('cover')) {
+             audio.setPlayRandom(false);
         }
         if (!audio.getPlayRandom()) {
             audio.default(null, e.path[1].innerText);
@@ -103,4 +105,24 @@ export default function createHeader() {
 
 checkboxSwitcher.addEventListener('click', () => {
     playGame.default(btnGame, checkboxSwitcher.checked);
+    btnGame.classList.remove('cover');
+    btnGameRepeat.classList.add('cover');
+});
+
+btnGame.addEventListener('click', () => {
+   btnGame.classList.add('cover');
+   btnGameRepeat.classList.remove('cover');
+   const categoryName = document.querySelector('h1');
+   audio.setPlayRandom(false);
+   card.setTypeGame(CONST.PLAY);
+   console.log(card.getTypeGame());
+    document.body.removeChild(document.body.children[3]);
+
+    const content = card.default(category.randomArray(Object.keys(cards[categoryName.innerText])), categoryName.innerText);
+    document.body.appendChild(content);
+    audio.default(null, categoryName.innerText);
+});
+
+btnGameRepeat.addEventListener('click', () => {
+   // playGame.default(btnGame, checkboxSwitcher.checked);
 });

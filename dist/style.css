@@ -90,6 +90,10 @@ h1 {
   opacity: 0;
 }
 
+.cover {
+  display: none;
+}
+
 .menu {
   border-radius: 0.3rem;
   font-family: sans-serif;
@@ -344,7 +348,6 @@ input:checked:focus + .switch-left + .switch-right {
 }
 
 .button {
-  display: inline-block;
   text-decoration: none;
   cursor: pointer;
   user-select: none;
@@ -373,6 +376,7 @@ input:checked:focus + .switch-left + .switch-right {
 
 .repeat-button {
   border-radius: 50%;
+  margin: 0 11.9rem;
   width: 7rem;
   height: 7rem;
   padding: 0;

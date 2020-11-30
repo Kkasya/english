@@ -9,16 +9,14 @@ export default function startGame(btnGame, checked) {
     const content = document.querySelector('.content');
     if (checked === false) {
         btnGame.classList.remove('hidden');
-        card.changeTypeGame(constants.PLAY);
+        // card.setTypeGame(constants.PLAY);
     } else {
         btnGame.classList.add('hidden');
-        card.changeTypeGame(constants.TRAIN);
+         card.setTypeGame(constants.TRAIN);
     }
     if (categoryName.innerText !== constants.H1) {
         document.body.removeChild(content);
         const contentCards = card.default(category.randomArray(Object.keys(cards[categoryName.innerText])), categoryName.innerText);
         document.body.appendChild(contentCards);
     }
-
-    playSound.default(null, categoryName.innerText);
 }

@@ -1,11 +1,12 @@
 import * as CONST from '../constants/constants';
 import { cards } from '../constants/data_cards';
 import create from '../utils/createElement';
+import * as header from '../layout/header';
 
 // eslint-disable-next-line
 let typeGame = CONST.TRAIN;
 
-export function changeTypeGame(type) {
+export function setTypeGame(type) {
     typeGame = type;
 }
 
@@ -30,8 +31,8 @@ export default function createMain(words, category = null) {
         });
     } else {
         imgUrl = `${CONST.imageBase}/${category}`;
-
-        if (typeGame === CONST.TRAIN) {
+console.log(header.checkboxSwitcher.checked);
+        if (header.checkboxSwitcher.checked) {
             words.forEach((key) => {
                 const card = create('div', 'card', create('div', 'faces', [
                     create('div', 'front', [
