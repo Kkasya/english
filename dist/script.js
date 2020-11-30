@@ -79,7 +79,6 @@ function createMain(words) {
     });
   } else {
     imgUrl = "".concat(_constants_constants__WEBPACK_IMPORTED_MODULE_0__.imageBase, "/").concat(category);
-    console.log(_layout_header__WEBPACK_IMPORTED_MODULE_3__.checkboxSwitcher.checked);
 
     if (_layout_header__WEBPACK_IMPORTED_MODULE_3__.checkboxSwitcher.checked) {
       words.forEach(function (key) {

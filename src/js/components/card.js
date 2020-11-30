@@ -31,7 +31,6 @@ export default function createMain(words, category = null) {
         });
     } else {
         imgUrl = `${CONST.imageBase}/${category}`;
-console.log(header.checkboxSwitcher.checked);
         if (header.checkboxSwitcher.checked) {
             words.forEach((key) => {
                 const card = create('div', 'card', create('div', 'faces', [
