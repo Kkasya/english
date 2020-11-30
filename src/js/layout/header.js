@@ -2,9 +2,9 @@ import create from '../utils/createElement';
 import * as CONST from '../constants/constants';
 import { cards } from '../constants/data_cards';
 import * as card from '../components/card';
-import * as random from '../utils/random';
 import * as audio from '../utils/playSound';
 import * as category from '../utils/category';
+import * as playGame from '../utils/playGame';
 
 const srcBtnGame = `${CONST.iconBase}/${CONST.imgGame}.png`;
 // const srcBtnRepeat = `${CONST.iconBase}/${CONST.imgRepeat}.png`;
@@ -32,7 +32,7 @@ Object.keys(cards).forEach((key) => {
     menuUl.appendChild(menuLi);
 });
 menu.appendChild(menuUl);
-const checkboxSwitcher = create('input', '', null, null, ['type', 'checkbox']);
+export const checkboxSwitcher = create('input', '', null, null, ['type', 'checkbox']);
 checkboxSwitcher.checked = true;
 const switcher = create('div', 'switcher', create('label', 'toggle', [
     checkboxSwitcher,
@@ -40,7 +40,7 @@ const switcher = create('div', 'switcher', create('label', 'toggle', [
     create('span', 'switch-right', CONST.PLAY),
 ]));
 
-const btnGame = create('div', 'button start-game-button', create('div', 'start-game', [
+const btnGame = create('div', 'button start-game-button hidden', create('div', 'start-game', [
     create('img', '', null, null, ['src', srcBtnGame]),
     create('span', '', CONST.STARTBTN),
 ]));
@@ -55,36 +55,52 @@ function hideMenu() {
 
 function chooseItemMenu(e) {
     if (e.path[1].children[1]) {
+        menu.removeEventListener('click', listener);
         hideMenu();
+
         category.removeClass('active-page');
         const itemMenuSelected = e.path[1].children[1].innerText;
         category.addClass(itemMenuSelected, 'active-page');
 
         let content;
-        document.body.removeChild(document.body.children[2]);
+        document.body.removeChild(document.body.children[3]);
         if (itemMenuSelected === 'Main') {
             content = card.default(Object.keys(cards));
             e.path[5].children[1].children[0].innerText = CONST.H1;
             category.default(content);
         } else {
-            content = card.default(random.default(Object.keys(cards[e.path[1].innerText])), itemMenuSelected);
+            content = card.default(category.randomArray(Object.keys(cards[e.path[1].innerText])), itemMenuSelected);
             e.path[5].children[1].children[0].innerText = e.path[1].innerText;
+            audio.setPlayRandom(false);
         }
         document.body.appendChild(content);
+
         window.addEventListener('click', (el) => audio.default(el, e.path[1].innerText));
+
+        if (checkboxSwitcher.checked === false) {
+            audio.setPlayRandom(false);
+        }
+        if (!audio.getPlayRandom()) {
+            audio.default(null, e.path[1].innerText);
+        }
     }
+}
+
+function listener(e) {
+    chooseItemMenu(e);
 }
 
 checkMenu.addEventListener('click', () => {
     menu.classList.toggle('active');
     verticalMenu.addEventListener('mouseleave', () => hideMenu());
-
-    menu.addEventListener('click', (e) => {
-        chooseItemMenu(e);
-    });
+    menu.addEventListener('click', listener);
 });
 
 export default function createHeader() {
     itemMenu.classList.add('active-page');
     return create('div', 'header', [verticalMenu, menuTop]);
 }
+
+checkboxSwitcher.addEventListener('click', () => {
+    playGame.default(btnGame, checkboxSwitcher.checked);
+});

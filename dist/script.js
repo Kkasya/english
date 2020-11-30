@@ -34,7 +34,9 @@ _js_utils_category__WEBPACK_IMPORTED_MODULE_4__.default(content);
   !*** ./src/js/components/card.js ***!
   \***********************************/
 /*! namespace exports */
+/*! export changeTypeGame [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export getTypeGame [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export rotateCard [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
@@ -42,6 +44,8 @@ _js_utils_category__WEBPACK_IMPORTED_MODULE_4__.default(content);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "changeTypeGame": () => /* binding */ changeTypeGame,
+/* harmony export */   "getTypeGame": () => /* binding */ getTypeGame,
 /* harmony export */   "default": () => /* binding */ createMain,
 /* harmony export */   "rotateCard": () => /* binding */ rotateCard
 /* harmony export */ });
@@ -50,10 +54,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils_createElement__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/createElement */ "./src/js/utils/createElement.js");
 
 
+ // eslint-disable-next-line
 
+var typeGame = _constants_constants__WEBPACK_IMPORTED_MODULE_0__.TRAIN;
+function changeTypeGame(type) {
+  typeGame = type;
+}
+function getTypeGame() {
+  return typeGame;
+}
 function createMain(words) {
   var category = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-  var typeGame = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : _constants_constants__WEBPACK_IMPORTED_MODULE_0__.TRAIN;
   var imgUrl;
   var srcRotate = "".concat(_constants_constants__WEBPACK_IMPORTED_MODULE_0__.imageBase, "/").concat(_constants_constants__WEBPACK_IMPORTED_MODULE_0__.imgRotate, ".svg");
   var cardsContainer = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('div', 'cards');
@@ -66,10 +77,18 @@ function createMain(words) {
     });
   } else {
     imgUrl = "".concat(_constants_constants__WEBPACK_IMPORTED_MODULE_0__.imageBase, "/").concat(category);
-    words.forEach(function (key) {
-      var card = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('div', 'card', (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('div', 'faces', [(0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('div', 'front', [(0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('img', 'cardImg', null, null, ['src', "".concat(imgUrl, "/").concat(key, ".jpg")]), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('div', 'title-card', [(0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('p', '', key), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('img', 'rotate', null, null, ['src', srcRotate])])]), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('div', 'back', [(0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('img', 'cardImg', null, null, ['src', "".concat(imgUrl, "/").concat(key, ".jpg")]), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('div', 'title-card', (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('p', '', _constants_data_cards__WEBPACK_IMPORTED_MODULE_1__.cards[category][key]))])]));
-      cardsContainer.appendChild(card);
-    });
+
+    if (typeGame === _constants_constants__WEBPACK_IMPORTED_MODULE_0__.TRAIN) {
+      words.forEach(function (key) {
+        var card = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('div', 'card', (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('div', 'faces', [(0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('div', 'front', [(0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('img', 'cardImg', null, null, ['src', "".concat(imgUrl, "/").concat(key, ".jpg")]), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('div', 'title-card', [(0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('p', '', key), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('img', 'rotate', null, null, ['src', srcRotate])])]), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('div', 'back', [(0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('img', 'cardImg', null, null, ['src', "".concat(imgUrl, "/").concat(key, ".jpg")]), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('div', 'title-card', (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('p', '', _constants_data_cards__WEBPACK_IMPORTED_MODULE_1__.cards[category][key]))])]));
+        cardsContainer.appendChild(card);
+      });
+    } else {
+      words.forEach(function (key) {
+        var card = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('div', 'card', (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('div', 'faces', (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('div', 'front', (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('img', 'cardImg cardImgPlay', null, null, ['src', "".concat(imgUrl, "/").concat(key, ".jpg")]))));
+        cardsContainer.appendChild(card);
+      });
+    }
   }
 
   return (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('main', 'content', cardsContainer);
@@ -251,6 +270,7 @@ var cards = {
   !*** ./src/js/layout/header.js ***!
   \*********************************/
 /*! namespace exports */
+/*! export checkboxSwitcher [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
@@ -258,15 +278,16 @@ var cards = {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "checkboxSwitcher": () => /* binding */ checkboxSwitcher,
 /* harmony export */   "default": () => /* binding */ createHeader
 /* harmony export */ });
 /* harmony import */ var _utils_createElement__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/createElement */ "./src/js/utils/createElement.js");
 /* harmony import */ var _constants_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../constants/constants */ "./src/js/constants/constants.js");
 /* harmony import */ var _constants_data_cards__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../constants/data_cards */ "./src/js/constants/data_cards.js");
 /* harmony import */ var _components_card__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/card */ "./src/js/components/card.js");
-/* harmony import */ var _utils_random__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils/random */ "./src/js/utils/random.js");
-/* harmony import */ var _utils_playSound__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../utils/playSound */ "./src/js/utils/playSound.js");
-/* harmony import */ var _utils_category__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils/category */ "./src/js/utils/category.js");
+/* harmony import */ var _utils_playSound__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils/playSound */ "./src/js/utils/playSound.js");
+/* harmony import */ var _utils_category__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../utils/category */ "./src/js/utils/category.js");
+/* harmony import */ var _utils_playGame__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils/playGame */ "./src/js/utils/playGame.js");
 
 
 
@@ -291,7 +312,7 @@ menu.appendChild(menuUl);
 var checkboxSwitcher = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('input', '', null, null, ['type', 'checkbox']);
 checkboxSwitcher.checked = true;
 var switcher = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', 'switcher', (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('label', 'toggle', [checkboxSwitcher, (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('span', 'switch-left', _constants_constants__WEBPACK_IMPORTED_MODULE_1__.TRAIN), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('span', 'switch-right', _constants_constants__WEBPACK_IMPORTED_MODULE_1__.PLAY)]));
-var btnGame = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', 'button start-game-button', (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', 'start-game', [(0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('img', '', null, null, ['src', srcBtnGame]), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('span', '', _constants_constants__WEBPACK_IMPORTED_MODULE_1__.STARTBTN)]));
+var btnGame = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', 'button start-game-button hidden', (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', 'start-game', [(0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('img', '', null, null, ['src', srcBtnGame]), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('span', '', _constants_constants__WEBPACK_IMPORTED_MODULE_1__.STARTBTN)]));
 var menuTop = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', 'menu-top', [(0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('h1', '', _constants_constants__WEBPACK_IMPORTED_MODULE_1__.H1), switcher, btnGame]);
 var verticalMenu = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', '', [checkMenu, menu]);
 
@@ -302,27 +323,41 @@ function hideMenu() {
 
 function chooseItemMenu(e) {
   if (e.path[1].children[1]) {
+    menu.removeEventListener('click', listener);
     hideMenu();
-    _utils_category__WEBPACK_IMPORTED_MODULE_6__.removeClass('active-page');
+    _utils_category__WEBPACK_IMPORTED_MODULE_5__.removeClass('active-page');
     var itemMenuSelected = e.path[1].children[1].innerText;
-    _utils_category__WEBPACK_IMPORTED_MODULE_6__.addClass(itemMenuSelected, 'active-page');
+    _utils_category__WEBPACK_IMPORTED_MODULE_5__.addClass(itemMenuSelected, 'active-page');
     var content;
-    document.body.removeChild(document.body.children[2]);
+    document.body.removeChild(document.body.children[3]);
 
     if (itemMenuSelected === 'Main') {
       content = _components_card__WEBPACK_IMPORTED_MODULE_3__.default(Object.keys(_constants_data_cards__WEBPACK_IMPORTED_MODULE_2__.cards));
       e.path[5].children[1].children[0].innerText = _constants_constants__WEBPACK_IMPORTED_MODULE_1__.H1;
-      _utils_category__WEBPACK_IMPORTED_MODULE_6__.default(content);
+      _utils_category__WEBPACK_IMPORTED_MODULE_5__.default(content);
     } else {
-      content = _components_card__WEBPACK_IMPORTED_MODULE_3__.default(_utils_random__WEBPACK_IMPORTED_MODULE_4__.default(Object.keys(_constants_data_cards__WEBPACK_IMPORTED_MODULE_2__.cards[e.path[1].innerText])), itemMenuSelected);
+      content = _components_card__WEBPACK_IMPORTED_MODULE_3__.default(_utils_category__WEBPACK_IMPORTED_MODULE_5__.randomArray(Object.keys(_constants_data_cards__WEBPACK_IMPORTED_MODULE_2__.cards[e.path[1].innerText])), itemMenuSelected);
       e.path[5].children[1].children[0].innerText = e.path[1].innerText;
+      _utils_playSound__WEBPACK_IMPORTED_MODULE_4__.setPlayRandom(false);
     }
 
     document.body.appendChild(content);
     window.addEventListener('click', function (el) {
-      return _utils_playSound__WEBPACK_IMPORTED_MODULE_5__.default(el, e.path[1].innerText);
+      return _utils_playSound__WEBPACK_IMPORTED_MODULE_4__.default(el, e.path[1].innerText);
     });
+
+    if (checkboxSwitcher.checked === false) {
+      _utils_playSound__WEBPACK_IMPORTED_MODULE_4__.setPlayRandom(false);
+    }
+
+    if (!_utils_playSound__WEBPACK_IMPORTED_MODULE_4__.getPlayRandom()) {
+      _utils_playSound__WEBPACK_IMPORTED_MODULE_4__.default(null, e.path[1].innerText);
+    }
   }
+}
+
+function listener(e) {
+  chooseItemMenu(e);
 }
 
 checkMenu.addEventListener('click', function () {
@@ -330,14 +365,15 @@ checkMenu.addEventListener('click', function () {
   verticalMenu.addEventListener('mouseleave', function () {
     return hideMenu();
   });
-  menu.addEventListener('click', function (e) {
-    chooseItemMenu(e);
-  });
+  menu.addEventListener('click', listener);
 });
 function createHeader() {
   itemMenu.classList.add('active-page');
   return (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', 'header', [verticalMenu, menuTop]);
 }
+checkboxSwitcher.addEventListener('click', function () {
+  _utils_playGame__WEBPACK_IMPORTED_MODULE_6__.default(btnGame, checkboxSwitcher.checked);
+});
 
 /***/ }),
 
@@ -348,6 +384,7 @@ function createHeader() {
 /*! namespace exports */
 /*! export addClass [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export randomArray [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export removeClass [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
@@ -357,14 +394,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "removeClass": () => /* binding */ removeClass,
 /* harmony export */   "addClass": () => /* binding */ addClass,
+/* harmony export */   "randomArray": () => /* binding */ randomArray,
 /* harmony export */   "default": () => /* binding */ openCategory
 /* harmony export */ });
 /* harmony import */ var _components_card__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/card */ "./src/js/components/card.js");
-/* harmony import */ var _random__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./random */ "./src/js/utils/random.js");
-/* harmony import */ var _constants_data_cards__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../constants/data_cards */ "./src/js/constants/data_cards.js");
-/* harmony import */ var _playSound__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./playSound */ "./src/js/utils/playSound.js");
+/* harmony import */ var _constants_data_cards__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../constants/data_cards */ "./src/js/constants/data_cards.js");
+/* harmony import */ var _playSound__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./playSound */ "./src/js/utils/playSound.js");
+/* harmony import */ var _layout_header__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../layout/header */ "./src/js/layout/header.js");
 
 
+ // import * as CONST from '../constants/constants';
 
 
 function removeClass(classRemoved) {
@@ -377,18 +416,37 @@ function addClass(item, classAdded) {
     if (li.innerText === item) li.classList.add(classAdded);
   });
 }
+function randomArray(arr) {
+  for (var i = arr.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1)); // eslint-disable-next-line no-param-reassign
+
+    var _ref = [arr[j], arr[i]];
+    arr[i] = _ref[0];
+    arr[j] = _ref[1];
+  }
+
+  return arr;
+}
 function openCategory(content) {
   content.addEventListener('click', function (e) {
     if (e.path[1].closest('.card')) {
       removeClass('active-page');
       addClass(e.path[1].innerText, 'active-page');
       document.body.removeChild(content);
-      var contentCategory = _components_card__WEBPACK_IMPORTED_MODULE_0__.default(_random__WEBPACK_IMPORTED_MODULE_1__.default(Object.keys(_constants_data_cards__WEBPACK_IMPORTED_MODULE_2__.cards[e.path[1].innerText])), e.path[1].innerText);
+      var contentCategory = _components_card__WEBPACK_IMPORTED_MODULE_0__.default(randomArray(Object.keys(_constants_data_cards__WEBPACK_IMPORTED_MODULE_1__.cards[e.path[1].innerText])), e.path[1].innerText);
       document.body.appendChild(contentCategory);
-      e.path[4].children[1].children[1].children[0].innerText = e.path[1].innerText;
+      e.path[4].children[2].children[1].children[0].innerText = e.path[1].innerText;
       window.addEventListener('click', function (el) {
-        return _playSound__WEBPACK_IMPORTED_MODULE_3__.default(el, e.path[1].innerText);
+        return _playSound__WEBPACK_IMPORTED_MODULE_2__.default(el, e.path[1].innerText);
       });
+    }
+
+    if (_layout_header__WEBPACK_IMPORTED_MODULE_3__.checkboxSwitcher.checked === false) {
+      _playSound__WEBPACK_IMPORTED_MODULE_2__.setPlayRandom(false);
+    }
+
+    if (!_playSound__WEBPACK_IMPORTED_MODULE_2__.getPlayRandom()) {
+      _playSound__WEBPACK_IMPORTED_MODULE_2__.default(null, e.path[1].innerText);
     }
   });
 }
@@ -479,69 +537,121 @@ function create(elem, classes, childs, parent) {
 
 /***/ }),
 
+/***/ "./src/js/utils/playGame.js":
+/*!**********************************!*\
+  !*** ./src/js/utils/playGame.js ***!
+  \**********************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => /* binding */ startGame
+/* harmony export */ });
+/* harmony import */ var _components_card__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/card */ "./src/js/components/card.js");
+/* harmony import */ var _category__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./category */ "./src/js/utils/category.js");
+/* harmony import */ var _constants_constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../constants/constants */ "./src/js/constants/constants.js");
+/* harmony import */ var _constants_data_cards__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../constants/data_cards */ "./src/js/constants/data_cards.js");
+/* harmony import */ var _playSound__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./playSound */ "./src/js/utils/playSound.js");
+
+
+
+
+
+function startGame(btnGame, checked) {
+  var categoryName = document.querySelector('h1');
+  var content = document.querySelector('.content');
+
+  if (checked === false) {
+    btnGame.classList.remove('hidden');
+    _components_card__WEBPACK_IMPORTED_MODULE_0__.changeTypeGame(_constants_constants__WEBPACK_IMPORTED_MODULE_2__.PLAY);
+  } else {
+    btnGame.classList.add('hidden');
+    _components_card__WEBPACK_IMPORTED_MODULE_0__.changeTypeGame(_constants_constants__WEBPACK_IMPORTED_MODULE_2__.TRAIN);
+  }
+
+  if (categoryName.innerText !== _constants_constants__WEBPACK_IMPORTED_MODULE_2__.H1) {
+    document.body.removeChild(content);
+    var contentCards = _components_card__WEBPACK_IMPORTED_MODULE_0__.default(_category__WEBPACK_IMPORTED_MODULE_1__.randomArray(Object.keys(_constants_data_cards__WEBPACK_IMPORTED_MODULE_3__.cards[categoryName.innerText])), categoryName.innerText);
+    document.body.appendChild(contentCards);
+  }
+
+  _playSound__WEBPACK_IMPORTED_MODULE_4__.default(null, categoryName.innerText);
+}
+
+/***/ }),
+
 /***/ "./src/js/utils/playSound.js":
 /*!***********************************!*\
   !*** ./src/js/utils/playSound.js ***!
   \***********************************/
 /*! namespace exports */
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export getPlayRandom [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export setPlayRandom [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "setPlayRandom": () => /* binding */ setPlayRandom,
+/* harmony export */   "getPlayRandom": () => /* binding */ getPlayRandom,
 /* harmony export */   "default": () => /* binding */ playCard
 /* harmony export */ });
-var audio;
-function playCard(el, category) {
-  if (!el.path[2].classList.contains('turn') && !el.target.classList.contains('rotate')) {
-    if (!audio) audio = new Audio();
+/* harmony import */ var _components_card__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/card */ "./src/js/components/card.js");
+/* harmony import */ var _constants_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../constants/constants */ "./src/js/constants/constants.js");
+/* harmony import */ var _constants_data_cards__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../constants/data_cards */ "./src/js/constants/data_cards.js");
+/* harmony import */ var _category__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./category */ "./src/js/utils/category.js");
+/* harmony import */ var _createElement__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./createElement */ "./src/js/utils/createElement.js");
 
-    if (el.path[3].classList.contains('card')) {
-      audio.src = "./src/assets/sounds/".concat(category, "/").concat(el.path[1].children[1].children[0].innerText, ".mp3");
-      audio.currentTime = 0;
-      audio.pause();
-      setTimeout(function () {
-        return audio.play();
-      }, 0);
-    } else if (el.path[4].classList.contains('card')) {
-      audio.src = "./src/assets/sounds/".concat(category, "/").concat(el.path[0].innerText, ".mp3");
-      audio.currentTime = 0;
-      audio.pause();
-      setTimeout(function () {
-        return audio.play();
-      }, 200);
-    }
-  }
+
+
+
+
+var audio = _createElement__WEBPACK_IMPORTED_MODULE_4__.default('audio', '');
+document.body.appendChild(audio);
+var playRandom = false;
+function setPlayRandom(play) {
+  playRandom = play;
+}
+function getPlayRandom() {
+  return playRandom;
+} // export function listenAudio(el, categoryName) {
+//     playCard(el, categoryName);
+// }
+
+function playSound(srcAudio) {
+  audio.src = srcAudio;
+  audio.currentTime = 0;
+  audio.pause();
+  setTimeout(function () {
+    return audio.play();
+  }, 0);
 }
 
-/***/ }),
+function playCard(el, categoryName) {
+  console.log("start".concat(categoryName));
 
-/***/ "./src/js/utils/random.js":
-/*!********************************!*\
-  !*** ./src/js/utils/random.js ***!
-  \********************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+  if (el && _components_card__WEBPACK_IMPORTED_MODULE_0__.getTypeGame() === _constants_constants__WEBPACK_IMPORTED_MODULE_1__.TRAIN && !el.path[2].classList.contains('turn') && !el.target.classList.contains('rotate')) {
+    console.log("--".concat(categoryName));
 
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ randomArray
-/* harmony export */ });
-function randomArray(arr) {
-  for (var i = arr.length - 1; i > 0; i--) {
-    var j = Math.floor(Math.random() * (i + 1)); // eslint-disable-next-line no-param-reassign
-
-    var _ref = [arr[j], arr[i]];
-    arr[i] = _ref[0];
-    arr[j] = _ref[1];
+    if (el.path[3].classList.contains('card')) {
+      playSound("./src/assets/sounds/".concat(categoryName, "/").concat(el.path[1].children[1].children[0].innerText, ".mp3"));
+    } else if (el.path[4].classList.contains('card')) {
+      playSound("./src/assets/sounds/".concat(categoryName, "/").concat(el.path[0].innerText, ".mp3"));
+    }
+  } else if (_components_card__WEBPACK_IMPORTED_MODULE_0__.getTypeGame() === _constants_constants__WEBPACK_IMPORTED_MODULE_1__.PLAY && !playRandom && categoryName !== _constants_constants__WEBPACK_IMPORTED_MODULE_1__.H1) {
+    setPlayRandom(true);
+    var arraySounds = _category__WEBPACK_IMPORTED_MODULE_3__.randomArray(Object.keys(_constants_data_cards__WEBPACK_IMPORTED_MODULE_2__.cards[categoryName]));
+    audio.src = "./src/assets/sounds/".concat(categoryName, "/").concat(arraySounds[0], ".mp3");
+    audio.currentTime = 0;
+    audio.pause();
+    audio.play();
   }
-
-  return arr;
 }
 
 /***/ }),
