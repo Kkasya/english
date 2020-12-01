@@ -6,3 +6,34 @@
   justify-content: space-around;
   flex-wrap: wrap;
 }
+
+.result-game {
+  width: 80rem;
+  height: auto;
+  position: absolute;
+  top: 20%;
+  left: 20%;
+}
+
+.show {
+  animation: opacity 2.5s ease-in-out 2 alternate-reverse;
+}
+
+@keyframes opacity {
+  100% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  25% {
+    opacity: 0.75;
+  }
+  0% {
+    opacity: 1;
+  }
+
+}

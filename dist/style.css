@@ -8,6 +8,7 @@ html {
   font-family: "Pacifico", Verdana, cursive;
   font-size: 10px;
   color: #d10d44;
+  overflow-anchor: none;
 }
 @media (max-width: 1450px) {
   html {
@@ -398,11 +399,6 @@ input:checked:focus + .switch-left + .switch-right {
   position: relative;
   perspective: 100rem;
 }
-.card:hover {
-  transform: scale(1.1);
-  box-shadow: 0.5rem 0.5rem 3rem 0.7rem rgba(2, 182, 237, 0.6), -0.5rem -0.5rem 3rem 0.7rem rgba(2, 182, 237, 0.5);
-  transition: all 0.2s ease-in;
-}
 .card .faces {
   transition: 0.6s;
   transform-style: preserve-3d;
@@ -453,10 +449,21 @@ input:checked:focus + .switch-left + .switch-right {
   opacity: 0.5;
 }
 
+.hover:hover {
+  transform: scale(1.1);
+  box-shadow: 0.5rem 0.5rem 3rem 0.7rem rgba(2, 182, 237, 0.6), -0.5rem -0.5rem 3rem 0.7rem rgba(2, 182, 237, 0.5);
+  transition: all 0.2s ease-in;
+}
+
 .turn {
   transform: rotateY(180deg);
   transition: all 0.6s ease-in;
   cursor: default;
+}
+
+.untouchable {
+  cursor: default;
+  opacity: 0.7;
 }
 
 .header {
@@ -492,6 +499,36 @@ input:checked:focus + .switch-left + .switch-right {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+}
+
+.result-game {
+  width: 80rem;
+  height: auto;
+  position: absolute;
+  top: 20%;
+  left: 20%;
+}
+
+.show {
+  animation: opacity 2.5s ease-in-out 2 alternate-reverse;
+}
+
+@keyframes opacity {
+  100% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  25% {
+    opacity: 0.75;
+  }
+  0% {
+    opacity: 1;
+  }
 }
 
 /*# sourceMappingURL=style.css.map*/

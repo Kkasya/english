@@ -35,65 +35,53 @@ _js_utils_category__WEBPACK_IMPORTED_MODULE_4__.default(content);
   \***********************************/
 /*! namespace exports */
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export getTypeGame [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export rotateCard [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export setTypeGame [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "setTypeGame": () => /* binding */ setTypeGame,
-/* harmony export */   "getTypeGame": () => /* binding */ getTypeGame,
 /* harmony export */   "default": () => /* binding */ createMain,
 /* harmony export */   "rotateCard": () => /* binding */ rotateCard
 /* harmony export */ });
 /* harmony import */ var _constants_constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants/constants */ "./src/js/constants/constants.js");
 /* harmony import */ var _constants_data_cards__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../constants/data_cards */ "./src/js/constants/data_cards.js");
 /* harmony import */ var _utils_createElement__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/createElement */ "./src/js/utils/createElement.js");
-/* harmony import */ var _layout_header__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../layout/header */ "./src/js/layout/header.js");
+/* harmony import */ var _utils_getData__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/getData */ "./src/js/utils/getData.js");
 
 
 
- // eslint-disable-next-line
 
-var typeGame = _constants_constants__WEBPACK_IMPORTED_MODULE_0__.TRAIN;
-function setTypeGame(type) {
-  typeGame = type;
-}
-function getTypeGame() {
-  return typeGame;
-}
 function createMain(words) {
   var category = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
   var imgUrl;
   var srcRotate = "".concat(_constants_constants__WEBPACK_IMPORTED_MODULE_0__.imageBase, "/").concat(_constants_constants__WEBPACK_IMPORTED_MODULE_0__.imgRotate, ".svg");
-  var cardsContainer = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('div', 'cards');
+  var cardsContainer = _utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('div', 'cards');
 
   if (!category) {
     imgUrl = "".concat(_constants_constants__WEBPACK_IMPORTED_MODULE_0__.imageCategoryBase);
     words.forEach(function (key) {
-      var card = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('div', 'card', [(0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('img', 'cardImg', null, null, ['src', "".concat(imgUrl, "/").concat(key, ".jpg")]), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('div', 'title-card', (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('p', '', key))]);
+      var card = _utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('div', 'card', [_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('img', 'cardImg', null, null, ['src', "".concat(imgUrl, "/").concat(key, ".jpg")]), _utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('div', 'title-card', _utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('p', '', key))]);
       cardsContainer.appendChild(card);
     });
   } else {
     imgUrl = "".concat(_constants_constants__WEBPACK_IMPORTED_MODULE_0__.imageBase, "/").concat(category);
 
-    if (_layout_header__WEBPACK_IMPORTED_MODULE_3__.checkboxSwitcher.checked) {
+    if (_utils_getData__WEBPACK_IMPORTED_MODULE_3__.getCheckboxStatus()) {
       words.forEach(function (key) {
-        var card = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('div', 'card', (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('div', 'faces', [(0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('div', 'front', [(0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('img', 'cardImg', null, null, ['src', "".concat(imgUrl, "/").concat(key, ".jpg")]), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('div', 'title-card', [(0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('p', '', key), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('img', 'rotate', null, null, ['src', srcRotate])])]), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('div', 'back', [(0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('img', 'cardImg', null, null, ['src', "".concat(imgUrl, "/").concat(key, ".jpg")]), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('div', 'title-card', (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('p', '', _constants_data_cards__WEBPACK_IMPORTED_MODULE_1__.cards[category][key]))])]));
+        var card = _utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('div', 'card hover', _utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('div', 'faces', [_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('div', 'front', [_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('img', 'cardImg', null, null, ['src', "".concat(imgUrl, "/").concat(key, ".jpg")]), _utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('div', 'title-card', [_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('p', '', key), _utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('img', 'rotate', null, null, ['src', srcRotate])])]), _utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('div', 'back', [_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('img', 'cardImg', null, null, ['src', "".concat(imgUrl, "/").concat(key, ".jpg")]), _utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('div', 'title-card', _utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('p', '', _constants_data_cards__WEBPACK_IMPORTED_MODULE_1__.cards[category][key]))])]));
         cardsContainer.appendChild(card);
       });
     } else {
       words.forEach(function (key) {
-        var card = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('div', 'card', (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('div', 'faces', (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('div', 'front', (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('img', 'cardImg cardImgPlay', null, null, ['src', "".concat(imgUrl, "/").concat(key, ".jpg")]))));
+        var card = _utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('div', 'card hover', _utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('div', 'faces', _utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('div', 'front', [_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('img', 'cardImg cardImgPlay', null, null, ['src', "".concat(imgUrl, "/").concat(key, ".jpg")]), _utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('div', 'title-card hidden', _utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('p', '', key))])));
         cardsContainer.appendChild(card);
       });
     }
   }
 
-  return (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default)('main', 'content', cardsContainer);
+  return _utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('main', 'content', cardsContainer);
 }
 function rotateCard(card) {
   card.classList.add('turn');
@@ -290,11 +278,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils_createElement__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/createElement */ "./src/js/utils/createElement.js");
 /* harmony import */ var _constants_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../constants/constants */ "./src/js/constants/constants.js");
 /* harmony import */ var _constants_data_cards__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../constants/data_cards */ "./src/js/constants/data_cards.js");
-/* harmony import */ var _components_card__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/card */ "./src/js/components/card.js");
-/* harmony import */ var _utils_playSound__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils/playSound */ "./src/js/utils/playSound.js");
-/* harmony import */ var _utils_category__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../utils/category */ "./src/js/utils/category.js");
-/* harmony import */ var _utils_playGame__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils/playGame */ "./src/js/utils/playGame.js");
-
+/* harmony import */ var _utils_playSound__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/playSound */ "./src/js/utils/playSound.js");
+/* harmony import */ var _utils_category__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils/category */ "./src/js/utils/category.js");
+/* harmony import */ var _utils_playGame__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../utils/playGame */ "./src/js/utils/playGame.js");
 
 
 
@@ -332,32 +318,32 @@ function chooseItemMenu(e) {
   if (e.path[1].children[1]) {
     menu.removeEventListener('click', listener);
     hideMenu();
-    _utils_category__WEBPACK_IMPORTED_MODULE_5__.removeClass('active-page');
+    _utils_category__WEBPACK_IMPORTED_MODULE_4__.removeClass('active-page');
     var itemMenuSelected = e.path[1].children[1].innerText;
-    _utils_category__WEBPACK_IMPORTED_MODULE_5__.addClass(itemMenuSelected, 'active-page');
+    _utils_category__WEBPACK_IMPORTED_MODULE_4__.addClass(itemMenuSelected, 'active-page');
     var content;
     document.body.removeChild(document.body.children[3]);
 
     if (itemMenuSelected === 'Main') {
-      content = _components_card__WEBPACK_IMPORTED_MODULE_3__.default(Object.keys(_constants_data_cards__WEBPACK_IMPORTED_MODULE_2__.cards));
+      content = _utils_category__WEBPACK_IMPORTED_MODULE_4__.getMainContent(Object.keys(_constants_data_cards__WEBPACK_IMPORTED_MODULE_2__.cards));
       e.path[5].children[1].children[0].innerText = _constants_constants__WEBPACK_IMPORTED_MODULE_1__.H1;
-      _utils_category__WEBPACK_IMPORTED_MODULE_5__.default(content);
+      _utils_category__WEBPACK_IMPORTED_MODULE_4__.default(content);
     } else {
-      content = _components_card__WEBPACK_IMPORTED_MODULE_3__.default(_utils_category__WEBPACK_IMPORTED_MODULE_5__.randomArray(Object.keys(_constants_data_cards__WEBPACK_IMPORTED_MODULE_2__.cards[e.path[1].innerText])), itemMenuSelected);
-      e.path[5].children[1].children[0].innerText = e.path[1].innerText; // audio.setPlayRandom(false);
+      content = _utils_category__WEBPACK_IMPORTED_MODULE_4__.getMainContent(_utils_category__WEBPACK_IMPORTED_MODULE_4__.randomArray(Object.keys(_constants_data_cards__WEBPACK_IMPORTED_MODULE_2__.cards[e.path[1].innerText])), itemMenuSelected);
+      e.path[5].children[1].children[0].innerText = e.path[1].innerText;
     }
 
     document.body.appendChild(content);
     window.addEventListener('click', function (el) {
-      return _utils_playSound__WEBPACK_IMPORTED_MODULE_4__.default(el, e.path[1].innerText);
+      return _utils_playSound__WEBPACK_IMPORTED_MODULE_3__.default(el, e.path[1].innerText);
     });
 
     if (btnGame.classList.contains('cover')) {
-      _utils_playSound__WEBPACK_IMPORTED_MODULE_4__.setPlayRandom(false);
+      _utils_playSound__WEBPACK_IMPORTED_MODULE_3__.setPlayRandom(false);
     }
 
-    if (!_utils_playSound__WEBPACK_IMPORTED_MODULE_4__.getPlayRandom()) {
-      _utils_playSound__WEBPACK_IMPORTED_MODULE_4__.default(null, e.path[1].innerText);
+    if (!_utils_playSound__WEBPACK_IMPORTED_MODULE_3__.getPlayRandom()) {
+      _utils_playSound__WEBPACK_IMPORTED_MODULE_3__.default(null, e.path[1].innerText);
     }
   }
 }
@@ -378,23 +364,28 @@ function createHeader() {
   return (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', 'header', [verticalMenu, menuTop]);
 }
 checkboxSwitcher.addEventListener('click', function () {
-  _utils_playGame__WEBPACK_IMPORTED_MODULE_6__.default(btnGame, checkboxSwitcher.checked);
+  _utils_playGame__WEBPACK_IMPORTED_MODULE_5__.default(btnGame, checkboxSwitcher.checked);
   btnGame.classList.remove('cover');
   btnGameRepeat.classList.add('cover');
 });
 btnGame.addEventListener('click', function () {
   btnGame.classList.add('cover');
   btnGameRepeat.classList.remove('cover');
+  _utils_playSound__WEBPACK_IMPORTED_MODULE_3__.setCheckCard(true);
+  _utils_playSound__WEBPACK_IMPORTED_MODULE_3__.setTypeGame(_constants_constants__WEBPACK_IMPORTED_MODULE_1__.PLAY);
   var categoryName = document.querySelector('h1');
-  _utils_playSound__WEBPACK_IMPORTED_MODULE_4__.setPlayRandom(false);
-  _components_card__WEBPACK_IMPORTED_MODULE_3__.setTypeGame(_constants_constants__WEBPACK_IMPORTED_MODULE_1__.PLAY);
-  console.log(_components_card__WEBPACK_IMPORTED_MODULE_3__.getTypeGame());
-  document.body.removeChild(document.body.children[3]);
-  var content = _components_card__WEBPACK_IMPORTED_MODULE_3__.default(_utils_category__WEBPACK_IMPORTED_MODULE_5__.randomArray(Object.keys(_constants_data_cards__WEBPACK_IMPORTED_MODULE_2__.cards[categoryName.innerText])), categoryName.innerText);
-  document.body.appendChild(content);
-  _utils_playSound__WEBPACK_IMPORTED_MODULE_4__.default(null, categoryName.innerText);
+
+  if (categoryName.innerText !== _constants_constants__WEBPACK_IMPORTED_MODULE_1__.H1) {
+    _utils_playSound__WEBPACK_IMPORTED_MODULE_3__.setPlayRandom(false);
+    document.body.removeChild(document.body.children[3]);
+    var content = _utils_category__WEBPACK_IMPORTED_MODULE_4__.getMainContent(_utils_category__WEBPACK_IMPORTED_MODULE_4__.randomArray(Object.keys(_constants_data_cards__WEBPACK_IMPORTED_MODULE_2__.cards[categoryName.innerText])), categoryName.innerText);
+    document.body.appendChild(content);
+    _utils_playSound__WEBPACK_IMPORTED_MODULE_3__.default(null, categoryName.innerText);
+  }
 });
-btnGameRepeat.addEventListener('click', function () {// playGame.default(btnGame, checkboxSwitcher.checked);
+btnGameRepeat.addEventListener('click', function () {
+  var categoryName = document.querySelector('h1');
+  _utils_playSound__WEBPACK_IMPORTED_MODULE_3__.repeatSound(categoryName.innerText);
 });
 
 /***/ }),
@@ -406,6 +397,7 @@ btnGameRepeat.addEventListener('click', function () {// playGame.default(btnGame
 /*! namespace exports */
 /*! export addClass [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export getMainContent [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export randomArray [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export removeClass [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
@@ -417,7 +409,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "removeClass": () => /* binding */ removeClass,
 /* harmony export */   "addClass": () => /* binding */ addClass,
 /* harmony export */   "randomArray": () => /* binding */ randomArray,
-/* harmony export */   "default": () => /* binding */ openCategory
+/* harmony export */   "default": () => /* binding */ openCategory,
+/* harmony export */   "getMainContent": () => /* binding */ getMainContent
 /* harmony export */ });
 /* harmony import */ var _components_card__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/card */ "./src/js/components/card.js");
 /* harmony import */ var _constants_data_cards__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../constants/data_cards */ "./src/js/constants/data_cards.js");
@@ -425,7 +418,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _layout_header__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../layout/header */ "./src/js/layout/header.js");
 
 
- // import * as CONST from '../constants/constants';
 
 
 function removeClass(classRemoved) {
@@ -471,6 +463,10 @@ function openCategory(content) {
       }
     }
   });
+}
+function getMainContent(words) {
+  var category = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+  return _components_card__WEBPACK_IMPORTED_MODULE_0__.default(words, category);
 }
 
 /***/ }),
@@ -559,6 +555,28 @@ function create(elem, classes, childs, parent) {
 
 /***/ }),
 
+/***/ "./src/js/utils/getData.js":
+/*!*********************************!*\
+  !*** ./src/js/utils/getData.js ***!
+  \*********************************/
+/*! namespace exports */
+/*! export getCheckboxStatus [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getCheckboxStatus": () => /* binding */ getCheckboxStatus
+/* harmony export */ });
+/* harmony import */ var _layout_header__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../layout/header */ "./src/js/layout/header.js");
+
+function getCheckboxStatus() {
+  return _layout_header__WEBPACK_IMPORTED_MODULE_0__.checkboxSwitcher.checked;
+}
+
+/***/ }),
+
 /***/ "./src/js/utils/playGame.js":
 /*!**********************************!*\
   !*** ./src/js/utils/playGame.js ***!
@@ -573,12 +591,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ startGame
 /* harmony export */ });
-/* harmony import */ var _components_card__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/card */ "./src/js/components/card.js");
-/* harmony import */ var _category__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./category */ "./src/js/utils/category.js");
-/* harmony import */ var _constants_constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../constants/constants */ "./src/js/constants/constants.js");
+/* harmony import */ var _category__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./category */ "./src/js/utils/category.js");
+/* harmony import */ var _constants_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../constants/constants */ "./src/js/constants/constants.js");
+/* harmony import */ var _playSound__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./playSound */ "./src/js/utils/playSound.js");
 /* harmony import */ var _constants_data_cards__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../constants/data_cards */ "./src/js/constants/data_cards.js");
-/* harmony import */ var _playSound__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./playSound */ "./src/js/utils/playSound.js");
-
 
 
 
@@ -588,15 +604,16 @@ function startGame(btnGame, checked) {
   var content = document.querySelector('.content');
 
   if (checked === false) {
-    btnGame.classList.remove('hidden'); // card.setTypeGame(constants.PLAY);
+    btnGame.classList.remove('hidden');
   } else {
     btnGame.classList.add('hidden');
-    _components_card__WEBPACK_IMPORTED_MODULE_0__.setTypeGame(_constants_constants__WEBPACK_IMPORTED_MODULE_2__.TRAIN);
+    _playSound__WEBPACK_IMPORTED_MODULE_2__.setTypeGame(_constants_constants__WEBPACK_IMPORTED_MODULE_1__.TRAIN);
+    _playSound__WEBPACK_IMPORTED_MODULE_2__.setCheckCard(false);
   }
 
-  if (categoryName.innerText !== _constants_constants__WEBPACK_IMPORTED_MODULE_2__.H1) {
+  if (categoryName.innerText !== _constants_constants__WEBPACK_IMPORTED_MODULE_1__.H1) {
     document.body.removeChild(content);
-    var contentCards = _components_card__WEBPACK_IMPORTED_MODULE_0__.default(_category__WEBPACK_IMPORTED_MODULE_1__.randomArray(Object.keys(_constants_data_cards__WEBPACK_IMPORTED_MODULE_3__.cards[categoryName.innerText])), categoryName.innerText);
+    var contentCards = _category__WEBPACK_IMPORTED_MODULE_0__.getMainContent(_category__WEBPACK_IMPORTED_MODULE_0__.randomArray(Object.keys(_constants_data_cards__WEBPACK_IMPORTED_MODULE_3__.cards[categoryName.innerText])), categoryName.innerText);
     document.body.appendChild(contentCards);
   }
 }
@@ -608,39 +625,58 @@ function startGame(btnGame, checked) {
   !*** ./src/js/utils/playSound.js ***!
   \***********************************/
 /*! namespace exports */
+/*! export checkAnswer [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export getPlayRandom [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export getTypeGame [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export repeatSound [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export setCheckCard [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export setPlayRandom [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export setTypeGame [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "setTypeGame": () => /* binding */ setTypeGame,
+/* harmony export */   "getTypeGame": () => /* binding */ getTypeGame,
 /* harmony export */   "setPlayRandom": () => /* binding */ setPlayRandom,
 /* harmony export */   "getPlayRandom": () => /* binding */ getPlayRandom,
-/* harmony export */   "default": () => /* binding */ playCard
+/* harmony export */   "setCheckCard": () => /* binding */ setCheckCard,
+/* harmony export */   "checkAnswer": () => /* binding */ checkAnswer,
+/* harmony export */   "default": () => /* binding */ playCard,
+/* harmony export */   "repeatSound": () => /* binding */ repeatSound
 /* harmony export */ });
-/* harmony import */ var _components_card__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/card */ "./src/js/components/card.js");
+/* harmony import */ var _createElement__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./createElement */ "./src/js/utils/createElement.js");
 /* harmony import */ var _constants_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../constants/constants */ "./src/js/constants/constants.js");
 /* harmony import */ var _constants_data_cards__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../constants/data_cards */ "./src/js/constants/data_cards.js");
 /* harmony import */ var _category__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./category */ "./src/js/utils/category.js");
-/* harmony import */ var _createElement__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./createElement */ "./src/js/utils/createElement.js");
-/* harmony import */ var _layout_header__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../layout/header */ "./src/js/layout/header.js");
 
 
 
 
-
-
-var audio = _createElement__WEBPACK_IMPORTED_MODULE_4__.default('audio', '');
+var audio = _createElement__WEBPACK_IMPORTED_MODULE_0__.default('audio', '');
 document.body.appendChild(audio);
 var playRandom = false;
+var checkCard = false;
+var arraySounds = []; // eslint-disable-next-line
+
+var typeGame = _constants_constants__WEBPACK_IMPORTED_MODULE_1__.TRAIN;
+function setTypeGame(type) {
+  typeGame = type;
+}
+function getTypeGame() {
+  return typeGame;
+}
 function setPlayRandom(play) {
   playRandom = play;
 }
 function getPlayRandom() {
   return playRandom;
+}
+function setCheckCard(check) {
+  checkCard = check;
 }
 
 function playSound(srcAudio) {
@@ -652,24 +688,60 @@ function playSound(srcAudio) {
   }, 0);
 }
 
-function playCard(el, categoryName) {
-  console.log(_components_card__WEBPACK_IMPORTED_MODULE_0__.getTypeGame() === _constants_constants__WEBPACK_IMPORTED_MODULE_1__.PLAY);
+function showSmile() {
+  window.scrollTo(0, 0);
+  var content = document.body.querySelector('.content');
+  document.body.removeChild(content);
+  var smileResultGame = _createElement__WEBPACK_IMPORTED_MODULE_0__.default('img', 'result-game show', null, null, ['src', './src/assets/images/victory.png']);
+  document.body.appendChild(smileResultGame);
+  setTimeout(function () {
+    window.location.reload();
+  }, 4000);
+}
 
-  if (el && _components_card__WEBPACK_IMPORTED_MODULE_0__.getTypeGame() === _constants_constants__WEBPACK_IMPORTED_MODULE_1__.TRAIN && !el.path[2].classList.contains('turn') && !el.target.classList.contains('rotate')) {
+function checkAnswer(el) {
+  var categoryName = document.querySelector('h1').innerText;
+
+  if (el.path[3].classList.contains('hover')) {
+    if (el.path[3].children[0].children[0].children[1].children[0].innerText === arraySounds[0]) {
+      playSound('./src/assets/sounds/right.mp3');
+      el.path[3].classList.add('untouchable');
+      el.path[3].classList.remove('hover');
+      arraySounds.shift();
+      setTimeout(function () {
+        playSound("./src/assets/sounds/".concat(categoryName, "/").concat(arraySounds[0], ".mp3"));
+      }, 1000);
+    } else {
+      playSound('./src/assets/sounds/error.mp3');
+    }
+  }
+
+  if (arraySounds.length === 0) {
+    setTimeout(function () {
+      playSound('./src/assets/sounds/victory.mp3');
+      showSmile();
+    }, 1000);
+  }
+}
+function playCard(el, categoryName) {
+  if (el && el.path[6] && getTypeGame() === _constants_constants__WEBPACK_IMPORTED_MODULE_1__.TRAIN && !el.path[2].classList.contains('turn') && !el.target.classList.contains('rotate') && el.path[1].children[1] && !el.path[1].children[1].classList.contains('hidden')) {
     if (el.path[3].classList.contains('card')) {
       playSound("./src/assets/sounds/".concat(categoryName, "/").concat(el.path[1].children[1].children[0].innerText, ".mp3"));
     } else if (el.path[4].classList.contains('card')) {
       playSound("./src/assets/sounds/".concat(categoryName, "/").concat(el.path[0].innerText, ".mp3"));
     }
-  } else if (_components_card__WEBPACK_IMPORTED_MODULE_0__.getTypeGame() === _constants_constants__WEBPACK_IMPORTED_MODULE_1__.PLAY && !playRandom && categoryName !== _constants_constants__WEBPACK_IMPORTED_MODULE_1__.H1) {
-    console.log('playCard');
+  } else if (getTypeGame() === _constants_constants__WEBPACK_IMPORTED_MODULE_1__.PLAY && !playRandom && categoryName !== _constants_constants__WEBPACK_IMPORTED_MODULE_1__.H1) {
     setPlayRandom(true);
-    var arraySounds = _category__WEBPACK_IMPORTED_MODULE_3__.randomArray(Object.keys(_constants_data_cards__WEBPACK_IMPORTED_MODULE_2__.cards[categoryName]));
-    audio.src = "./src/assets/sounds/".concat(categoryName, "/").concat(arraySounds[0], ".mp3");
-    audio.currentTime = 0;
-    audio.pause();
-    audio.play();
+    arraySounds = _category__WEBPACK_IMPORTED_MODULE_3__.randomArray(Object.keys(_constants_data_cards__WEBPACK_IMPORTED_MODULE_2__.cards[categoryName]));
+    playSound("./src/assets/sounds/".concat(categoryName, "/").concat(arraySounds[0], ".mp3"));
   }
+
+  if (checkCard) {
+    if (el && el.path[4] && el.path[3].classList.contains('card')) checkAnswer(el);
+  }
+}
+function repeatSound(categoryName) {
+  playSound("./src/assets/sounds/".concat(categoryName, "/").concat(arraySounds[0], ".mp3"));
 }
 
 /***/ }),

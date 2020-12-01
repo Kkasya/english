@@ -13,35 +13,35 @@
 <body>
 
 <header class="header">
-        <div class="menu-toggle">
-            <input type="checkbox">
-            <span></span>
-        </div>
+    <div class="menu-toggle">
+        <input type="checkbox">
+        <span></span>
+    </div>
 
-        <div class="menu">
-            <ul>
-                <a href="#"> <img> <li> Home </li></a>
-                <a href="#"><img> <li> About </li></a>
-                <a href="#"><img> <li> Info </li></a>
-                <a href="#"> <img><li> Contact </li></a>
-                <a href="#"><img> <li> Home </li></a>
-                <a href="#"><img> <li> About </li></a>
-                <a href="#"><img> <li> Info </li></a>
-                <a href="#"><img> <li> Contact </li></a>
-                <a href="#"><img> <li> Info </li></a>
-                <a href="#"> <li> Contact </li></a>
-            </ul>
-        </div>
+    <div class="menu">
+        <ul>
+            <li><img><span> About </span></li>
+            <li><img>  Home </li>
+            <li><img>  Home </li>
+            <li><img>  Home </li>
+            <li><img>  Home </li>
+            <li><img>  Home </li>
+            <li><img>  Home </li>
+            <li><img>  Home </li>
+            <li><img>  Home </li>
+            <li><img>  Home </li>
+        </ul>
+    </div>
 
     <div class="menu-top">
         <h1>English for kids</h1>
 
         <div class="switcher">
-                <label class="toggle">
-                    <input type="checkbox" checked>
-                    <span class="switch-left">Train</span>
-                    <span class="switch-right">Play</span>
-                </label>
+            <label class="toggle">
+                <input type="checkbox" checked>
+                <span class="switch-left">Train</span>
+                <span class="switch-right">Play</span>
+            </label>
         </div>
 
         <div class="button start-game-button">
@@ -92,9 +92,113 @@
             <p>Actions</p>
         </div>
     </div>
-    
+
 </main>
 
 <script src="dist/script.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+.card {
+  margin: 1.5rem 2rem;
+  width: 35rem;
+  height: 30rem;
+  border-radius: 4rem;
+  box-shadow: 0.5rem 0.5rem 3rem 0.7rem rgba(0,0,0,0.25), -0.5rem -0.5rem 3rem 0.7rem rgba(0,0,0,0.22);
+  cursor: pointer;
+  transition: all 0.2s ease-in;
+  position: relative;
+
+  &:hover {
+    opacity: 0.8;
+    transform: scale(1.1);
+    box-shadow: 0.5rem 0.5rem 3rem 0.7rem rgba(2, 182, 237, 0.6), -0.5rem -0.5rem 3rem 0.7rem rgba(2, 182, 237,0.5);
+    transition: all 0.2s ease-in;
+  }
+
+  &>img {
+    width: inherit;
+    height: 25rem;
+    border-radius: 4rem;
+  }
+  .title-card {
+    display: flex;
+
+    &>p {
+      text-shadow: 0 0.2rem rgba(0, 0, 0, .8);
+      font-size: $font-size-menu-big;
+      color: $color-green-dark;
+      margin: -0.7rem auto;
+      font-family: $font-family-card;
+      font-weight: bold;
+    }
+
+    &>img {
+      position: absolute;
+      bottom: 0.5rem;
+      right: 2rem;
+      width: 7rem;
+      height: 4rem;
+      filter: grayscale(0.5);
+
+      &:hover {
+        opacity: 0.5;
+      }
+    }
+  }
+}
+.turn {
+  //  transform: rotateY(180deg);
+    //transition: all 0.6s ease-in;
+}
+
+export default function createMain(words, category = null, typeCard = CONST.categories, typeGame = CONST.TRAIN) {
+    let imgUrl;
+    const srcRotate = `${CONST.imageBase}/${CONST.imgRotate}.svg`;
+    const cards = create('div', 'cards');
+
+    if (typeCard === CONST.categories) {
+        imgUrl = `${CONST.imageCategoryBase}`;
+    } else {
+        imgUrl = `${CONST.imageBase}/${category}`;
+    }
+
+    words.forEach((key) => {
+        const title = create('div', 'title-card', create('p', '', key));
+        if (typeCard !== CONST.categories) title.appendChild(create('img', 'rotate', null, null, ['src', srcRotate]));
+
+        const card = create('div', 'card front', [
+            create('img', '', null, null, ['src', `${imgUrl}/${key}.jpg`]), title]);
+
+        cards.appendChild(card);
+    });
+    return create('main', 'content', cards);
+}
+
+export function rotateCard(word, card) {
+    Object.keys(cards).forEach((key) => {
+        if (cards[key].hasOwnProperty(word)) {
+           // card.classList.add('turn');
+            const rotate = anime({
+                targets: card,
+                translateY: 200,
+                autoplay: false,
+            });
+            rotate.restart;
+            console.log(card.children[1].children[0].innerText);
+            card.children[1].children[0].innerText = cards[key][word];
+    }
+    });
+}

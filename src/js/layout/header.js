@@ -1,7 +1,6 @@
 import create from '../utils/createElement';
 import * as CONST from '../constants/constants';
 import { cards } from '../constants/data_cards';
-import * as card from '../components/card';
 import * as audio from '../utils/playSound';
 import * as category from '../utils/category';
 import * as playGame from '../utils/playGame';
@@ -67,13 +66,12 @@ function chooseItemMenu(e) {
         let content;
         document.body.removeChild(document.body.children[3]);
         if (itemMenuSelected === 'Main') {
-            content = card.default(Object.keys(cards));
+            content = category.getMainContent(Object.keys(cards));
             e.path[5].children[1].children[0].innerText = CONST.H1;
             category.default(content);
         } else {
-            content = card.default(category.randomArray(Object.keys(cards[e.path[1].innerText])), itemMenuSelected);
+            content = category.getMainContent(category.randomArray(Object.keys(cards[e.path[1].innerText])), itemMenuSelected);
             e.path[5].children[1].children[0].innerText = e.path[1].innerText;
-           // audio.setPlayRandom(false);
         }
         document.body.appendChild(content);
 
@@ -112,17 +110,19 @@ checkboxSwitcher.addEventListener('click', () => {
 btnGame.addEventListener('click', () => {
    btnGame.classList.add('cover');
    btnGameRepeat.classList.remove('cover');
-   const categoryName = document.querySelector('h1');
-   audio.setPlayRandom(false);
-   card.setTypeGame(CONST.PLAY);
-   console.log(card.getTypeGame());
-    document.body.removeChild(document.body.children[3]);
-
-    const content = card.default(category.randomArray(Object.keys(cards[categoryName.innerText])), categoryName.innerText);
-    document.body.appendChild(content);
-    audio.default(null, categoryName.innerText);
+    audio.setCheckCard(true);
+    audio.setTypeGame(CONST.PLAY);
+    const categoryName = document.querySelector('h1');
+    if (categoryName.innerText !== CONST.H1) {
+        audio.setPlayRandom(false);
+        document.body.removeChild(document.body.children[3]);
+        const content = category.getMainContent(category.randomArray(Object.keys(cards[categoryName.innerText])), categoryName.innerText);
+        document.body.appendChild(content);
+        audio.default(null, categoryName.innerText);
+    }
 });
 
 btnGameRepeat.addEventListener('click', () => {
-   // playGame.default(btnGame, checkboxSwitcher.checked);
+    const categoryName = document.querySelector('h1');
+    audio.repeatSound(categoryName.innerText);
 });

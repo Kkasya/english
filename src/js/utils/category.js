@@ -1,7 +1,6 @@
 import * as card from '../components/card';
 import { cards } from '../constants/data_cards';
 import * as audio from './playSound';
-// import * as CONST from '../constants/constants';
 import * as header from '../layout/header';
 
 export function removeClass(classRemoved) {
@@ -44,4 +43,8 @@ export default function openCategory(content) {
             }
         }
     });
+}
+
+export function getMainContent(words, category = null) {
+    return card.default(words, category);
 }

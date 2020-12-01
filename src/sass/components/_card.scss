@@ -9,12 +9,6 @@
   position: relative;
   perspective: 100rem;
 
-  &:hover {
-    transform: scale(1.1);
-    box-shadow: 0.5rem 0.5rem 3rem 0.7rem rgba(2, 182, 237, 0.6), -0.5rem -0.5rem 3rem 0.7rem rgba(2, 182, 237, 0.5);
-    transition: all 0.2s ease-in;
-  }
-
   .faces {
     transition: 0.6s;
     transform-style: preserve-3d;
@@ -74,10 +68,22 @@
   }
 }
 
+.hover {
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: 0.5rem 0.5rem 3rem 0.7rem rgba(2, 182, 237, 0.6), -0.5rem -0.5rem 3rem 0.7rem rgba(2, 182, 237, 0.5);
+    transition: all 0.2s ease-in;
+  }
+}
 
 .turn {
   transform: rotateY(180deg);
   transition: all 0.6s ease-in;
   cursor: default;
+}
+
+.untouchable {
+  cursor: default;
+  opacity: 0.7;
 }
 

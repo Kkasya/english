@@ -8,6 +8,7 @@ html {
   font-family: $font-family-default;
   font-size: $font-size-default;
   color: $color-pink-dark;
+  overflow-anchor: none;
 
  @include media-tablet1 {
     font-size: $font-size-tablet1;
