@@ -3,10 +3,9 @@
 
 }
 .menu-top {
-  margin-top: -2rem;
   display: flex;
   align-items: center;
-  margin-left: $width-menu;
+  margin: -2rem 0 0 $width-menu ;
   @include media-mobile3 {
     margin-left: $width-menu-mobile;
   }
@@ -18,5 +17,22 @@
     width: 4rem;
     height: 4rem;
    margin: 1rem;
+  }
+}
+
+.smiles {
+  position: absolute;
+  top: 14rem;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  flex-wrap: nowrap;
+  padding: 0;
+  z-index: 10;
+
+  .smile {
+    height: 5rem;
+    width: 5rem;
+    margin-right: 0.7rem;
   }
 }

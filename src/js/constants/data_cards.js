@@ -41,7 +41,7 @@ export const cards = {
         scarf: 'шарф',
         shirt: 'рубашка',
         shoe: 'туфля',
-        skirt: 'рубашка',
+        skirt: 'юбка',
         sock: 'носок',
     },
     Emotions: {

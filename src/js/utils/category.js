@@ -2,6 +2,7 @@ import * as card from '../components/card';
 import { cards } from '../constants/data_cards';
 import * as audio from './playSound';
 import * as header from '../layout/header';
+import * as getData from './getData';
 
 export function removeClass(classRemoved) {
     const activeItemMenu = document.querySelector(`.${classRemoved}`);
@@ -24,8 +25,12 @@ export function randomArray(arr) {
     return arr;
 }
 
+function listener(el) {
+    audio.default(el);
+}
 export default function openCategory(content) {
     content.addEventListener('click', (e) => {
+        window.removeEventListener('click', listener);
         if (e.path[1].closest('.card')) {
             removeClass('active-page');
             addClass(e.path[1].innerText, 'active-page');
@@ -33,7 +38,7 @@ export default function openCategory(content) {
             const contentCategory = card.default(randomArray(Object.keys(cards[e.path[1].innerText])), e.path[1].innerText);
             document.body.appendChild(contentCategory);
             e.path[4].children[2].children[1].children[0].innerText = e.path[1].innerText;
-            window.addEventListener('click', (el) => audio.default(el, e.path[1].innerText));
+            window.addEventListener('click', listener);
 
             if (header.btnGame.classList.contains('cover')) {
                 audio.setPlayRandom(false);

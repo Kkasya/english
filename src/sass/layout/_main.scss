@@ -5,18 +5,19 @@
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+  margin-top: 0.5rem;
 }
 
 .result-game {
-  width: 80rem;
+  width: 70rem;
   height: auto;
   position: absolute;
-  top: 20%;
-  left: 20%;
+  top: 15%;
+  left: calc(50% - 35rem);
 }
 
 .show {
-  animation: opacity 2.5s ease-in-out 2 alternate-reverse;
+  animation: opacity 3s ease-in-out 2 alternate-reverse;
 }
 
 @keyframes opacity {

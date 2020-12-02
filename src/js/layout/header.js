@@ -63,25 +63,31 @@ function chooseItemMenu(e) {
         const itemMenuSelected = e.path[1].children[1].innerText;
         category.addClass(itemMenuSelected, 'active-page');
 
-        let content;
-        document.body.removeChild(document.body.children[3]);
+        let content = document.body.querySelector('.content');
+        document.body.removeChild(content);
         if (itemMenuSelected === 'Main') {
             content = category.getMainContent(Object.keys(cards));
             e.path[5].children[1].children[0].innerText = CONST.H1;
             category.default(content);
+            audio.setErrorSmile(0);
+            const smiles = document.body.querySelector('.smiles');
+            if (smiles) {
+                smiles.innerHTML = '';
+            }
         } else {
-            content = category.getMainContent(category.randomArray(Object.keys(cards[e.path[1].innerText])), itemMenuSelected);
-            e.path[5].children[1].children[0].innerText = e.path[1].innerText;
+            console.log(e.path[1].innerText, itemMenuSelected); itemMenuSelected;
+            content = category.getMainContent(category.randomArray(Object.keys(cards[itemMenuSelected])), itemMenuSelected);
+            e.path[5].children[1].children[0].innerText = itemMenuSelected;
         }
         document.body.appendChild(content);
 
-        window.addEventListener('click', (el) => audio.default(el, e.path[1].innerText));
+        // window.addEventListener('click', audio.default(el, categoryName));
 
          if (btnGame.classList.contains('cover')) {
              audio.setPlayRandom(false);
         }
-        if (!audio.getPlayRandom()) {
-            audio.default(null, e.path[1].innerText);
+        if (!audio.getPlayRandom() && (itemMenuSelected !== 'Main')) {
+            audio.default(null, itemMenuSelected);
         }
     }
 }
@@ -103,8 +109,14 @@ export default function createHeader() {
 
 checkboxSwitcher.addEventListener('click', () => {
     playGame.default(btnGame, checkboxSwitcher.checked);
+    audio.setErrorSmile(0);
     btnGame.classList.remove('cover');
     btnGameRepeat.classList.add('cover');
+    const smiles = document.body.querySelector('.smiles');
+    if (smiles) {
+        smiles.innerHTML = '';
+        return smiles;
+    }
 });
 
 btnGame.addEventListener('click', () => {
@@ -115,8 +127,9 @@ btnGame.addEventListener('click', () => {
     const categoryName = document.querySelector('h1');
     if (categoryName.innerText !== CONST.H1) {
         audio.setPlayRandom(false);
-        document.body.removeChild(document.body.children[3]);
-        const content = category.getMainContent(category.randomArray(Object.keys(cards[categoryName.innerText])), categoryName.innerText);
+        let content = document.body.querySelector('.content');
+        document.body.removeChild(content);
+        content = category.getMainContent(category.randomArray(Object.keys(cards[categoryName.innerText])), categoryName.innerText);
         document.body.appendChild(content);
         audio.default(null, categoryName.innerText);
     }

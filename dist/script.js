@@ -204,7 +204,7 @@ var cards = {
     scarf: 'шарф',
     shirt: 'рубашка',
     shoe: 'туфля',
-    skirt: 'рубашка',
+    skirt: 'юбка',
     sock: 'носок'
   },
   Emotions: {
@@ -321,29 +321,34 @@ function chooseItemMenu(e) {
     _utils_category__WEBPACK_IMPORTED_MODULE_4__.removeClass('active-page');
     var itemMenuSelected = e.path[1].children[1].innerText;
     _utils_category__WEBPACK_IMPORTED_MODULE_4__.addClass(itemMenuSelected, 'active-page');
-    var content;
-    document.body.removeChild(document.body.children[3]);
+    var content = document.body.querySelector('.content');
+    document.body.removeChild(content);
 
     if (itemMenuSelected === 'Main') {
       content = _utils_category__WEBPACK_IMPORTED_MODULE_4__.getMainContent(Object.keys(_constants_data_cards__WEBPACK_IMPORTED_MODULE_2__.cards));
       e.path[5].children[1].children[0].innerText = _constants_constants__WEBPACK_IMPORTED_MODULE_1__.H1;
       _utils_category__WEBPACK_IMPORTED_MODULE_4__.default(content);
+      _utils_playSound__WEBPACK_IMPORTED_MODULE_3__.setErrorSmile(0);
+      var smiles = document.body.querySelector('.smiles');
+
+      if (smiles) {
+        smiles.innerHTML = '';
+      }
     } else {
-      content = _utils_category__WEBPACK_IMPORTED_MODULE_4__.getMainContent(_utils_category__WEBPACK_IMPORTED_MODULE_4__.randomArray(Object.keys(_constants_data_cards__WEBPACK_IMPORTED_MODULE_2__.cards[e.path[1].innerText])), itemMenuSelected);
-      e.path[5].children[1].children[0].innerText = e.path[1].innerText;
+      console.log(e.path[1].innerText, itemMenuSelected);
+      itemMenuSelected;
+      content = _utils_category__WEBPACK_IMPORTED_MODULE_4__.getMainContent(_utils_category__WEBPACK_IMPORTED_MODULE_4__.randomArray(Object.keys(_constants_data_cards__WEBPACK_IMPORTED_MODULE_2__.cards[itemMenuSelected])), itemMenuSelected);
+      e.path[5].children[1].children[0].innerText = itemMenuSelected;
     }
 
-    document.body.appendChild(content);
-    window.addEventListener('click', function (el) {
-      return _utils_playSound__WEBPACK_IMPORTED_MODULE_3__.default(el, e.path[1].innerText);
-    });
+    document.body.appendChild(content); // window.addEventListener('click', audio.default(el, categoryName));
 
     if (btnGame.classList.contains('cover')) {
       _utils_playSound__WEBPACK_IMPORTED_MODULE_3__.setPlayRandom(false);
     }
 
-    if (!_utils_playSound__WEBPACK_IMPORTED_MODULE_3__.getPlayRandom()) {
-      _utils_playSound__WEBPACK_IMPORTED_MODULE_3__.default(null, e.path[1].innerText);
+    if (!_utils_playSound__WEBPACK_IMPORTED_MODULE_3__.getPlayRandom() && itemMenuSelected !== 'Main') {
+      _utils_playSound__WEBPACK_IMPORTED_MODULE_3__.default(null, itemMenuSelected);
     }
   }
 }
@@ -365,8 +370,15 @@ function createHeader() {
 }
 checkboxSwitcher.addEventListener('click', function () {
   _utils_playGame__WEBPACK_IMPORTED_MODULE_5__.default(btnGame, checkboxSwitcher.checked);
+  _utils_playSound__WEBPACK_IMPORTED_MODULE_3__.setErrorSmile(0);
   btnGame.classList.remove('cover');
   btnGameRepeat.classList.add('cover');
+  var smiles = document.body.querySelector('.smiles');
+
+  if (smiles) {
+    smiles.innerHTML = '';
+    return smiles;
+  }
 });
 btnGame.addEventListener('click', function () {
   btnGame.classList.add('cover');
@@ -377,8 +389,9 @@ btnGame.addEventListener('click', function () {
 
   if (categoryName.innerText !== _constants_constants__WEBPACK_IMPORTED_MODULE_1__.H1) {
     _utils_playSound__WEBPACK_IMPORTED_MODULE_3__.setPlayRandom(false);
-    document.body.removeChild(document.body.children[3]);
-    var content = _utils_category__WEBPACK_IMPORTED_MODULE_4__.getMainContent(_utils_category__WEBPACK_IMPORTED_MODULE_4__.randomArray(Object.keys(_constants_data_cards__WEBPACK_IMPORTED_MODULE_2__.cards[categoryName.innerText])), categoryName.innerText);
+    var content = document.body.querySelector('.content');
+    document.body.removeChild(content);
+    content = _utils_category__WEBPACK_IMPORTED_MODULE_4__.getMainContent(_utils_category__WEBPACK_IMPORTED_MODULE_4__.randomArray(Object.keys(_constants_data_cards__WEBPACK_IMPORTED_MODULE_2__.cards[categoryName.innerText])), categoryName.innerText);
     document.body.appendChild(content);
     _utils_playSound__WEBPACK_IMPORTED_MODULE_3__.default(null, categoryName.innerText);
   }
@@ -416,6 +429,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _constants_data_cards__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../constants/data_cards */ "./src/js/constants/data_cards.js");
 /* harmony import */ var _playSound__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./playSound */ "./src/js/utils/playSound.js");
 /* harmony import */ var _layout_header__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../layout/header */ "./src/js/layout/header.js");
+/* harmony import */ var _getData__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./getData */ "./src/js/utils/getData.js");
+
 
 
 
@@ -441,8 +456,15 @@ function randomArray(arr) {
 
   return arr;
 }
+
+function listener(el) {
+  _playSound__WEBPACK_IMPORTED_MODULE_2__.default(el);
+}
+
 function openCategory(content) {
   content.addEventListener('click', function (e) {
+    window.removeEventListener('click', listener);
+
     if (e.path[1].closest('.card')) {
       removeClass('active-page');
       addClass(e.path[1].innerText, 'active-page');
@@ -450,9 +472,7 @@ function openCategory(content) {
       var contentCategory = _components_card__WEBPACK_IMPORTED_MODULE_0__.default(randomArray(Object.keys(_constants_data_cards__WEBPACK_IMPORTED_MODULE_1__.cards[e.path[1].innerText])), e.path[1].innerText);
       document.body.appendChild(contentCategory);
       e.path[4].children[2].children[1].children[0].innerText = e.path[1].innerText;
-      window.addEventListener('click', function (el) {
-        return _playSound__WEBPACK_IMPORTED_MODULE_2__.default(el, e.path[1].innerText);
-      });
+      window.addEventListener('click', listener);
 
       if (_layout_header__WEBPACK_IMPORTED_MODULE_3__.btnGame.classList.contains('cover')) {
         _playSound__WEBPACK_IMPORTED_MODULE_2__.setPlayRandom(false);
@@ -561,18 +581,32 @@ function create(elem, classes, childs, parent) {
   \*********************************/
 /*! namespace exports */
 /*! export getCheckboxStatus [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export getSmiles [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getCheckboxStatus": () => /* binding */ getCheckboxStatus
+/* harmony export */   "getCheckboxStatus": () => /* binding */ getCheckboxStatus,
+/* harmony export */   "getSmiles": () => /* binding */ getSmiles
 /* harmony export */ });
 /* harmony import */ var _layout_header__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../layout/header */ "./src/js/layout/header.js");
+/* harmony import */ var _createElement__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./createElement */ "./src/js/utils/createElement.js");
+
 
 function getCheckboxStatus() {
   return _layout_header__WEBPACK_IMPORTED_MODULE_0__.checkboxSwitcher.checked;
+}
+function getSmiles() {
+  var smiles = document.body.querySelector('.smiles');
+
+  if (smiles) {
+    smiles.innerHTML = '';
+    return smiles;
+  }
+
+  return (0,_createElement__WEBPACK_IMPORTED_MODULE_1__.default)('div', 'smiles');
 }
 
 /***/ }),
@@ -631,6 +665,7 @@ function startGame(btnGame, checked) {
 /*! export getTypeGame [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export repeatSound [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export setCheckCard [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export setErrorSmile [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export setPlayRandom [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export setTypeGame [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
@@ -641,6 +676,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "setTypeGame": () => /* binding */ setTypeGame,
 /* harmony export */   "getTypeGame": () => /* binding */ getTypeGame,
+/* harmony export */   "setErrorSmile": () => /* binding */ setErrorSmile,
 /* harmony export */   "setPlayRandom": () => /* binding */ setPlayRandom,
 /* harmony export */   "getPlayRandom": () => /* binding */ getPlayRandom,
 /* harmony export */   "setCheckCard": () => /* binding */ setCheckCard,
@@ -652,6 +688,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _constants_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../constants/constants */ "./src/js/constants/constants.js");
 /* harmony import */ var _constants_data_cards__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../constants/data_cards */ "./src/js/constants/data_cards.js");
 /* harmony import */ var _category__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./category */ "./src/js/utils/category.js");
+/* harmony import */ var _getData__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./getData */ "./src/js/utils/getData.js");
+
 
 
 
@@ -660,7 +698,8 @@ var audio = _createElement__WEBPACK_IMPORTED_MODULE_0__.default('audio', '');
 document.body.appendChild(audio);
 var playRandom = false;
 var checkCard = false;
-var arraySounds = []; // eslint-disable-next-line
+var arraySounds = [];
+var errorSmile = 0; // eslint-disable-next-line
 
 var typeGame = _constants_constants__WEBPACK_IMPORTED_MODULE_1__.TRAIN;
 function setTypeGame(type) {
@@ -668,6 +707,9 @@ function setTypeGame(type) {
 }
 function getTypeGame() {
   return typeGame;
+}
+function setErrorSmile(error) {
+  errorSmile = error;
 }
 function setPlayRandom(play) {
   playRandom = play;
@@ -688,22 +730,25 @@ function playSound(srcAudio) {
   }, 0);
 }
 
-function showSmile() {
+function showSmile(src) {
   window.scrollTo(0, 0);
   var content = document.body.querySelector('.content');
   document.body.removeChild(content);
-  var smileResultGame = _createElement__WEBPACK_IMPORTED_MODULE_0__.default('img', 'result-game show', null, null, ['src', './src/assets/images/victory.png']);
+  var smileResultGame = _createElement__WEBPACK_IMPORTED_MODULE_0__.default('img', 'result-game show', null, null, ['src', "./src/assets/images/".concat(src, ".png")]);
   document.body.appendChild(smileResultGame);
   setTimeout(function () {
     window.location.reload();
-  }, 4000);
+  }, 5000);
 }
 
 function checkAnswer(el) {
   var categoryName = document.querySelector('h1').innerText;
+  var smiles = document.body.querySelector('.smiles');
 
   if (el.path[3].classList.contains('hover')) {
     if (el.path[3].children[0].children[0].children[1].children[0].innerText === arraySounds[0]) {
+      var rightSmile = _createElement__WEBPACK_IMPORTED_MODULE_0__.default('img', 'smile', null, null, ['src', './src/assets/icons/smile-right.png']);
+      smiles.appendChild(rightSmile);
       playSound('./src/assets/sounds/right.mp3');
       el.path[3].classList.add('untouchable');
       el.path[3].classList.remove('hover');
@@ -712,18 +757,25 @@ function checkAnswer(el) {
         playSound("./src/assets/sounds/".concat(categoryName, "/").concat(arraySounds[0], ".mp3"));
       }, 1000);
     } else {
+      var errorSmiles = _createElement__WEBPACK_IMPORTED_MODULE_0__.default('img', 'smile', null, null, ['src', './src/assets/icons/smile-error.png']);
+      smiles.appendChild(errorSmiles);
+      errorSmile += 1;
       playSound('./src/assets/sounds/error.mp3');
     }
   }
 
   if (arraySounds.length === 0) {
     setTimeout(function () {
-      playSound('./src/assets/sounds/victory.mp3');
-      showSmile();
+      var src;
+      if (!errorSmile) src = 'victory';else src = 'losing';
+      playSound("./src/assets/sounds/".concat(src, ".mp3"));
+      showSmile(src);
     }, 1000);
   }
 }
-function playCard(el, categoryName) {
+function playCard(el) {
+  var categoryName = document.body.querySelector('h1').innerText;
+
   if (el && el.path[6] && getTypeGame() === _constants_constants__WEBPACK_IMPORTED_MODULE_1__.TRAIN && !el.path[2].classList.contains('turn') && !el.target.classList.contains('rotate') && el.path[1].children[1] && !el.path[1].children[1].classList.contains('hidden')) {
     if (el.path[3].classList.contains('card')) {
       playSound("./src/assets/sounds/".concat(categoryName, "/").concat(el.path[1].children[1].children[0].innerText, ".mp3"));
@@ -734,6 +786,8 @@ function playCard(el, categoryName) {
     setPlayRandom(true);
     arraySounds = _category__WEBPACK_IMPORTED_MODULE_3__.randomArray(Object.keys(_constants_data_cards__WEBPACK_IMPORTED_MODULE_2__.cards[categoryName]));
     playSound("./src/assets/sounds/".concat(categoryName, "/").concat(arraySounds[0], ".mp3"));
+    var smiles = _getData__WEBPACK_IMPORTED_MODULE_4__.getSmiles();
+    document.body.appendChild(smiles);
   }
 
   if (checkCard) {

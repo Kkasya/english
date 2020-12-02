@@ -54,7 +54,7 @@ body {
 h1 {
   font-size: 8rem;
   text-shadow: 0 0.3rem 0.3rem #fff;
-  margin: 0 auto;
+  margin: 0 auto 3rem auto;
 }
 @media (max-width: 1450px) {
   h1 {
@@ -112,7 +112,7 @@ h1 {
   position: fixed;
   top: -100vh;
   left: 0;
-  z-index: 9;
+  z-index: 11;
 }
 @media (max-width: 735px) {
   .menu {
@@ -471,10 +471,9 @@ input:checked:focus + .switch-left + .switch-right {
 }
 
 .menu-top {
-  margin-top: -2rem;
   display: flex;
   align-items: center;
-  margin-left: 30rem;
+  margin: -2rem 0 0 30rem;
 }
 @media (max-width: 735px) {
   .menu-top {
@@ -491,6 +490,22 @@ input:checked:focus + .switch-left + .switch-right {
   margin: 1rem;
 }
 
+.smiles {
+  position: absolute;
+  top: 14rem;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  flex-wrap: nowrap;
+  padding: 0;
+  z-index: 10;
+}
+.smiles .smile {
+  height: 5rem;
+  width: 5rem;
+  margin-right: 0.7rem;
+}
+
 .content {
   margin: 0 10rem;
 }
@@ -499,18 +514,19 @@ input:checked:focus + .switch-left + .switch-right {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+  margin-top: 0.5rem;
 }
 
 .result-game {
-  width: 80rem;
+  width: 70rem;
   height: auto;
   position: absolute;
-  top: 20%;
-  left: 20%;
+  top: 15%;
+  left: calc(50% - 35rem);
 }
 
 .show {
-  animation: opacity 2.5s ease-in-out 2 alternate-reverse;
+  animation: opacity 3s ease-in-out 2 alternate-reverse;
 }
 
 @keyframes opacity {
