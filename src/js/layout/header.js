@@ -21,7 +21,6 @@ const itemMenu = create('li', '', [
 ]);
 const menuUl = create('ul', '', itemMenu);
 const categories = [];
-
 Object.keys(cards).forEach((key) => {
     categories.push(key);
     const menuLi = create('li', '', [
@@ -30,6 +29,11 @@ Object.keys(cards).forEach((key) => {
     ]);
     menuUl.appendChild(menuLi);
 });
+const menuStat = create('li', '', [
+    create('img', '', null, null, ['src', `${CONST.iconCategoryBase}/Statistics.png`]),
+    create('span', '', 'Statistics'),
+]);
+menuUl.appendChild(menuStat);
 menu.appendChild(menuUl);
 export const checkboxSwitcher = create('input', '', null, null, ['type', 'checkbox']);
 checkboxSwitcher.checked = true;
@@ -49,21 +53,49 @@ export const btnGameRepeat = create('div', 'button repeat-button cover', create(
 const menuTop = create('div', 'menu-top', [create('h1', '', CONST.H1), switcher, btnGame, btnGameRepeat]);
 const verticalMenu = create('div', '', [checkMenu, menu]);
 
+const btnRepeatWords = create('div', 'button statistic-button', create('span', '', 'Repeat difficult words'));
+const btnReset = create('div', 'button statistic-button', create('span', '', 'Reset'));
+
+const tr = [];
+
+Object.keys(cards).forEach((categoryCard) => {
+    Object.keys(cards[categoryCard]).forEach((key) => {
+        const categoryT = create('td', categoryCard, categoryCard);
+        const word = create('td', '', key);
+        const translate = create('td', '', cards[categoryCard][key]);
+        const trTable = create('tr', 'tr-table', [categoryT, word, translate]);
+        tr.push(trTable);
+    });
+});
+
+const statistics = create('div', 'statistics', [
+    create('div', 'btnStatic', [btnRepeatWords, btnReset]),
+    create('div', 'table', [
+        create('tr', 'table-header', [
+            create('td', '', 'Category'),
+            create('td', '', 'Word'),
+            create('td', '', 'Translation'),
+            create('td', '', 'Clicks'),
+            create('td', '', 'Correct'),
+            create('td', '', 'Wrong'),
+            create('td', '', '%'),
+            ]), ...tr])]);
+
 function hideMenu() {
     menu.classList.remove('active');
     check.checked = false;
 }
 
 function chooseItemMenu(e) {
-    if (e.path[1].children[1]) {
+    if (e.path[1].children[1] && (!e.path[1].children[1].classList.contains('menu'))) {
         menu.removeEventListener('click', listener);
         hideMenu();
-
         category.removeClass('active-page');
         const itemMenuSelected = e.path[1].children[1].innerText;
         category.addClass(itemMenuSelected, 'active-page');
 
         let content = document.body.querySelector('.content');
+        if (!content) content = document.body.querySelector('.statistics');
         document.body.removeChild(content);
         if (itemMenuSelected === 'Main') {
             content = category.getMainContent(Object.keys(cards));
@@ -74,17 +106,17 @@ function chooseItemMenu(e) {
             if (smiles) {
                 smiles.innerHTML = '';
             }
+        } else if (itemMenuSelected === 'Statistics') {
+            content = statistics;
+            e.path[5].children[1].children[0].innerText = itemMenuSelected;
         } else {
-            console.log(e.path[1].innerText, itemMenuSelected); itemMenuSelected;
             content = category.getMainContent(category.randomArray(Object.keys(cards[itemMenuSelected])), itemMenuSelected);
             e.path[5].children[1].children[0].innerText = itemMenuSelected;
         }
         document.body.appendChild(content);
 
-        // window.addEventListener('click', audio.default(el, categoryName));
-
-         if (btnGame.classList.contains('cover')) {
-             audio.setPlayRandom(false);
+        if (btnGame.classList.contains('cover')) {
+            audio.setPlayRandom(false);
         }
         if (!audio.getPlayRandom() && (itemMenuSelected !== 'Main')) {
             audio.default(null, itemMenuSelected);
@@ -120,12 +152,12 @@ checkboxSwitcher.addEventListener('click', () => {
 });
 
 btnGame.addEventListener('click', () => {
-   btnGame.classList.add('cover');
-   btnGameRepeat.classList.remove('cover');
+    btnGame.classList.add('cover');
+    btnGameRepeat.classList.remove('cover');
     audio.setCheckCard(true);
     audio.setTypeGame(CONST.PLAY);
     const categoryName = document.querySelector('h1');
-    if (categoryName.innerText !== CONST.H1) {
+    if (categoryName.innerText !== CONST.H1 && categoryName.innerText !== 'Statistics') {
         audio.setPlayRandom(false);
         let content = document.body.querySelector('.content');
         document.body.removeChild(content);

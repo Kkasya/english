@@ -2,7 +2,7 @@ import * as card from '../components/card';
 import { cards } from '../constants/data_cards';
 import * as audio from './playSound';
 import * as header from '../layout/header';
-import * as getData from './getData';
+// import * as getData from './getData';
 
 export function removeClass(classRemoved) {
     const activeItemMenu = document.querySelector(`.${classRemoved}`);

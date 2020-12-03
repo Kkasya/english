@@ -1,0 +1,83 @@
+.statistics {
+  font-size: $font-size-menu;
+  font-family: $font-family-card;
+}
+
+.table {
+  margin: 2rem 15rem;
+  background: rgba(90, 232, 140, 0.5);
+  min-width: 55rem;
+  cursor: default;
+  border-collapse: collapse;
+  box-shadow: inset rgba(0, 0, 0, .6) 0 -2px 5px, inset rgba(252, 255, 255, .7) 0 2px 5px, rgba(0, 0, 0, .8) 0 2px 5px -1px;
+
+}
+.table-header {
+  font-size: $font-size-menu-big;
+  color: white;
+  text-shadow: 0.1rem 0.1rem 0.2rem #6d5bbe;
+  cursor: pointer;
+  td {
+    text-align: center;
+    width: 30rem;
+    &:hover {
+      background: aqua;
+    }
+  }
+  background: rgba(48, 201, 178, 0.8);
+}
+
+.tr-table {
+  &:hover {
+    background: #3cfaa8;
+    td {
+      width: 30rem;
+      margin-left: 2rem;
+      &:hover {
+        background: #6d5bbe;
+      }
+    }
+  }
+}
+
+.btnStatic {
+  display: flex;
+  margin: 2rem 15rem;
+  justify-content: flex-end;
+  & span{
+   // margin-top: 4rem;
+    padding-top: 5rem;
+  }
+}
+
+.Actions {
+  color: indigo;
+}
+
+.Animals {
+  color: darkorange;
+}
+
+.Body {
+  color: #045916;
+}
+
+.Clothes {
+  color: darksalmon;
+}
+
+.Emotions {
+  color:  #0f8fba;
+}
+
+.Family {
+  color: chartreuse;
+}
+
+.Food {
+  color: darkred;
+}
+
+.Nature {
+  color: darkmagenta;
+}

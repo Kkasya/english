@@ -300,6 +300,8 @@ Object.keys(_constants_data_cards__WEBPACK_IMPORTED_MODULE_2__.cards).forEach(fu
   var menuLi = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('li', '', [(0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('img', '', null, null, ['src', "".concat(_constants_constants__WEBPACK_IMPORTED_MODULE_1__.iconCategoryBase, "/").concat(key, ".png")]), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('span', '', key)]);
   menuUl.appendChild(menuLi);
 });
+var menuStat = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('li', '', [(0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('img', '', null, null, ['src', "".concat(_constants_constants__WEBPACK_IMPORTED_MODULE_1__.iconCategoryBase, "/Statistics.png")]), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('span', '', 'Statistics')]);
+menuUl.appendChild(menuStat);
 menu.appendChild(menuUl);
 var checkboxSwitcher = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('input', '', null, null, ['type', 'checkbox']);
 checkboxSwitcher.checked = true;
@@ -308,6 +310,19 @@ var btnGame = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div
 var btnGameRepeat = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', 'button repeat-button cover', (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('img', '', null, null, ['src', srcBtnRepeat]));
 var menuTop = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', 'menu-top', [(0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('h1', '', _constants_constants__WEBPACK_IMPORTED_MODULE_1__.H1), switcher, btnGame, btnGameRepeat]);
 var verticalMenu = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', '', [checkMenu, menu]);
+var btnRepeatWords = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', 'button statistic-button', (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('span', '', 'Repeat difficult words'));
+var btnReset = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', 'button statistic-button', (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('span', '', 'Reset'));
+var tr = [];
+Object.keys(_constants_data_cards__WEBPACK_IMPORTED_MODULE_2__.cards).forEach(function (categoryCard) {
+  Object.keys(_constants_data_cards__WEBPACK_IMPORTED_MODULE_2__.cards[categoryCard]).forEach(function (key) {
+    var categoryT = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('td', categoryCard, categoryCard);
+    var word = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('td', '', key);
+    var translate = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('td', '', _constants_data_cards__WEBPACK_IMPORTED_MODULE_2__.cards[categoryCard][key]);
+    var trTable = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('tr', 'tr-table', [categoryT, word, translate]);
+    tr.push(trTable);
+  });
+});
+var statistics = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', 'statistics', [(0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', 'btnStatic', [btnRepeatWords, btnReset]), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', 'table', [(0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('tr', 'table-header', [(0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('td', '', 'Category'), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('td', '', 'Word'), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('td', '', 'Translation'), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('td', '', 'Clicks'), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('td', '', 'Correct'), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('td', '', 'Wrong'), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('td', '', '%')])].concat(tr))]);
 
 function hideMenu() {
   menu.classList.remove('active');
@@ -315,13 +330,14 @@ function hideMenu() {
 }
 
 function chooseItemMenu(e) {
-  if (e.path[1].children[1]) {
+  if (e.path[1].children[1] && !e.path[1].children[1].classList.contains('menu')) {
     menu.removeEventListener('click', listener);
     hideMenu();
     _utils_category__WEBPACK_IMPORTED_MODULE_4__.removeClass('active-page');
     var itemMenuSelected = e.path[1].children[1].innerText;
     _utils_category__WEBPACK_IMPORTED_MODULE_4__.addClass(itemMenuSelected, 'active-page');
     var content = document.body.querySelector('.content');
+    if (!content) content = document.body.querySelector('.statistics');
     document.body.removeChild(content);
 
     if (itemMenuSelected === 'Main') {
@@ -334,14 +350,15 @@ function chooseItemMenu(e) {
       if (smiles) {
         smiles.innerHTML = '';
       }
+    } else if (itemMenuSelected === 'Statistics') {
+      content = statistics;
+      e.path[5].children[1].children[0].innerText = itemMenuSelected;
     } else {
-      console.log(e.path[1].innerText, itemMenuSelected);
-      itemMenuSelected;
       content = _utils_category__WEBPACK_IMPORTED_MODULE_4__.getMainContent(_utils_category__WEBPACK_IMPORTED_MODULE_4__.randomArray(Object.keys(_constants_data_cards__WEBPACK_IMPORTED_MODULE_2__.cards[itemMenuSelected])), itemMenuSelected);
       e.path[5].children[1].children[0].innerText = itemMenuSelected;
     }
 
-    document.body.appendChild(content); // window.addEventListener('click', audio.default(el, categoryName));
+    document.body.appendChild(content);
 
     if (btnGame.classList.contains('cover')) {
       _utils_playSound__WEBPACK_IMPORTED_MODULE_3__.setPlayRandom(false);
@@ -387,7 +404,7 @@ btnGame.addEventListener('click', function () {
   _utils_playSound__WEBPACK_IMPORTED_MODULE_3__.setTypeGame(_constants_constants__WEBPACK_IMPORTED_MODULE_1__.PLAY);
   var categoryName = document.querySelector('h1');
 
-  if (categoryName.innerText !== _constants_constants__WEBPACK_IMPORTED_MODULE_1__.H1) {
+  if (categoryName.innerText !== _constants_constants__WEBPACK_IMPORTED_MODULE_1__.H1 && categoryName.innerText !== 'Statistics') {
     _utils_playSound__WEBPACK_IMPORTED_MODULE_3__.setPlayRandom(false);
     var content = document.body.querySelector('.content');
     document.body.removeChild(content);
@@ -429,11 +446,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _constants_data_cards__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../constants/data_cards */ "./src/js/constants/data_cards.js");
 /* harmony import */ var _playSound__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./playSound */ "./src/js/utils/playSound.js");
 /* harmony import */ var _layout_header__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../layout/header */ "./src/js/layout/header.js");
-/* harmony import */ var _getData__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./getData */ "./src/js/utils/getData.js");
 
 
 
-
+ // import * as getData from './getData';
 
 function removeClass(classRemoved) {
   var activeItemMenu = document.querySelector(".".concat(classRemoved));
@@ -635,7 +651,6 @@ __webpack_require__.r(__webpack_exports__);
 
 function startGame(btnGame, checked) {
   var categoryName = document.querySelector('h1');
-  var content = document.querySelector('.content');
 
   if (checked === false) {
     btnGame.classList.remove('hidden');
@@ -645,7 +660,8 @@ function startGame(btnGame, checked) {
     _playSound__WEBPACK_IMPORTED_MODULE_2__.setCheckCard(false);
   }
 
-  if (categoryName.innerText !== _constants_constants__WEBPACK_IMPORTED_MODULE_1__.H1) {
+  if (categoryName.innerText !== _constants_constants__WEBPACK_IMPORTED_MODULE_1__.H1 && categoryName.innerText !== 'Statistics') {
+    var content = document.querySelector('.content');
     document.body.removeChild(content);
     var contentCards = _category__WEBPACK_IMPORTED_MODULE_0__.getMainContent(_category__WEBPACK_IMPORTED_MODULE_0__.randomArray(Object.keys(_constants_data_cards__WEBPACK_IMPORTED_MODULE_3__.cards[categoryName.innerText])), categoryName.innerText);
     document.body.appendChild(contentCards);

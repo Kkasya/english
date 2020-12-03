@@ -5,7 +5,6 @@ import { cards } from '../constants/data_cards';
 
 export default function startGame(btnGame, checked) {
     const categoryName = document.querySelector('h1');
-    const content = document.querySelector('.content');
     if (checked === false) {
         btnGame.classList.remove('hidden');
     } else {
@@ -13,7 +12,8 @@ export default function startGame(btnGame, checked) {
          audio.setTypeGame(constants.TRAIN);
          audio.setCheckCard(false);
     }
-    if (categoryName.innerText !== constants.H1) {
+    if (categoryName.innerText !== constants.H1 && categoryName.innerText !== 'Statistics') {
+        const content = document.querySelector('.content');
         document.body.removeChild(content);
         const contentCards = category.getMainContent(category.randomArray(Object.keys(cards[categoryName.innerText])), categoryName.innerText);
         document.body.appendChild(contentCards);

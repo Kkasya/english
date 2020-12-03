@@ -167,7 +167,7 @@ h1 {
   left: 8rem;
   top: 5rem;
   transition: all 300ms ease-in-out;
-  z-index: 10;
+  z-index: 12;
 }
 .menu-toggle input {
   position: absolute;
@@ -370,7 +370,7 @@ input:checked:focus + .switch-left + .switch-right {
 .start-game-button {
   padding: 0.2rem 1rem;
   color: #888;
-  text-shadow: 0 1px rgba(255, 255, 255, 0.2), 0 -1px rgba(0, 0, 0, 0.8);
+  text-shadow: 0 0.1rem rgba(255, 255, 255, 0.2), 0 -0.1rem rgba(0, 0, 0, 0.8);
   border-radius: 2rem;
   transition: 0.2s;
 }
@@ -386,6 +386,14 @@ input:checked:focus + .switch-left + .switch-right {
   margin: 1rem;
   width: 5rem;
   height: 5rem;
+}
+
+.statistic-button {
+  padding: 1.5rem 1rem;
+  color: #db0b3f;
+  text-shadow: 0 0.1rem rgba(255, 255, 255, 0.2), 0 -0.1rem rgba(0, 0, 0, 0.8);
+  border-radius: 2rem;
+  transition: 0.2s;
 }
 
 .card {
@@ -545,6 +553,86 @@ input:checked:focus + .switch-left + .switch-right {
   0% {
     opacity: 1;
   }
+}
+.statistics {
+  font-size: 3.3em;
+  font-family: sans-serif;
+}
+
+.table {
+  margin: 2rem 15rem;
+  background: rgba(90, 232, 140, 0.5);
+  min-width: 55rem;
+  cursor: default;
+  border-collapse: collapse;
+  box-shadow: inset rgba(0, 0, 0, 0.6) 0 -2px 5px, inset rgba(252, 255, 255, 0.7) 0 2px 5px, rgba(0, 0, 0, 0.8) 0 2px 5px -1px;
+}
+
+.table-header {
+  font-size: 3.6rem;
+  color: white;
+  text-shadow: 0.1rem 0.1rem 0.2rem #6d5bbe;
+  cursor: pointer;
+  background: rgba(48, 201, 178, 0.8);
+}
+.table-header td {
+  text-align: center;
+  width: 30rem;
+}
+.table-header td:hover {
+  background: aqua;
+}
+
+.tr-table:hover {
+  background: #3cfaa8;
+}
+.tr-table:hover td {
+  width: 30rem;
+  margin-left: 2rem;
+}
+.tr-table:hover td:hover {
+  background: #6d5bbe;
+}
+
+.btnStatic {
+  display: flex;
+  margin: 2rem 15rem;
+  justify-content: flex-end;
+}
+.btnStatic span {
+  padding-top: 5rem;
+}
+
+.Actions {
+  color: indigo;
+}
+
+.Animals {
+  color: darkorange;
+}
+
+.Body {
+  color: #045916;
+}
+
+.Clothes {
+  color: darksalmon;
+}
+
+.Emotions {
+  color: #0f8fba;
+}
+
+.Family {
+  color: chartreuse;
+}
+
+.Food {
+  color: darkred;
+}
+
+.Nature {
+  color: darkmagenta;
 }
 
 /*# sourceMappingURL=style.css.map*/

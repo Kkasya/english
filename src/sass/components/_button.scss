@@ -26,7 +26,7 @@
 .start-game-button {
   padding: 0.2rem 1rem;
   color: $color-grey;
-  text-shadow: 0 1px rgba(255, 255, 255, .2), 0 -1px rgba(0, 0, 0, .8);
+  text-shadow: 0 0.1rem rgba(255, 255, 255, .2), 0 -0.1rem rgba(0, 0, 0, .8);
   border-radius: 2rem;
   transition: .2s;
 }
@@ -43,4 +43,12 @@
     width: 5rem;
     height: 5rem;
   }
+}
+
+.statistic-button {
+  padding: 1.5rem 1rem;
+  color: $color-pink;
+  text-shadow: 0 0.1rem rgba(255, 255, 255, .2), 0 -0.1rem rgba(0, 0, 0, .8);
+  border-radius: 2rem;
+  transition: .2s;
 }
