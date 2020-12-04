@@ -564,7 +564,7 @@ input:checked:focus + .switch-left + .switch-right {
   background: rgba(90, 232, 140, 0.5);
   min-width: 55rem;
   cursor: default;
-  border-collapse: collapse;
+  border-collapse: separate;
   box-shadow: inset rgba(0, 0, 0, 0.6) 0 -2px 5px, inset rgba(252, 255, 255, 0.7) 0 2px 5px, rgba(0, 0, 0, 0.8) 0 2px 5px -1px;
 }
 
@@ -583,14 +583,17 @@ input:checked:focus + .switch-left + .switch-right {
   background: aqua;
 }
 
+.tr-table {
+  border-spacing: 5px;
+}
 .tr-table:hover {
   background: #3cfaa8;
 }
-.tr-table:hover td {
-  width: 30rem;
-  margin-left: 2rem;
+.tr-table td:nth-child(n) {
+  padding-left: 3rem;
+  padding-bottom: 0.8rem;
 }
-.tr-table:hover td:hover {
+.tr-table td:hover {
   background: #6d5bbe;
 }
 

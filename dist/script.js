@@ -281,6 +281,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils_playSound__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/playSound */ "./src/js/utils/playSound.js");
 /* harmony import */ var _utils_category__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils/category */ "./src/js/utils/category.js");
 /* harmony import */ var _utils_playGame__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../utils/playGame */ "./src/js/utils/playGame.js");
+/* harmony import */ var _utils_localStorage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils/localStorage */ "./src/js/utils/localStorage.js");
+
 
 
 
@@ -318,7 +320,14 @@ Object.keys(_constants_data_cards__WEBPACK_IMPORTED_MODULE_2__.cards).forEach(fu
     var categoryT = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('td', categoryCard, categoryCard);
     var word = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('td', '', key);
     var translate = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('td', '', _constants_data_cards__WEBPACK_IMPORTED_MODULE_2__.cards[categoryCard][key]);
-    var trTable = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('tr', 'tr-table', [categoryT, word, translate]);
+    var wordArray = _utils_localStorage__WEBPACK_IMPORTED_MODULE_6__.default(key) || {};
+    var wrong = wordArray.wrong || 0;
+    var correct = wordArray.correct || 0;
+    var clickWord = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('td', '', (wordArray.click || 0).toString());
+    var wrongWord = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('td', '', wrong.toString());
+    var correctWord = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('td', '', correct.toString());
+    var procentRight = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('td', '', (correct ? correct * 100 / (correct + wrong) : 0).toString());
+    var trTable = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('tr', 'tr-table', [categoryT, word, translate, clickWord, correctWord, wrongWord, procentRight]);
     tr.push(trTable);
   });
 });
@@ -627,6 +636,33 @@ function getSmiles() {
 
 /***/ }),
 
+/***/ "./src/js/utils/localStorage.js":
+/*!**************************************!*\
+  !*** ./src/js/utils/localStorage.js ***!
+  \**************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export setItem [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => /* binding */ getItem,
+/* harmony export */   "setItem": () => /* binding */ setItem
+/* harmony export */ });
+function getItem(word) {
+  return JSON.parse(localStorage.getItem(word));
+}
+function setItem(word, key) {
+  var res = getItem(word) || {};
+  if (res[key]) res[key] += 1;else res[key] = 1;
+  localStorage.setItem(word, JSON.stringify(res));
+}
+
+/***/ }),
+
 /***/ "./src/js/utils/playGame.js":
 /*!**********************************!*\
   !*** ./src/js/utils/playGame.js ***!
@@ -705,6 +741,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _constants_data_cards__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../constants/data_cards */ "./src/js/constants/data_cards.js");
 /* harmony import */ var _category__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./category */ "./src/js/utils/category.js");
 /* harmony import */ var _getData__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./getData */ "./src/js/utils/getData.js");
+/* harmony import */ var _localStorage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./localStorage */ "./src/js/utils/localStorage.js");
+
 
 
 
@@ -766,6 +804,7 @@ function checkAnswer(el) {
       var rightSmile = _createElement__WEBPACK_IMPORTED_MODULE_0__.default('img', 'smile', null, null, ['src', './src/assets/icons/smile-right.png']);
       smiles.appendChild(rightSmile);
       playSound('./src/assets/sounds/right.mp3');
+      _localStorage__WEBPACK_IMPORTED_MODULE_5__.setItem(el.path[3].children[0].children[0].children[1].children[0].innerText, 'correct');
       el.path[3].classList.add('untouchable');
       el.path[3].classList.remove('hover');
       arraySounds.shift();
@@ -776,7 +815,7 @@ function checkAnswer(el) {
       var errorSmiles = _createElement__WEBPACK_IMPORTED_MODULE_0__.default('img', 'smile', null, null, ['src', './src/assets/icons/smile-error.png']);
       smiles.appendChild(errorSmiles);
       errorSmile += 1;
-      playSound('./src/assets/sounds/error.mp3');
+      playSound('./src/assets/sounds/error.mp3'); // local.setItem(arraySounds[0], 'wrong');
     }
   }
 
@@ -795,8 +834,10 @@ function playCard(el) {
   if (el && el.path[6] && getTypeGame() === _constants_constants__WEBPACK_IMPORTED_MODULE_1__.TRAIN && !el.path[2].classList.contains('turn') && !el.target.classList.contains('rotate') && el.path[1].children[1] && !el.path[1].children[1].classList.contains('hidden')) {
     if (el.path[3].classList.contains('card')) {
       playSound("./src/assets/sounds/".concat(categoryName, "/").concat(el.path[1].children[1].children[0].innerText, ".mp3"));
+      _localStorage__WEBPACK_IMPORTED_MODULE_5__.setItem(el.path[1].children[1].children[0].innerText, 'click');
     } else if (el.path[4].classList.contains('card')) {
       playSound("./src/assets/sounds/".concat(categoryName, "/").concat(el.path[0].innerText, ".mp3"));
+      _localStorage__WEBPACK_IMPORTED_MODULE_5__.setItem(el.path[0].innerText, 'click');
     }
   } else if (getTypeGame() === _constants_constants__WEBPACK_IMPORTED_MODULE_1__.PLAY && !playRandom && categoryName !== _constants_constants__WEBPACK_IMPORTED_MODULE_1__.H1) {
     setPlayRandom(true);

@@ -4,6 +4,7 @@ import { cards } from '../constants/data_cards';
 import * as audio from '../utils/playSound';
 import * as category from '../utils/category';
 import * as playGame from '../utils/playGame';
+import * as local from '../utils/localStorage';
 
 const srcBtnGame = `${CONST.iconBase}/${CONST.imgGame}.png`;
 const srcBtnRepeat = `${CONST.iconBase}/${CONST.imgRepeat}.svg`;
@@ -57,13 +58,19 @@ const btnRepeatWords = create('div', 'button statistic-button', create('span', '
 const btnReset = create('div', 'button statistic-button', create('span', '', 'Reset'));
 
 const tr = [];
-
 Object.keys(cards).forEach((categoryCard) => {
     Object.keys(cards[categoryCard]).forEach((key) => {
         const categoryT = create('td', categoryCard, categoryCard);
         const word = create('td', '', key);
         const translate = create('td', '', cards[categoryCard][key]);
-        const trTable = create('tr', 'tr-table', [categoryT, word, translate]);
+        const wordArray = local.default(key) || {};
+        const wrong = wordArray.wrong || 0;
+        const correct = wordArray.correct || 0;
+        const clickWord = create('td', '', (wordArray.click || 0).toString());
+        const wrongWord = create('td', '', (wrong).toString());
+        const correctWord = create('td', '', (correct).toString());
+        const procentRight = create('td', '', ((correct) ? ((correct * 100) / (correct + wrong)) : 0).toString());
+        const trTable = create('tr', 'tr-table', [categoryT, word, translate, clickWord, correctWord, wrongWord, procentRight]);
         tr.push(trTable);
     });
 });

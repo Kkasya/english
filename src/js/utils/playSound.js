@@ -3,6 +3,7 @@ import * as CONST from '../constants/constants';
 import { cards } from '../constants/data_cards';
 import * as category from './category';
 import * as getData from './getData';
+import * as local from './localStorage';
 
 const audio = create.default('audio', '');
 document.body.appendChild(audio);
@@ -65,6 +66,7 @@ export function checkAnswer(el) {
             const rightSmile = create.default('img', 'smile', null, null, ['src', './src/assets/icons/smile-right.png']);
             smiles.appendChild(rightSmile);
             playSound('./src/assets/sounds/right.mp3');
+            local.setItem(el.path[3].children[0].children[0].children[1].children[0].innerText, 'correct');
             el.path[3].classList.add('untouchable');
             el.path[3].classList.remove('hover');
             arraySounds.shift();
@@ -76,6 +78,7 @@ export function checkAnswer(el) {
             smiles.appendChild(errorSmiles);
             errorSmile += 1;
             playSound('./src/assets/sounds/error.mp3');
+           // local.setItem(arraySounds[0], 'wrong');
         }
     }
     if (arraySounds.length === 0) {
@@ -96,8 +99,10 @@ export default function playCard(el) {
             && !el.path[1].children[1].classList.contains('hidden')) {
             if (el.path[3].classList.contains('card')) {
                 playSound(`./src/assets/sounds/${categoryName}/${el.path[1].children[1].children[0].innerText}.mp3`);
+                local.setItem(el.path[1].children[1].children[0].innerText, 'click');
             } else if (el.path[4].classList.contains('card')) {
                 playSound(`./src/assets/sounds/${categoryName}/${el.path[0].innerText}.mp3`);
+                local.setItem(el.path[0].innerText, 'click');
             }
         } else if (getTypeGame() === CONST.PLAY && !playRandom && (categoryName !== CONST.H1)) {
             setPlayRandom(true);
