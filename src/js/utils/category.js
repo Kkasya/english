@@ -2,6 +2,7 @@ import * as card from '../components/card';
 import { cards } from '../constants/data_cards';
 import * as audio from './playSound';
 import * as header from '../layout/header';
+import { removeContent } from './getData';
 // import * as getData from './getData';
 
 export function removeClass(classRemoved) {
@@ -25,20 +26,20 @@ export function randomArray(arr) {
     return arr;
 }
 
-function listener(el) {
+export function listenerCategory(el) {
     audio.default(el);
 }
 export default function openCategory(content) {
     content.addEventListener('click', (e) => {
-        window.removeEventListener('click', listener);
+        window.removeEventListener('click', listenerCategory);
         if (e.path[1].closest('.card')) {
             removeClass('active-page');
             addClass(e.path[1].innerText, 'active-page');
-            document.body.removeChild(content);
+            removeContent();
             const contentCategory = card.default(randomArray(Object.keys(cards[e.path[1].innerText])), e.path[1].innerText);
             document.body.appendChild(contentCategory);
             e.path[4].children[2].children[1].children[0].innerText = e.path[1].innerText;
-            window.addEventListener('click', listener);
+            window.addEventListener('click', listenerCategory);
 
             if (header.btnGame.classList.contains('cover')) {
                 audio.setPlayRandom(false);

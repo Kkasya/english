@@ -4,6 +4,7 @@ import { cards } from '../constants/data_cards';
 import * as category from './category';
 import * as getData from './getData';
 import * as local from './localStorage';
+import { removeContent } from './getData';
 
 const audio = create.default('audio', '');
 document.body.appendChild(audio);
@@ -25,6 +26,11 @@ export function getTypeGame() {
 
 export function setErrorSmile(error) {
     errorSmile = error;
+    const smiles = document.body.querySelector('.smiles');
+    if (smiles) {
+        smiles.innerHTML = '';
+        return smiles;
+    }
 }
 
 export function setPlayRandom(play) {
@@ -48,8 +54,7 @@ function playSound(srcAudio) {
 
 function showSmile(src) {
     window.scrollTo(0, 0);
-    const content = document.body.querySelector('.content');
-document.body.removeChild(content);
+    removeContent();
     const smileResultGame = create.default('img', 'result-game show', null, null,
         ['src', `./src/assets/images/${src}.png`]);
     document.body.appendChild(smileResultGame);
@@ -78,7 +83,7 @@ export function checkAnswer(el) {
             smiles.appendChild(errorSmiles);
             errorSmile += 1;
             playSound('./src/assets/sounds/error.mp3');
-           // local.setItem(arraySounds[0], 'wrong');
+            local.setItem(el.path[3].children[0].children[0].children[1].children[0].innerText, 'wrong');
         }
     }
     if (arraySounds.length === 0) {

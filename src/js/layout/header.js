@@ -5,7 +5,8 @@ import * as audio from '../utils/playSound';
 import * as category from '../utils/category';
 import * as playGame from '../utils/playGame';
 import * as local from '../utils/localStorage';
-import { sorting } from '../utils/getData';
+import { removeContent, sorting } from '../utils/getData';
+import { listenerCategory } from '../utils/category';
 
 const srcBtnGame = `${CONST.iconBase}/${CONST.imgGame}.png`;
 const srcBtnRepeat = `${CONST.iconBase}/${CONST.imgRepeat}.svg`;
@@ -58,75 +59,95 @@ const verticalMenu = create('div', '', [checkMenu, menu]);
 const btnRepeatWords = create('div', 'button statistic-button', create('span', '', 'Repeat difficult words'));
 const btnReset = create('div', 'button statistic-button', create('span', '', 'Reset'));
 
-const tbody = create('tbody', '');
-Object.keys(cards).forEach((categoryCard) => {
-    Object.keys(cards[categoryCard]).forEach((key) => {
-        const categoryT = create('td', categoryCard, categoryCard);
-        const word = create('td', '', key);
-        const translate = create('td', '', cards[categoryCard][key]);
-        const wordArray = local.default(key) || {};
-        const wrong = wordArray.wrong || 0;
-        const correct = wordArray.correct || 0;
-        const clickWord = create('td', '', (wordArray.click || 0).toString());
-        const wrongWord = create('td', '', (wrong).toString());
-        const correctWord = create('td', '', (correct).toString());
-        const procentRight = create('td', '', ((correct) ? ((correct * 100) / (correct + wrong)) : 0).toString());
-        const trTable = create('tr', 'tr-table', [categoryT, word, translate, clickWord, correctWord, wrongWord, procentRight]);
-        tbody.appendChild(trTable);
-    });
-});
-const theader = create('tr', 'table-header', [
-    create('td', '', 'Category'),
-    create('td', '', 'Word'),
-    create('td', '', 'Translation'),
-    create('td', '', 'Clicks'),
-    create('td', '', 'Correct'),
-    create('td', '', 'Wrong'),
-    create('td', '', '%'),
-]);
-const statistics = create('div', 'statistics', [
-    create('div', 'btnStatic', [btnRepeatWords, btnReset]),
-    create('div', 'table', [theader, tbody])]);
+function createStatistics() {
+    const tbody = create('tbody', '');
 
-theader.addEventListener('click', (e) => {
-    theader.childNodes.forEach((child) => {
-        if (child.classList.contains('descend')) child.classList.remove('descend');
-        if (child.classList.contains('ascend')) child.classList.remove('ascend');
+    Object.keys(cards).forEach((categoryCard) => {
+        Object.keys(cards[categoryCard]).forEach((key) => {
+            const categoryT = create('td', categoryCard, categoryCard);
+            const word = create('td', '', key);
+            const translate = create('td', '', cards[categoryCard][key]);
+            const wordArray = local.default(key) || {};
+            const wrong = wordArray.wrong || 0;
+            const correct = wordArray.correct || 0;
+            const clickWord = create('td', '', (wordArray.click || 0).toString());
+            const wrongWord = create('td', '', (wrong).toString());
+            const correctWord = create('td', '', (correct).toString());
+            const procentRight = create('td', '', ((correct) ? ((correct * 100) / (correct + wrong)) : 0).toString());
+            const trTable = create('tr', 'tr-table', [categoryT, word, translate, clickWord, correctWord, wrongWord, procentRight]);
+            tbody.appendChild(trTable);
+        });
     });
-    sorting(tbody, e);
+
+    const theader = create('tr', 'table-header', [
+        create('td', '', 'Category'),
+        create('td', '', 'Word'),
+        create('td', '', 'Translation'),
+        create('td', '', 'Clicks'),
+        create('td', '', 'Correct'),
+        create('td', '', 'Wrong'),
+        create('td', '', '%'),
+    ]);
+
+    theader.addEventListener('click', (e) => {
+        theader.childNodes.forEach((child) => {
+            if (child.classList.contains('descend')) child.classList.remove('descend');
+            if (child.classList.contains('ascend')) child.classList.remove('ascend');
+        });
+        sorting(tbody, e);
+    });
+    audio.setErrorSmile(0);
+    checkboxSwitcher.checked = true;
+    switcher.classList.add('hidden');
+    btnGame.classList.remove('cover');
+    btnGameRepeat.classList.add('cover');
+    btnGame.classList.add('hidden');
+    audio.setTypeGame(CONST.TRAIN);
+    audio.setCheckCard(false);
+    return create('div', 'statistics', [
+        create('div', 'btnStatic', [btnRepeatWords, btnReset]),
+        create('div', 'table', [theader, tbody])]);
+}
+
+btnReset.addEventListener('click', () => {
+    localStorage.clear();
+    removeContent();
+    const statistics = createStatistics();
+    document.body.appendChild(statistics);
+    window.removeEventListener('click', listenerAudio);
 });
 
 function hideMenu() {
     menu.classList.remove('active');
     check.checked = false;
 }
+function listenerAudio(el) {
+    audio.default(el);
+}
 
 function chooseItemMenu(e) {
+    if (switcher.classList.contains('hidden')) switcher.classList.remove('hidden');
     if (e.path[1].children[1] && (!e.path[1].children[1].classList.contains('menu'))) {
         menu.removeEventListener('click', listener);
         hideMenu();
         category.removeClass('active-page');
         const itemMenuSelected = e.path[1].children[1].innerText;
         category.addClass(itemMenuSelected, 'active-page');
-
-        let content = document.body.querySelector('.content');
-        if (!content) content = document.body.querySelector('.statistics');
-        document.body.removeChild(content);
+        window.removeEventListener('click', listenerAudio);
+        removeContent();
+        let content;
         if (itemMenuSelected === 'Main') {
             content = category.getMainContent(Object.keys(cards));
             e.path[5].children[1].children[0].innerText = CONST.H1;
             category.default(content);
             audio.setErrorSmile(0);
-            const smiles = document.body.querySelector('.smiles');
-            if (smiles) {
-                smiles.innerHTML = '';
-            }
         } else if (itemMenuSelected === 'Statistics') {
-            content = statistics;
+            content = createStatistics();
             e.path[5].children[1].children[0].innerText = itemMenuSelected;
         } else {
             content = category.getMainContent(category.randomArray(Object.keys(cards[itemMenuSelected])), itemMenuSelected);
             e.path[5].children[1].children[0].innerText = itemMenuSelected;
+            window.addEventListener('click', listenerAudio);
         }
         document.body.appendChild(content);
 
@@ -134,7 +155,7 @@ function chooseItemMenu(e) {
             audio.setPlayRandom(false);
         }
         if (!audio.getPlayRandom() && (itemMenuSelected !== 'Main')) {
-            audio.default(null, itemMenuSelected);
+            audio.default(null);
         }
     }
 }
@@ -159,11 +180,6 @@ checkboxSwitcher.addEventListener('click', () => {
     audio.setErrorSmile(0);
     btnGame.classList.remove('cover');
     btnGameRepeat.classList.add('cover');
-    const smiles = document.body.querySelector('.smiles');
-    if (smiles) {
-        smiles.innerHTML = '';
-        return smiles;
-    }
 });
 
 btnGame.addEventListener('click', () => {
@@ -173,12 +189,14 @@ btnGame.addEventListener('click', () => {
     audio.setTypeGame(CONST.PLAY);
     const categoryName = document.querySelector('h1');
     if (categoryName.innerText !== CONST.H1 && categoryName.innerText !== 'Statistics') {
+        window.removeEventListener('click', listenerAudio);
+        window.removeEventListener('click', listenerCategory);
         audio.setPlayRandom(false);
-        let content = document.body.querySelector('.content');
-        document.body.removeChild(content);
-        content = category.getMainContent(category.randomArray(Object.keys(cards[categoryName.innerText])), categoryName.innerText);
+        removeContent();
+        const content = category.getMainContent(category.randomArray(Object.keys(cards[categoryName.innerText])), categoryName.innerText);
         document.body.appendChild(content);
-        audio.default(null, categoryName.innerText);
+        window.addEventListener('click', listenerAudio);
+       // audio.default(null);
     }
 });
 

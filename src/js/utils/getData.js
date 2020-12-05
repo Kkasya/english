@@ -58,3 +58,9 @@ export function sorting(tbody, e) {
         tbody.appendChild(rows[i]);
     }
 }
+
+export function removeContent() {
+    let contentNow = document.body.querySelector('.content');
+    if (!contentNow) contentNow = document.body.querySelector('.statistics');
+    document.body.removeChild(contentNow);
+}
