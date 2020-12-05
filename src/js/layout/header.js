@@ -5,6 +5,7 @@ import * as audio from '../utils/playSound';
 import * as category from '../utils/category';
 import * as playGame from '../utils/playGame';
 import * as local from '../utils/localStorage';
+import { sorting } from '../utils/getData';
 
 const srcBtnGame = `${CONST.iconBase}/${CONST.imgGame}.png`;
 const srcBtnRepeat = `${CONST.iconBase}/${CONST.imgRepeat}.svg`;
@@ -57,7 +58,7 @@ const verticalMenu = create('div', '', [checkMenu, menu]);
 const btnRepeatWords = create('div', 'button statistic-button', create('span', '', 'Repeat difficult words'));
 const btnReset = create('div', 'button statistic-button', create('span', '', 'Reset'));
 
-const tr = [];
+const tbody = create('tbody', '');
 Object.keys(cards).forEach((categoryCard) => {
     Object.keys(cards[categoryCard]).forEach((key) => {
         const categoryT = create('td', categoryCard, categoryCard);
@@ -71,22 +72,29 @@ Object.keys(cards).forEach((categoryCard) => {
         const correctWord = create('td', '', (correct).toString());
         const procentRight = create('td', '', ((correct) ? ((correct * 100) / (correct + wrong)) : 0).toString());
         const trTable = create('tr', 'tr-table', [categoryT, word, translate, clickWord, correctWord, wrongWord, procentRight]);
-        tr.push(trTable);
+        tbody.appendChild(trTable);
     });
 });
-
+const theader = create('tr', 'table-header', [
+    create('td', '', 'Category'),
+    create('td', '', 'Word'),
+    create('td', '', 'Translation'),
+    create('td', '', 'Clicks'),
+    create('td', '', 'Correct'),
+    create('td', '', 'Wrong'),
+    create('td', '', '%'),
+]);
 const statistics = create('div', 'statistics', [
     create('div', 'btnStatic', [btnRepeatWords, btnReset]),
-    create('div', 'table', [
-        create('tr', 'table-header', [
-            create('td', '', 'Category'),
-            create('td', '', 'Word'),
-            create('td', '', 'Translation'),
-            create('td', '', 'Clicks'),
-            create('td', '', 'Correct'),
-            create('td', '', 'Wrong'),
-            create('td', '', '%'),
-            ]), ...tr])]);
+    create('div', 'table', [theader, tbody])]);
+
+theader.addEventListener('click', (e) => {
+    theader.childNodes.forEach((child) => {
+        if (child.classList.contains('descend')) child.classList.remove('descend');
+        if (child.classList.contains('ascend')) child.classList.remove('ascend');
+    });
+    sorting(tbody, e);
+});
 
 function hideMenu() {
     menu.classList.remove('active');

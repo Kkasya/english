@@ -28,6 +28,16 @@
   background: rgba(48, 201, 178, 0.8);
 }
 
+.ascend::after {
+  font-size: 2rem;
+  content: "\25B2";
+}
+
+.descend::after {
+  font-size: 2rem;
+  content: "\25BC";
+}
+
 .tr-table {
   border-spacing: 5px;
 

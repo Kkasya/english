@@ -282,6 +282,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils_category__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils/category */ "./src/js/utils/category.js");
 /* harmony import */ var _utils_playGame__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../utils/playGame */ "./src/js/utils/playGame.js");
 /* harmony import */ var _utils_localStorage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils/localStorage */ "./src/js/utils/localStorage.js");
+/* harmony import */ var _utils_getData__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../utils/getData */ "./src/js/utils/getData.js");
+
 
 
 
@@ -314,7 +316,7 @@ var menuTop = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div
 var verticalMenu = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', '', [checkMenu, menu]);
 var btnRepeatWords = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', 'button statistic-button', (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('span', '', 'Repeat difficult words'));
 var btnReset = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', 'button statistic-button', (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('span', '', 'Reset'));
-var tr = [];
+var tbody = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('tbody', '');
 Object.keys(_constants_data_cards__WEBPACK_IMPORTED_MODULE_2__.cards).forEach(function (categoryCard) {
   Object.keys(_constants_data_cards__WEBPACK_IMPORTED_MODULE_2__.cards[categoryCard]).forEach(function (key) {
     var categoryT = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('td', categoryCard, categoryCard);
@@ -328,10 +330,18 @@ Object.keys(_constants_data_cards__WEBPACK_IMPORTED_MODULE_2__.cards).forEach(fu
     var correctWord = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('td', '', correct.toString());
     var procentRight = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('td', '', (correct ? correct * 100 / (correct + wrong) : 0).toString());
     var trTable = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('tr', 'tr-table', [categoryT, word, translate, clickWord, correctWord, wrongWord, procentRight]);
-    tr.push(trTable);
+    tbody.appendChild(trTable);
   });
 });
-var statistics = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', 'statistics', [(0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', 'btnStatic', [btnRepeatWords, btnReset]), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', 'table', [(0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('tr', 'table-header', [(0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('td', '', 'Category'), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('td', '', 'Word'), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('td', '', 'Translation'), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('td', '', 'Clicks'), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('td', '', 'Correct'), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('td', '', 'Wrong'), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('td', '', '%')])].concat(tr))]);
+var theader = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('tr', 'table-header', [(0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('td', '', 'Category'), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('td', '', 'Word'), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('td', '', 'Translation'), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('td', '', 'Clicks'), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('td', '', 'Correct'), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('td', '', 'Wrong'), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('td', '', '%')]);
+var statistics = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', 'statistics', [(0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', 'btnStatic', [btnRepeatWords, btnReset]), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', 'table', [theader, tbody])]);
+theader.addEventListener('click', function (e) {
+  theader.childNodes.forEach(function (child) {
+    if (child.classList.contains('descend')) child.classList.remove('descend');
+    if (child.classList.contains('ascend')) child.classList.remove('ascend');
+  });
+  (0,_utils_getData__WEBPACK_IMPORTED_MODULE_7__.sorting)(tbody, e);
+});
 
 function hideMenu() {
   menu.classList.remove('active');
@@ -607,6 +617,7 @@ function create(elem, classes, childs, parent) {
 /*! namespace exports */
 /*! export getCheckboxStatus [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export getSmiles [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export sorting [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -614,12 +625,15 @@ function create(elem, classes, childs, parent) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "getCheckboxStatus": () => /* binding */ getCheckboxStatus,
-/* harmony export */   "getSmiles": () => /* binding */ getSmiles
+/* harmony export */   "getSmiles": () => /* binding */ getSmiles,
+/* harmony export */   "sorting": () => /* binding */ sorting
 /* harmony export */ });
 /* harmony import */ var _layout_header__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../layout/header */ "./src/js/layout/header.js");
 /* harmony import */ var _createElement__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./createElement */ "./src/js/utils/createElement.js");
 
+ // import * as CONST from '../constants/constants';
 
+var toggleSort = true;
 function getCheckboxStatus() {
   return _layout_header__WEBPACK_IMPORTED_MODULE_0__.checkboxSwitcher.checked;
 }
@@ -632,6 +646,50 @@ function getSmiles() {
   }
 
   return (0,_createElement__WEBPACK_IMPORTED_MODULE_1__.default)('div', 'smiles');
+}
+function sorting(tbody, e) {
+  var rows = [];
+  var index = e.path[0].cellIndex;
+  var td = e.target;
+  var len = tbody.rows.length;
+
+  for (var i = 0; i < len; i += 1) {
+    rows[i] = tbody.rows[i];
+  }
+
+  if (toggleSort) {
+    toggleSort = false;
+    td.classList.add('ascend');
+  } else {
+    toggleSort = true;
+    td.classList.add('descend');
+  }
+
+  function compareCells(a, b) {
+    var aVal = a.cells[index].innerText;
+    var bVal = b.cells[index].innerText;
+
+    if (toggleSort) {
+      var temp = aVal;
+      aVal = bVal;
+      bVal = temp;
+    }
+
+    if (index === 6) {
+      aVal = Number(aVal);
+      bVal = Number(bVal);
+    }
+
+    if (aVal < bVal) return -1;
+    if (aVal > bVal) return 1;
+    return 0;
+  }
+
+  rows.sort(compareCells);
+
+  for (var _i = 0; _i < len; _i += 1) {
+    tbody.appendChild(rows[_i]);
+  }
 }
 
 /***/ }),

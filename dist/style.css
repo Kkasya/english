@@ -1,3 +1,4 @@
+@charset "UTF-8";
 * {
   margin: 0;
   padding: 0;
@@ -581,6 +582,16 @@ input:checked:focus + .switch-left + .switch-right {
 }
 .table-header td:hover {
   background: aqua;
+}
+
+.ascend::after {
+  font-size: 2rem;
+  content: "▲";
+}
+
+.descend::after {
+  font-size: 2rem;
+  content: "▼";
 }
 
 .tr-table {
