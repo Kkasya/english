@@ -60,6 +60,7 @@ const verticalMenu = create('div', '', [checkMenu, menu]);
 const btnDifficultWords = create('div', 'button statistic-button', create('span', '', 'Repeat difficult words'));
 const btnReset = create('div', 'button statistic-button', create('span', '', 'Reset'));
 const difficultWords = [];
+
 function createStatistics() {
     const tbody = create('tbody', '');
     difficultWords.splice(0);
@@ -74,7 +75,7 @@ function createStatistics() {
             const clickWord = create('td', '', (wordArray.click || 0).toString());
             const wrongWord = create('td', '', (wrong).toString());
             const correctWord = create('td', '', (correct).toString());
-            const procentRight = create('td', '', ((correct) ? ((correct * 100) / (correct + wrong)) : 0).toFixed(1).toString());
+            const procentRight = create('td', '', ((correct) ? ((correct * 100) / (correct + wrong)) : 0).toFixed(0).toString());
             const procentWrong = wrong ? ((wrong * 100) / (correct + wrong)) : 0;
             if (procentWrong > 20) difficultWords.push({ [key]: [procentWrong, categoryCard] });
             const trTable = create('tr', 'tr-table', [categoryT, word, translate, clickWord, correctWord, wrongWord, procentRight]);
@@ -134,6 +135,7 @@ function hideMenu() {
     menu.classList.remove('active');
     check.checked = false;
 }
+
 function listenerAudio(el) {
     audio.default(el, arrayWords);
 }
@@ -212,7 +214,6 @@ btnGame.addEventListener('click', () => {
         } else content = category.getMainContent(category.randomArray(Object.keys(cards[categoryName.innerText])), categoryName.innerText);
         document.body.appendChild(content);
         window.addEventListener('click', listenerAudio);
-       // audio.default(null);
     }
 });
 

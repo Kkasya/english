@@ -1,30 +1,33 @@
 .statistics {
-  font-size: $font-size-menu;
+  font-size: $font-size-mobile4-h1;
   font-family: $font-family-card;
 }
 
 .table {
-  margin: 2rem 15rem;
+  margin: 2rem 6rem;
   background: rgba(90, 232, 140, 0.5);
-  min-width: 55rem;
+  min-width: 100rem;
   cursor: default;
   border-collapse: separate;
-
   box-shadow: inset rgba(0, 0, 0, .6) 0 -2px 5px, inset rgba(252, 255, 255, .7) 0 2px 5px, rgba(0, 0, 0, .8) 0 2px 5px -1px;
 
 }
+
 .table-header {
   font-size: $font-size-menu-big;
   color: white;
   text-shadow: 0.1rem 0.1rem 0.2rem #6d5bbe;
   cursor: pointer;
+
   td {
     text-align: center;
-    width: 30rem;
+    width: 20rem;
+
     &:hover {
       background: aqua;
     }
   }
+
   background: rgba(48, 201, 178, 0.8);
 }
 
@@ -39,27 +42,28 @@
 }
 
 .tr-table {
-  border-spacing: 5px;
-
   &:hover {
     background: #3cfaa8;
   }
-    td {
-      &:nth-child(n) {
-        padding-left: 3rem;
-        padding-bottom: 0.8rem;
-      }
-      &:hover {
-        background: #6d5bbe;
-      }
+
+  td {
+    &:nth-child(n) {
+      padding-left: 2rem;
+      padding-bottom: 0.8rem;
     }
+
+    &:hover {
+      background: #6d5bbe;
+    }
+  }
 }
 
 .btnStatic {
   display: flex;
   margin: 2rem 15rem;
   justify-content: flex-end;
-  & span{
+
+  & span {
     padding-top: 5rem;
   }
 }
@@ -81,7 +85,7 @@
 }
 
 .Emotions {
-  color:  #0f8fba;
+  color: #0f8fba;
 }
 
 .Family {

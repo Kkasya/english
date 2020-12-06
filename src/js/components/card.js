@@ -38,42 +38,42 @@ export default function createMain(words, category = null) {
             });
         }
     } else if (!category) {
-            imgUrl = `${CONST.imageCategoryBase}`;
-            words.forEach((key) => {
-                const card = create.default('div', 'card', [
-                    create.default('img', 'cardImg', null, null, ['src', `${imgUrl}/${key}.jpg`]),
-                    create.default('div', 'title-card', create.default('p', '', key)),
-                ]);
+        imgUrl = `${CONST.imageCategoryBase}`;
+        words.forEach((key) => {
+            const card = create.default('div', 'card', [
+                create.default('img', 'cardImg', null, null, ['src', `${imgUrl}/${key}.jpg`]),
+                create.default('div', 'title-card', create.default('p', '', key)),
+            ]);
 
+            cardsContainer.appendChild(card);
+        });
+    } else {
+        imgUrl = `${CONST.imageBase}/${category}`;
+        if (getData.getCheckboxStatus()) {
+            words.forEach((key) => {
+                const card = create.default('div', 'card hover', create.default('div', 'faces', [
+                    create.default('div', 'front', [
+                        create.default('img', 'cardImg', null, null, ['src', `${imgUrl}/${key}.jpg`]),
+                        create.default('div', 'title-card', [
+                            create.default('p', '', key),
+                            create.default('img', 'rotate', null, null, ['src', srcRotate]),
+                        ])]),
+                    create.default('div', 'back', [
+                        create.default('img', 'cardImg', null, null, ['src', `${imgUrl}/${key}.jpg`]),
+                        create.default('div', 'title-card', create.default('p', '', cards[category][key]))]),
+                ]));
                 cardsContainer.appendChild(card);
             });
         } else {
-            imgUrl = `${CONST.imageBase}/${category}`;
-            if (getData.getCheckboxStatus()) {
-                words.forEach((key) => {
-                    const card = create.default('div', 'card hover', create.default('div', 'faces', [
-                        create.default('div', 'front', [
-                            create.default('img', 'cardImg', null, null, ['src', `${imgUrl}/${key}.jpg`]),
-                            create.default('div', 'title-card', [
-                                create.default('p', '', key),
-                                create.default('img', 'rotate', null, null, ['src', srcRotate]),
-                            ])]),
-                        create.default('div', 'back', [
-                            create.default('img', 'cardImg', null, null, ['src', `${imgUrl}/${key}.jpg`]),
-                            create.default('div', 'title-card', create.default('p', '', cards[category][key]))]),
-                    ]));
-                    cardsContainer.appendChild(card);
-                });
-            } else {
-                words.forEach((key) => {
-                    const card = create.default('div', 'card hover', create.default('div', 'faces',
-                        create.default('div', 'front', [create.default('img', 'cardImg cardImgPlay', null, null,
-                            ['src', `${imgUrl}/${key}.jpg`]),
-                            create.default('div', 'title-card hidden', create.default('p', '', key))])));
-                    cardsContainer.appendChild(card);
-                });
-            }
+            words.forEach((key) => {
+                const card = create.default('div', 'card hover', create.default('div', 'faces',
+                    create.default('div', 'front', [create.default('img', 'cardImg cardImgPlay', null, null,
+                        ['src', `${imgUrl}/${key}.jpg`]),
+                        create.default('div', 'title-card hidden', create.default('p', '', key))])));
+                cardsContainer.appendChild(card);
+            });
         }
+    }
     return create.default('main', 'content', cardsContainer);
 }
 

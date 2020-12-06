@@ -1,6 +1,5 @@
 import * as header from '../layout/header';
 import create from './createElement';
-// import * as CONST from '../constants/constants';
 
 let toggleSort = true;
 
@@ -53,6 +52,7 @@ export function sorting(tbody, e) {
         if (aVal > bVal) return 1;
         return 0;
     }
+
     rows.sort(compareCells);
     for (let i = 0; i < len; i += 1) {
         tbody.appendChild(rows[i]);
@@ -61,13 +61,13 @@ export function sorting(tbody, e) {
 
 export function sortDifficultWords(difficultWords) {
     function compareWords(a, b) {
-        // console.log(Object.values(a)[0][0]);
         const aPercent = Object.values(a)[0][0];
         const bPercent = Object.values(b)[0][0];
         if (aPercent > bPercent) return -1;
         if (bPercent > aPercent) return 1;
-       return 0;
+        return 0;
     }
+
     return difficultWords.sort(compareWords);
 }
 

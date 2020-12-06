@@ -1,15 +1,15 @@
 export const cards = {
     Actions: {
-            dance: 'танцевать',
-            draw: 'рисовать',
-            jump: 'прыгать',
-            play: 'играть',
-            ride: 'ездить',
-            run: 'бегать',
-            sing: 'петь',
-            sleep: 'спать',
-            swim: 'плавать',
-        },
+        dance: 'танцевать',
+        draw: 'рисовать',
+        jump: 'прыгать',
+        play: 'играть',
+        ride: 'ездить',
+        run: 'бегать',
+        sing: 'петь',
+        sleep: 'спать',
+        swim: 'плавать',
+    },
 
     Animals: {
         cat: 'кот',

@@ -10,8 +10,8 @@ export default function startGame(btnGame, checked, arrayWords = null) {
         btnGame.classList.remove('hidden');
     } else {
         btnGame.classList.add('hidden');
-         audio.setTypeGame(constants.TRAIN);
-         audio.setCheckCard(false);
+        audio.setTypeGame(constants.TRAIN);
+        audio.setCheckCard(false);
     }
 
     if (categoryName.innerText !== constants.H1 && categoryName.innerText !== 'Statistics') {

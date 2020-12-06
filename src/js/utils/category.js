@@ -3,7 +3,6 @@ import { cards } from '../constants/data_cards';
 import * as audio from './playSound';
 import * as header from '../layout/header';
 import { removeContent } from './getData';
-// import * as getData from './getData';
 
 export function removeClass(classRemoved) {
     const activeItemMenu = document.querySelector(`.${classRemoved}`);
@@ -29,6 +28,7 @@ export function randomArray(arr) {
 export function listenerCategory(el) {
     audio.default(el);
 }
+
 export default function openCategory(content) {
     content.addEventListener('click', (e) => {
         window.removeEventListener('click', listenerCategory);

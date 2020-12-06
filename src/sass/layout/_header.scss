@@ -2,10 +2,11 @@
   background: rgba(251, 251, 251, .5);
 
 }
+
 .menu-top {
   display: flex;
   align-items: center;
-  margin: -2rem 0 0 $width-menu ;
+  margin: -2rem 0 0 $width-menu;
   @include media-mobile3 {
     margin-left: $width-menu-mobile;
   }
@@ -13,10 +14,11 @@
 
 .start-game {
   display: flex;
-  &>img {
+
+  & > img {
     width: 4rem;
     height: 4rem;
-   margin: 1rem;
+    margin: 1rem;
   }
 }
 

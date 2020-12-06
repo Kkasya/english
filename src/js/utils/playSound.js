@@ -31,6 +31,7 @@ export function setErrorSmile(error) {
         smiles.innerHTML = '';
         return smiles;
     }
+    return 1;
 }
 
 export function setPlayRandom(play) {
@@ -55,12 +56,14 @@ function playSound(srcAudio) {
 function showSmile(src) {
     window.scrollTo(0, 0);
     removeContent();
+    const categoryName = document.body.querySelector('h1');
+    categoryName.innerText = `Errors: ${errorSmile}`;
     const smileResultGame = create.default('img', 'result-game show', null, null,
         ['src', `./src/assets/images/${src}.png`]);
     document.body.appendChild(smileResultGame);
-        setTimeout(() => {
-            window.location.reload();
-        }, 5000);
+    setTimeout(() => {
+        window.location.reload();
+    }, 5000);
 }
 
 export function checkAnswer(el) {
@@ -84,7 +87,6 @@ export function checkAnswer(el) {
             errorSmile += 1;
             playSound('./src/assets/sounds/error.mp3');
             local.setItem(arraySounds[0], 'wrong');
-            // local.setItem(el.path[3].children[0].children[0].children[1].children[0].innerText, 'correct');
         }
     }
     if (arraySounds.length === 0) {
@@ -100,28 +102,28 @@ export function checkAnswer(el) {
 
 export default function playCard(el, arrayWords = null) {
     const categoryName = document.body.querySelector('h1').innerText;
-        if ((el && el.path[6] && getTypeGame() === CONST.TRAIN) && !el.path[2].classList.contains('turn')
-            && !el.target.classList.contains('rotate') && el.path[1].children[1]
-            && !el.path[1].children[1].classList.contains('hidden')) {
-            if (el.path[3].classList.contains('card')) {
-                playSound(`./src/assets/sounds/${categoryName}/${el.path[1].children[1].children[0].innerText}.mp3`);
-                local.setItem(el.path[1].children[1].children[0].innerText, 'click');
-            } else if (el.path[4].classList.contains('card')) {
-                playSound(`./src/assets/sounds/${categoryName}/${el.path[0].innerText}.mp3`);
-                local.setItem(el.path[0].innerText, 'click');
-            }
-        } else if (getTypeGame() === CONST.PLAY && !playRandom && (categoryName !== CONST.H1)) {
-            setPlayRandom(true);
-            if (categoryName === 'Difficult words') {
-                 const arrayDifficultWords = category.randomArray(arrayWords.slice(0, 9));
-                arraySounds = (Object.values(arrayDifficultWords)).map((value) => Object.keys(value)[0]);
-                console.log(arraySounds);
-            } else arraySounds = category.randomArray(Object.keys(cards[categoryName]));
-                playSound(`./src/assets/sounds/${categoryName}/${arraySounds[0]}.mp3`);
-
-            const smiles = getData.getSmiles();
-            document.body.appendChild(smiles);
+    if ((el && el.path[6] && getTypeGame() === CONST.TRAIN) && !el.path[2].classList.contains('turn')
+        && !el.target.classList.contains('rotate') && el.path[1].children[1]
+        && !el.path[1].children[1].classList.contains('hidden')) {
+        if (el.path[3].classList.contains('card')) {
+            playSound(`./src/assets/sounds/${categoryName}/${el.path[1].children[1].children[0].innerText}.mp3`);
+            local.setItem(el.path[1].children[1].children[0].innerText, 'click');
+        } else if (el.path[4].classList.contains('card')) {
+            playSound(`./src/assets/sounds/${categoryName}/${el.path[0].innerText}.mp3`);
+            local.setItem(el.path[0].innerText, 'click');
         }
+    } else if (getTypeGame() === CONST.PLAY && !playRandom && (categoryName !== CONST.H1)) {
+        setPlayRandom(true);
+        if (categoryName === 'Difficult words') {
+            const arrayDifficultWords = category.randomArray(arrayWords.slice(0, 9));
+            arraySounds = (Object.values(arrayDifficultWords)).map((value) => Object.keys(value)[0]);
+            console.log(arraySounds);
+        } else arraySounds = category.randomArray(Object.keys(cards[categoryName]));
+        playSound(`./src/assets/sounds/${categoryName}/${arraySounds[0]}.mp3`);
+
+        const smiles = getData.getSmiles();
+        document.body.appendChild(smiles);
+    }
 
     if (checkCard) {
         if (el && el.path[4] && el.path[3].classList.contains('card')) checkAnswer(el);
