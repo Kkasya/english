@@ -8,43 +8,72 @@ export default function createMain(words, category = null) {
     const srcRotate = `${CONST.imageBase}/${CONST.imgRotate}.svg`;
     const cardsContainer = create.default('div', 'cards');
 
-    if (!category) {
-        imgUrl = `${CONST.imageCategoryBase}`;
-        words.forEach((key) => {
-            const card = create.default('div', 'card', [
-                create.default('img', 'cardImg', null, null, ['src', `${imgUrl}/${key}.jpg`]),
-                create.default('div', 'title-card', create.default('p', '', key)),
-            ]);
-
-            cardsContainer.appendChild(card);
-        });
-    } else {
-        imgUrl = `${CONST.imageBase}/${category}`;
+    if (category === 'Difficult words') {
         if (getData.getCheckboxStatus()) {
-            words.forEach((key) => {
+            words.forEach((word) => {
+                const key = Object.keys(word)[0];
+                const categoryWord = Object.values(word)[0][1];
                 const card = create.default('div', 'card hover', create.default('div', 'faces', [
                     create.default('div', 'front', [
-                        create.default('img', 'cardImg', null, null, ['src', `${imgUrl}/${key}.jpg`]),
+                        create.default('img', 'cardImg', null, null, ['src', `${CONST.imageBase}/${categoryWord}/${key}.jpg`]),
                         create.default('div', 'title-card', [
                             create.default('p', '', key),
                             create.default('img', 'rotate', null, null, ['src', srcRotate]),
                         ])]),
                     create.default('div', 'back', [
-                        create.default('img', 'cardImg', null, null, ['src', `${imgUrl}/${key}.jpg`]),
-                        create.default('div', 'title-card', create.default('p', '', cards[category][key]))]),
+                        create.default('img', 'cardImg', null, null, ['src', `${CONST.imageBase}/${categoryWord}/${key}.jpg`]),
+                        create.default('div', 'title-card', create.default('p', '', cards[categoryWord][key]))]),
                 ]));
                 cardsContainer.appendChild(card);
             });
         } else {
-            words.forEach((key) => {
+            words.forEach((word) => {
+                const key = Object.keys(word)[0];
+                const categoryWord = Object.values(word)[0][1];
                 const card = create.default('div', 'card hover', create.default('div', 'faces',
                     create.default('div', 'front', [create.default('img', 'cardImg cardImgPlay', null, null,
-                        ['src', `${imgUrl}/${key}.jpg`]),
+                        ['src', `${CONST.imageBase}/${categoryWord}/${key}.jpg`]),
                         create.default('div', 'title-card hidden', create.default('p', '', key))])));
                 cardsContainer.appendChild(card);
             });
         }
-    }
+    } else if (!category) {
+            imgUrl = `${CONST.imageCategoryBase}`;
+            words.forEach((key) => {
+                const card = create.default('div', 'card', [
+                    create.default('img', 'cardImg', null, null, ['src', `${imgUrl}/${key}.jpg`]),
+                    create.default('div', 'title-card', create.default('p', '', key)),
+                ]);
+
+                cardsContainer.appendChild(card);
+            });
+        } else {
+            imgUrl = `${CONST.imageBase}/${category}`;
+            if (getData.getCheckboxStatus()) {
+                words.forEach((key) => {
+                    const card = create.default('div', 'card hover', create.default('div', 'faces', [
+                        create.default('div', 'front', [
+                            create.default('img', 'cardImg', null, null, ['src', `${imgUrl}/${key}.jpg`]),
+                            create.default('div', 'title-card', [
+                                create.default('p', '', key),
+                                create.default('img', 'rotate', null, null, ['src', srcRotate]),
+                            ])]),
+                        create.default('div', 'back', [
+                            create.default('img', 'cardImg', null, null, ['src', `${imgUrl}/${key}.jpg`]),
+                            create.default('div', 'title-card', create.default('p', '', cards[category][key]))]),
+                    ]));
+                    cardsContainer.appendChild(card);
+                });
+            } else {
+                words.forEach((key) => {
+                    const card = create.default('div', 'card hover', create.default('div', 'faces',
+                        create.default('div', 'front', [create.default('img', 'cardImg cardImgPlay', null, null,
+                            ['src', `${imgUrl}/${key}.jpg`]),
+                            create.default('div', 'title-card hidden', create.default('p', '', key))])));
+                    cardsContainer.appendChild(card);
+                });
+            }
+        }
     return create.default('main', 'content', cardsContainer);
 }
 

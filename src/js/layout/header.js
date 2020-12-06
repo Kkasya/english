@@ -5,7 +5,7 @@ import * as audio from '../utils/playSound';
 import * as category from '../utils/category';
 import * as playGame from '../utils/playGame';
 import * as local from '../utils/localStorage';
-import { removeContent, sorting } from '../utils/getData';
+import { removeContent, sorting, sortDifficultWords } from '../utils/getData';
 import { listenerCategory } from '../utils/category';
 
 const srcBtnGame = `${CONST.iconBase}/${CONST.imgGame}.png`;
@@ -40,6 +40,7 @@ menuUl.appendChild(menuStat);
 menu.appendChild(menuUl);
 export const checkboxSwitcher = create('input', '', null, null, ['type', 'checkbox']);
 checkboxSwitcher.checked = true;
+let arrayWords;
 const switcher = create('div', 'switcher', create('label', 'toggle', [
     checkboxSwitcher,
     create('span', 'switch-left', CONST.TRAIN),
@@ -56,12 +57,12 @@ export const btnGameRepeat = create('div', 'button repeat-button cover', create(
 const menuTop = create('div', 'menu-top', [create('h1', '', CONST.H1), switcher, btnGame, btnGameRepeat]);
 const verticalMenu = create('div', '', [checkMenu, menu]);
 
-const btnRepeatWords = create('div', 'button statistic-button', create('span', '', 'Repeat difficult words'));
+const btnDifficultWords = create('div', 'button statistic-button', create('span', '', 'Repeat difficult words'));
 const btnReset = create('div', 'button statistic-button', create('span', '', 'Reset'));
-
+const difficultWords = [];
 function createStatistics() {
     const tbody = create('tbody', '');
-
+    difficultWords.splice(0);
     Object.keys(cards).forEach((categoryCard) => {
         Object.keys(cards[categoryCard]).forEach((key) => {
             const categoryT = create('td', categoryCard, categoryCard);
@@ -73,7 +74,9 @@ function createStatistics() {
             const clickWord = create('td', '', (wordArray.click || 0).toString());
             const wrongWord = create('td', '', (wrong).toString());
             const correctWord = create('td', '', (correct).toString());
-            const procentRight = create('td', '', ((correct) ? ((correct * 100) / (correct + wrong)) : 0).toString());
+            const procentRight = create('td', '', ((correct) ? ((correct * 100) / (correct + wrong)) : 0).toFixed(1).toString());
+            const procentWrong = wrong ? ((wrong * 100) / (correct + wrong)) : 0;
+            if (procentWrong > 20) difficultWords.push({ [key]: [procentWrong, categoryCard] });
             const trTable = create('tr', 'tr-table', [categoryT, word, translate, clickWord, correctWord, wrongWord, procentRight]);
             tbody.appendChild(trTable);
         });
@@ -105,7 +108,7 @@ function createStatistics() {
     audio.setTypeGame(CONST.TRAIN);
     audio.setCheckCard(false);
     return create('div', 'statistics', [
-        create('div', 'btnStatic', [btnRepeatWords, btnReset]),
+        create('div', 'btnStatic', [btnDifficultWords, btnReset]),
         create('div', 'table', [theader, tbody])]);
 }
 
@@ -117,12 +120,22 @@ btnReset.addEventListener('click', () => {
     window.removeEventListener('click', listenerAudio);
 });
 
+btnDifficultWords.addEventListener('click', () => {
+    arrayWords = sortDifficultWords(difficultWords);
+    if (switcher.classList.contains('hidden')) switcher.classList.remove('hidden');
+    removeContent();
+    document.body.querySelector('h1').innerText = 'Difficult words';
+    const content = category.getMainContent(arrayWords.slice(0, 9), 'Difficult words');
+    document.body.appendChild(content);
+    window.addEventListener('click', listenerAudio);
+});
+
 function hideMenu() {
     menu.classList.remove('active');
     check.checked = false;
 }
 function listenerAudio(el) {
-    audio.default(el);
+    audio.default(el, arrayWords);
 }
 
 function chooseItemMenu(e) {
@@ -176,7 +189,7 @@ export default function createHeader() {
 }
 
 checkboxSwitcher.addEventListener('click', () => {
-    playGame.default(btnGame, checkboxSwitcher.checked);
+    playGame.default(btnGame, checkboxSwitcher.checked, arrayWords);
     audio.setErrorSmile(0);
     btnGame.classList.remove('cover');
     btnGameRepeat.classList.add('cover');
@@ -193,7 +206,10 @@ btnGame.addEventListener('click', () => {
         window.removeEventListener('click', listenerCategory);
         audio.setPlayRandom(false);
         removeContent();
-        const content = category.getMainContent(category.randomArray(Object.keys(cards[categoryName.innerText])), categoryName.innerText);
+        let content;
+        if (categoryName.innerText === 'Difficult words') {
+            content = category.getMainContent(arrayWords.slice(0, 9), 'Difficult words');
+        } else content = category.getMainContent(category.randomArray(Object.keys(cards[categoryName.innerText])), categoryName.innerText);
         document.body.appendChild(content);
         window.addEventListener('click', listenerAudio);
        // audio.default(null);

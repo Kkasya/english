@@ -83,7 +83,8 @@ export function checkAnswer(el) {
             smiles.appendChild(errorSmiles);
             errorSmile += 1;
             playSound('./src/assets/sounds/error.mp3');
-            local.setItem(el.path[3].children[0].children[0].children[1].children[0].innerText, 'wrong');
+            local.setItem(arraySounds[0], 'wrong');
+            // local.setItem(el.path[3].children[0].children[0].children[1].children[0].innerText, 'correct');
         }
     }
     if (arraySounds.length === 0) {
@@ -97,7 +98,7 @@ export function checkAnswer(el) {
     }
 }
 
-export default function playCard(el) {
+export default function playCard(el, arrayWords = null) {
     const categoryName = document.body.querySelector('h1').innerText;
         if ((el && el.path[6] && getTypeGame() === CONST.TRAIN) && !el.path[2].classList.contains('turn')
             && !el.target.classList.contains('rotate') && el.path[1].children[1]
@@ -111,8 +112,13 @@ export default function playCard(el) {
             }
         } else if (getTypeGame() === CONST.PLAY && !playRandom && (categoryName !== CONST.H1)) {
             setPlayRandom(true);
-            arraySounds = category.randomArray(Object.keys(cards[categoryName]));
-            playSound(`./src/assets/sounds/${categoryName}/${arraySounds[0]}.mp3`);
+            if (categoryName === 'Difficult words') {
+                 const arrayDifficultWords = category.randomArray(arrayWords.slice(0, 9));
+                arraySounds = (Object.values(arrayDifficultWords)).map((value) => Object.keys(value)[0]);
+                console.log(arraySounds);
+            } else arraySounds = category.randomArray(Object.keys(cards[categoryName]));
+                playSound(`./src/assets/sounds/${categoryName}/${arraySounds[0]}.mp3`);
+
             const smiles = getData.getSmiles();
             document.body.appendChild(smiles);
         }

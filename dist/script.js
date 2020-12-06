@@ -59,7 +59,23 @@ function createMain(words) {
   var srcRotate = "".concat(_constants_constants__WEBPACK_IMPORTED_MODULE_0__.imageBase, "/").concat(_constants_constants__WEBPACK_IMPORTED_MODULE_0__.imgRotate, ".svg");
   var cardsContainer = _utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('div', 'cards');
 
-  if (!category) {
+  if (category === 'Difficult words') {
+    if (_utils_getData__WEBPACK_IMPORTED_MODULE_3__.getCheckboxStatus()) {
+      words.forEach(function (word) {
+        var key = Object.keys(word)[0];
+        var categoryWord = Object.values(word)[0][1];
+        var card = _utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('div', 'card hover', _utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('div', 'faces', [_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('div', 'front', [_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('img', 'cardImg', null, null, ['src', "".concat(_constants_constants__WEBPACK_IMPORTED_MODULE_0__.imageBase, "/").concat(categoryWord, "/").concat(key, ".jpg")]), _utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('div', 'title-card', [_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('p', '', key), _utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('img', 'rotate', null, null, ['src', srcRotate])])]), _utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('div', 'back', [_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('img', 'cardImg', null, null, ['src', "".concat(_constants_constants__WEBPACK_IMPORTED_MODULE_0__.imageBase, "/").concat(categoryWord, "/").concat(key, ".jpg")]), _utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('div', 'title-card', _utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('p', '', _constants_data_cards__WEBPACK_IMPORTED_MODULE_1__.cards[categoryWord][key]))])]));
+        cardsContainer.appendChild(card);
+      });
+    } else {
+      words.forEach(function (word) {
+        var key = Object.keys(word)[0];
+        var categoryWord = Object.values(word)[0][1];
+        var card = _utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('div', 'card hover', _utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('div', 'faces', _utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('div', 'front', [_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('img', 'cardImg cardImgPlay', null, null, ['src', "".concat(_constants_constants__WEBPACK_IMPORTED_MODULE_0__.imageBase, "/").concat(categoryWord, "/").concat(key, ".jpg")]), _utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('div', 'title-card hidden', _utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('p', '', key))])));
+        cardsContainer.appendChild(card);
+      });
+    }
+  } else if (!category) {
     imgUrl = "".concat(_constants_constants__WEBPACK_IMPORTED_MODULE_0__.imageCategoryBase);
     words.forEach(function (key) {
       var card = _utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('div', 'card', [_utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('img', 'cardImg', null, null, ['src', "".concat(imgUrl, "/").concat(key, ".jpg")]), _utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('div', 'title-card', _utils_createElement__WEBPACK_IMPORTED_MODULE_2__.default('p', '', key))]);
@@ -283,6 +299,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils_playGame__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../utils/playGame */ "./src/js/utils/playGame.js");
 /* harmony import */ var _utils_localStorage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils/localStorage */ "./src/js/utils/localStorage.js");
 /* harmony import */ var _utils_getData__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../utils/getData */ "./src/js/utils/getData.js");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -310,16 +328,19 @@ menuUl.appendChild(menuStat);
 menu.appendChild(menuUl);
 var checkboxSwitcher = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('input', '', null, null, ['type', 'checkbox']);
 checkboxSwitcher.checked = true;
+var arrayWords;
 var switcher = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', 'switcher', (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('label', 'toggle', [checkboxSwitcher, (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('span', 'switch-left', _constants_constants__WEBPACK_IMPORTED_MODULE_1__.TRAIN), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('span', 'switch-right', _constants_constants__WEBPACK_IMPORTED_MODULE_1__.PLAY)]));
 var btnGame = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', 'button start-game-button hidden', (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', 'start-game', [(0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('img', '', null, null, ['src', srcBtnGame]), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('span', '', _constants_constants__WEBPACK_IMPORTED_MODULE_1__.STARTBTN)]));
 var btnGameRepeat = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', 'button repeat-button cover', (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('img', '', null, null, ['src', srcBtnRepeat]));
 var menuTop = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', 'menu-top', [(0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('h1', '', _constants_constants__WEBPACK_IMPORTED_MODULE_1__.H1), switcher, btnGame, btnGameRepeat]);
 var verticalMenu = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', '', [checkMenu, menu]);
-var btnRepeatWords = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', 'button statistic-button', (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('span', '', 'Repeat difficult words'));
+var btnDifficultWords = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', 'button statistic-button', (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('span', '', 'Repeat difficult words'));
 var btnReset = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', 'button statistic-button', (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('span', '', 'Reset'));
+var difficultWords = [];
 
 function createStatistics() {
   var tbody = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('tbody', '');
+  difficultWords.splice(0);
   Object.keys(_constants_data_cards__WEBPACK_IMPORTED_MODULE_2__.cards).forEach(function (categoryCard) {
     Object.keys(_constants_data_cards__WEBPACK_IMPORTED_MODULE_2__.cards[categoryCard]).forEach(function (key) {
       var categoryT = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('td', categoryCard, categoryCard);
@@ -331,7 +352,9 @@ function createStatistics() {
       var clickWord = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('td', '', (wordArray.click || 0).toString());
       var wrongWord = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('td', '', wrong.toString());
       var correctWord = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('td', '', correct.toString());
-      var procentRight = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('td', '', (correct ? correct * 100 / (correct + wrong) : 0).toString());
+      var procentRight = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('td', '', (correct ? correct * 100 / (correct + wrong) : 0).toFixed(1).toString());
+      var procentWrong = wrong ? wrong * 100 / (correct + wrong) : 0;
+      if (procentWrong > 20) difficultWords.push(_defineProperty({}, key, [procentWrong, categoryCard]));
       var trTable = (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('tr', 'tr-table', [categoryT, word, translate, clickWord, correctWord, wrongWord, procentRight]);
       tbody.appendChild(trTable);
     });
@@ -352,7 +375,7 @@ function createStatistics() {
   btnGame.classList.add('hidden');
   _utils_playSound__WEBPACK_IMPORTED_MODULE_3__.setTypeGame(_constants_constants__WEBPACK_IMPORTED_MODULE_1__.TRAIN);
   _utils_playSound__WEBPACK_IMPORTED_MODULE_3__.setCheckCard(false);
-  return (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', 'statistics', [(0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', 'btnStatic', [btnRepeatWords, btnReset]), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', 'table', [theader, tbody])]);
+  return (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', 'statistics', [(0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', 'btnStatic', [btnDifficultWords, btnReset]), (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', 'table', [theader, tbody])]);
 }
 
 btnReset.addEventListener('click', function () {
@@ -362,6 +385,15 @@ btnReset.addEventListener('click', function () {
   document.body.appendChild(statistics);
   window.removeEventListener('click', listenerAudio);
 });
+btnDifficultWords.addEventListener('click', function () {
+  arrayWords = (0,_utils_getData__WEBPACK_IMPORTED_MODULE_7__.sortDifficultWords)(difficultWords);
+  if (switcher.classList.contains('hidden')) switcher.classList.remove('hidden');
+  (0,_utils_getData__WEBPACK_IMPORTED_MODULE_7__.removeContent)();
+  document.body.querySelector('h1').innerText = 'Difficult words';
+  var content = _utils_category__WEBPACK_IMPORTED_MODULE_4__.getMainContent(arrayWords.slice(0, 9), 'Difficult words');
+  document.body.appendChild(content);
+  window.addEventListener('click', listenerAudio);
+});
 
 function hideMenu() {
   menu.classList.remove('active');
@@ -369,7 +401,7 @@ function hideMenu() {
 }
 
 function listenerAudio(el) {
-  _utils_playSound__WEBPACK_IMPORTED_MODULE_3__.default(el);
+  _utils_playSound__WEBPACK_IMPORTED_MODULE_3__.default(el, arrayWords);
 }
 
 function chooseItemMenu(e) {
@@ -427,7 +459,7 @@ function createHeader() {
   return (0,_utils_createElement__WEBPACK_IMPORTED_MODULE_0__.default)('div', 'header', [verticalMenu, menuTop]);
 }
 checkboxSwitcher.addEventListener('click', function () {
-  _utils_playGame__WEBPACK_IMPORTED_MODULE_5__.default(btnGame, checkboxSwitcher.checked);
+  _utils_playGame__WEBPACK_IMPORTED_MODULE_5__.default(btnGame, checkboxSwitcher.checked, arrayWords);
   _utils_playSound__WEBPACK_IMPORTED_MODULE_3__.setErrorSmile(0);
   btnGame.classList.remove('cover');
   btnGameRepeat.classList.add('cover');
@@ -444,7 +476,12 @@ btnGame.addEventListener('click', function () {
     window.removeEventListener('click', _utils_category__WEBPACK_IMPORTED_MODULE_4__.listenerCategory);
     _utils_playSound__WEBPACK_IMPORTED_MODULE_3__.setPlayRandom(false);
     (0,_utils_getData__WEBPACK_IMPORTED_MODULE_7__.removeContent)();
-    var content = _utils_category__WEBPACK_IMPORTED_MODULE_4__.getMainContent(_utils_category__WEBPACK_IMPORTED_MODULE_4__.randomArray(Object.keys(_constants_data_cards__WEBPACK_IMPORTED_MODULE_2__.cards[categoryName.innerText])), categoryName.innerText);
+    var content;
+
+    if (categoryName.innerText === 'Difficult words') {
+      content = _utils_category__WEBPACK_IMPORTED_MODULE_4__.getMainContent(arrayWords.slice(0, 9), 'Difficult words');
+    } else content = _utils_category__WEBPACK_IMPORTED_MODULE_4__.getMainContent(_utils_category__WEBPACK_IMPORTED_MODULE_4__.randomArray(Object.keys(_constants_data_cards__WEBPACK_IMPORTED_MODULE_2__.cards[categoryName.innerText])), categoryName.innerText);
+
     document.body.appendChild(content);
     window.addEventListener('click', listenerAudio); // audio.default(null);
   }
@@ -637,6 +674,7 @@ function create(elem, classes, childs, parent) {
 /*! export getCheckboxStatus [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export getSmiles [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export removeContent [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export sortDifficultWords [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export sorting [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
@@ -647,6 +685,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "getCheckboxStatus": () => /* binding */ getCheckboxStatus,
 /* harmony export */   "getSmiles": () => /* binding */ getSmiles,
 /* harmony export */   "sorting": () => /* binding */ sorting,
+/* harmony export */   "sortDifficultWords": () => /* binding */ sortDifficultWords,
 /* harmony export */   "removeContent": () => /* binding */ removeContent
 /* harmony export */ });
 /* harmony import */ var _layout_header__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../layout/header */ "./src/js/layout/header.js");
@@ -712,6 +751,18 @@ function sorting(tbody, e) {
     tbody.appendChild(rows[_i]);
   }
 }
+function sortDifficultWords(difficultWords) {
+  function compareWords(a, b) {
+    // console.log(Object.values(a)[0][0]);
+    var aPercent = Object.values(a)[0][0];
+    var bPercent = Object.values(b)[0][0];
+    if (aPercent > bPercent) return -1;
+    if (bPercent > aPercent) return 1;
+    return 0;
+  }
+
+  return difficultWords.sort(compareWords);
+}
 function removeContent() {
   var contentNow = document.body.querySelector('.content');
   if (!contentNow) contentNow = document.body.querySelector('.statistics');
@@ -772,6 +823,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function startGame(btnGame, checked) {
+  var arrayWords = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
   var categoryName = document.querySelector('h1');
 
   if (checked === false) {
@@ -784,7 +836,12 @@ function startGame(btnGame, checked) {
 
   if (categoryName.innerText !== _constants_constants__WEBPACK_IMPORTED_MODULE_1__.H1 && categoryName.innerText !== 'Statistics') {
     (0,_getData__WEBPACK_IMPORTED_MODULE_4__.removeContent)();
-    var contentCards = _category__WEBPACK_IMPORTED_MODULE_0__.getMainContent(_category__WEBPACK_IMPORTED_MODULE_0__.randomArray(Object.keys(_constants_data_cards__WEBPACK_IMPORTED_MODULE_3__.cards[categoryName.innerText])), categoryName.innerText);
+    var contentCards;
+
+    if (categoryName.innerText === 'Difficult words') {
+      contentCards = _category__WEBPACK_IMPORTED_MODULE_0__.getMainContent(arrayWords.slice(0, 9), 'Difficult words');
+    } else contentCards = _category__WEBPACK_IMPORTED_MODULE_0__.getMainContent(_category__WEBPACK_IMPORTED_MODULE_0__.randomArray(Object.keys(_constants_data_cards__WEBPACK_IMPORTED_MODULE_3__.cards[categoryName.innerText])), categoryName.innerText);
+
     document.body.appendChild(contentCards);
   }
 }
@@ -907,7 +964,7 @@ function checkAnswer(el) {
       smiles.appendChild(errorSmiles);
       errorSmile += 1;
       playSound('./src/assets/sounds/error.mp3');
-      _localStorage__WEBPACK_IMPORTED_MODULE_5__.setItem(el.path[3].children[0].children[0].children[1].children[0].innerText, 'wrong');
+      _localStorage__WEBPACK_IMPORTED_MODULE_5__.setItem(arraySounds[0], 'wrong'); // local.setItem(el.path[3].children[0].children[0].children[1].children[0].innerText, 'correct');
     }
   }
 
@@ -921,6 +978,7 @@ function checkAnswer(el) {
   }
 }
 function playCard(el) {
+  var arrayWords = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
   var categoryName = document.body.querySelector('h1').innerText;
 
   if (el && el.path[6] && getTypeGame() === _constants_constants__WEBPACK_IMPORTED_MODULE_1__.TRAIN && !el.path[2].classList.contains('turn') && !el.target.classList.contains('rotate') && el.path[1].children[1] && !el.path[1].children[1].classList.contains('hidden')) {
@@ -933,7 +991,15 @@ function playCard(el) {
     }
   } else if (getTypeGame() === _constants_constants__WEBPACK_IMPORTED_MODULE_1__.PLAY && !playRandom && categoryName !== _constants_constants__WEBPACK_IMPORTED_MODULE_1__.H1) {
     setPlayRandom(true);
-    arraySounds = _category__WEBPACK_IMPORTED_MODULE_3__.randomArray(Object.keys(_constants_data_cards__WEBPACK_IMPORTED_MODULE_2__.cards[categoryName]));
+
+    if (categoryName === 'Difficult words') {
+      var arrayDifficultWords = _category__WEBPACK_IMPORTED_MODULE_3__.randomArray(arrayWords.slice(0, 9));
+      arraySounds = Object.values(arrayDifficultWords).map(function (value) {
+        return Object.keys(value)[0];
+      });
+      console.log(arraySounds);
+    } else arraySounds = _category__WEBPACK_IMPORTED_MODULE_3__.randomArray(Object.keys(_constants_data_cards__WEBPACK_IMPORTED_MODULE_2__.cards[categoryName]));
+
     playSound("./src/assets/sounds/".concat(categoryName, "/").concat(arraySounds[0], ".mp3"));
     var smiles = _getData__WEBPACK_IMPORTED_MODULE_4__.getSmiles();
     document.body.appendChild(smiles);
